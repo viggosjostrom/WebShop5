@@ -1,23 +1,22 @@
-﻿
-namespace WebShop5
+﻿namespace WebShop5
 {
     public class Admin
     {
-    
+
         static public void AdminLogIn()
         {
 
             string AdminUserName = "Admin";
             string AdminPassword = "WebShop5";
 
-            Console.WriteLine("Welcome to admin log in!");
+            Console.WriteLine("Admin Home");
 
-            Console.WriteLine("Enter your admin log in: ");
+            Console.Write("Enter your admin log in: ");
             string inputLogin = Console.ReadLine();
-            Console.WriteLine("Enter your password: ");
+            Console.Write("Enter your password: ");
             string inputPassword = Console.ReadLine();
 
-            if(inputLogin == AdminUserName && inputPassword == AdminPassword)
+            if (inputLogin == AdminUserName && inputPassword == AdminPassword)
             {
                 bool AdminMenu = true;
                 while (AdminMenu)
@@ -28,7 +27,8 @@ namespace WebShop5
 
                     switch (AdminChoice)
                     {
-                        case 0: AdminMenu = false;
+                        case 0:
+                            AdminMenu = false;
                             break;
 
                     }
@@ -37,15 +37,21 @@ namespace WebShop5
 
             }
 
+            else
+            {
+                Console.WriteLine("Please make sure you entered the right username or password");
+                return;
+            }
+
 
 
 
         }
 
-        
-        
-      
-    }   
+
+
+
+    }
 
 }
 
