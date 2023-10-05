@@ -1,11 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebShop5;
-
-public class Admin : User
+﻿
+namespace WebShop5
 {
+    public class Admin
+    {
+    
+        static public void AdminCheck()
+        {
+
+           bool IsAdmin = true;
+
+          while (IsAdmin)
+          {
+            Console.WriteLine("Admin Username :");
+            Console.WriteLine("Password :");
+            Console.ReadLine();
+          }
+
+
+        }
+
+        
+        
+      
+    }   
+
 }
+
+
