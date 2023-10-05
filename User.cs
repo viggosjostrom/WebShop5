@@ -8,14 +8,38 @@ namespace WebShop5;
 
 public class User
 {
-    public string? Name;
+    public string? FirstName;
+    public string? LastName; 
     public string? Username;
     public string? Email;
-    public string? Password; 
+    public string? Password;
 
 
-    public bool SignUpNewUser(string Name, string Username, string Email, string Password)
+    public static void SignUpNewUser()
     {
+        User currentUser = new User();
+        string userList = File.ReadAllText("../../../userList.csv");
+        
+        Console.WriteLine("Your first name: "); 
+        currentUser.FirstName = Console.ReadLine();
+        Console.WriteLine("Your last name: ");
+        currentUser.LastName = Console.ReadLine();
+        Console.WriteLine("Choose a username: ");
+        currentUser.Username = Console.ReadLine();
+        if (currentUser.Username == string.Empty)
+        {
+            Console.WriteLine("Try again");
+            Console.WriteLine("Choose a username: ");
+            currentUser.Username = Console.ReadLine();
+        }
+        
+        currentUser.Email = Console.ReadLine();
+        currentUser.Password = Console.ReadLine(); 
 
+        
+        
+
+        
+        
     }
 }
