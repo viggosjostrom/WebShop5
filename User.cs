@@ -19,15 +19,19 @@ public class User
 
        
         List<string> Usernames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
-        List<string> Passowrds = new List<string>(File.ReadAllLines("../../../passwords.csv"));
+        List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
 
         Console.WriteLine("Choose a username: ");
+        string SignUpUsernameChoice = Console.ReadLine();
+        Usernames.Add(SignUpUsernameChoice);
+        File.WriteAllLines("../../../usernames.csv", Usernames);
 
-        Console.WriteLine("Choose a password: "); 
+     Console.WriteLine("Choose a password: ");
+        string SignUpPasswordChoice = Console.ReadLine();
+        Passwords.Add(SignUpPasswordChoice);
+        File.WriteAllLines("../../../passwords.csv", Passwords);
 
-       
-
-         
+            
 
        
 
