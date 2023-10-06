@@ -22,8 +22,12 @@
                 while (AdminMenu)
                 {
                     Console.WriteLine("ADMIN MENY: ");
-                    Console.WriteLine("0 = EXIT");
+                    Console.WriteLine("1 : Lägg till produkt");
+                    Console.WriteLine("2 : Ta bort produkter");
+                    Console.WriteLine("3 : Kolla Kvitton/Köp");
+                    Console.WriteLine("0 : EXIT");
                     int AdminChoice = Convert.ToInt32(Console.ReadLine());
+                   
 
                     switch (AdminChoice)
                     {
@@ -31,7 +35,20 @@
                             AdminMenu = false;
                             break;
 
+                        case 1:
+                            Console.WriteLine("Something");
+                            break;
+
+
+                        case 2:
+                            Console.WriteLine("Something");
+                            break;
+
+                        case 3:
+                            Console.WriteLine("Something");
+                            break;
                     }
+
 
                 }
 
