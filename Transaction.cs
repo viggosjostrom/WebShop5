@@ -8,10 +8,11 @@ namespace WebShop5;
 
 public class Transaction
 {
-    public string[] transactionHistory = File.ReadAllLines("~/source/repos/WebShop5/transactions/history.csv");
+    public string[] transactionHistory = File.ReadAllLines("transactions/history.csv");
 
     public void printHistory()
     {
+        
         foreach (string transaction in transactionHistory) 
         { 
             Console.WriteLine(transaction);
@@ -19,11 +20,38 @@ public class Transaction
         
     }
 
-    /*public void viewReceipt()
+    public void viewReceipt()
     {
-        string test = transactionHistory.Split(",");    
+        foreach (string transaction in transactionHistory)
+        {
+            Console.WriteLine(transaction);
+        }
+
+        Console.WriteLine("choose a receipt number: ");
+        
+        string userInput = Console.ReadLine();
+        while(string.IsNullOrWhiteSpace(userInput))
+        {
+            Console.WriteLine("please choose a valid receipt number");
+            userInput = Console.ReadLine();
+
+        }
+
+        foreach (string a in transactionHistory)
+        {
+
+            string[] transaction = a.Split(",");
+            string compare = transaction[1];
+
+            if (userInput == compare)
+            {
+                //lägg till någon sorts funktion som använder input för att kunna hitta och printa en transaction fil
+            }
+            
+
+        }
     } 
-    vet inte vad problemet är, split verkar inte funka */
+    
 
 }
 
