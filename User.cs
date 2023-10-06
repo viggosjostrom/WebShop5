@@ -18,36 +18,48 @@ public class User
     public static void SignUpNewUser()
     {
         User currentUser = new User();
-        string userList = File.ReadAllText("../../../userList.csv");
+        string[] userList;  
+  
+
+        Console.WriteLine("");
+        Console.WriteLine("First name: "); 
+        currentUser.FirstName = Console.ReadLine();
+        userList[0] = currentUser.FirstName; 
+
+        Console.WriteLine("Last name: ");
+        currentUser.LastName = Console.ReadLine();
+        userList[1] = currentUser.FirstName; 
+
+        Console.WriteLine("Choose a username: ");
+        currentUser.Username = Console.ReadLine();
+        userList[2] = currentUser.Username;
+        if (currentUser.Username == string.Empty)
+        {
+            Console.WriteLine("Try again");
+            Console.WriteLine("Choose a username: ");
+            currentUser.Username = Console.ReadLine();
+            userList[2] = currentUser.Username;
+
+        }
+        Console.WriteLine("Email: ");
+        currentUser.Email = Console.ReadLine();
+        userList[3] = currentUser.Email;
+
+        Console.WriteLine("Choose a password: ");
+        currentUser.Password = Console.ReadLine();
+        userList[4] = currentUser.Password;
+
+
+       
+
+        userList = File.ReadAllLines("../../../userList.csv");
 
         foreach (var item in userList)
         {
             Console.Write(item);
         }
 
-        Console.WriteLine("Your first name: "); 
-        currentUser.FirstName = Console.ReadLine();
-        Console.WriteLine("Your last name: ");
-        currentUser.LastName = Console.ReadLine();
-        Console.WriteLine("Choose a username: ");
-        currentUser.Username = Console.ReadLine();
-        if (currentUser.Username == string.Empty)
-        {
-            Console.WriteLine("Try again");
-            Console.WriteLine("Choose a username: ");
-            currentUser.Username = Console.ReadLine();
-        }
-        Console.WriteLine("Email: ");
-        currentUser.Email = Console.ReadLine();
-        Console.WriteLine("Choose a password: ");
-        currentUser.Password = Console.ReadLine();
 
-        
 
-        
-        
-
-        
-        
     }
 }
