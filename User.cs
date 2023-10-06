@@ -19,7 +19,12 @@ public class User
     {
         User currentUser = new User();
         string userList = File.ReadAllText("../../../userList.csv");
-        
+
+        foreach (var item in userList)
+        {
+            Console.Write(item);
+        }
+
         Console.WriteLine("Your first name: "); 
         currentUser.FirstName = Console.ReadLine();
         Console.WriteLine("Your last name: ");
@@ -32,9 +37,12 @@ public class User
             Console.WriteLine("Choose a username: ");
             currentUser.Username = Console.ReadLine();
         }
-        
+        Console.WriteLine("Email: ");
         currentUser.Email = Console.ReadLine();
-        currentUser.Password = Console.ReadLine(); 
+        Console.WriteLine("Choose a password: ");
+        currentUser.Password = Console.ReadLine();
+
+        
 
         
         
