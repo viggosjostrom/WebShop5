@@ -1,5 +1,6 @@
 ﻿using WebShop5;
 
-    WebShop5.User.
-    SignUp(); 
+
+WebShop5.User.
+LogIn();
 
