@@ -1,2 +1,5 @@
-﻿using System.Reflection.Metadata;
-using WebShop5;
+﻿using WebShop5;
+
+    WebShop5.User.
+    SignUpNewUser(); 
+
