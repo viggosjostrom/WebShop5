@@ -1,13 +1,19 @@
-﻿namespace WebShop5
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+
+namespace WebShop5
 {
     public class Admin
     {
 
+
+        public List<string> newCart = new List<string>(); // Deklarera newCart som en instansvariabel
+
+
         static public void AdminLogIn()
         {
-
-            string AdminUserName = "Admin";
-            string AdminPassword = "WebShop5";
+            string AdminUserName = "1";
+            string AdminPassword = "1";
 
             Console.WriteLine("Admin Home");
 
@@ -23,11 +29,11 @@
                 {
                     Console.WriteLine("ADMIN MENY: ");
                     Console.WriteLine("1 : Lägg till produkt");
-                    Console.WriteLine("2 : Ta bort produkter");
+                    Console.WriteLine("2 : Visa Produkter");
                     Console.WriteLine("3 : Kolla Kvitton/Köp");
                     Console.WriteLine("0 : EXIT");
                     int AdminChoice = Convert.ToInt32(Console.ReadLine());
-                   
+
 
                     switch (AdminChoice)
                     {
@@ -36,19 +42,17 @@
                             break;
 
                         case 1:
-                            Console.WriteLine("Something");
+                            updateCart();
                             break;
 
-
                         case 2:
-                            Console.WriteLine("Something");
+                            showProducts();
                             break;
 
                         case 3:
                             Console.WriteLine("Something");
                             break;
                     }
-
 
                 }
 
@@ -59,16 +63,49 @@
                 Console.WriteLine("Please make sure you entered the right username or password");
                 return;
             }
+        }
+
+        public static void updateCart()
+        {
+            List<string> newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
 
+            Console.WriteLine("Add a product");
+            string? addProduct = Console.ReadLine();
+            Console.WriteLine("Add price for the product");
+            string? addPrice = Console.ReadLine();
 
+
+            if (addPrice == string.Empty || addProduct == string.Empty)
+            {
+                Console.WriteLine("Enter Either a product or the price");
+            }
+
+            else
+            {
+                string productToAdd = string.Format("{0},{1}", addProduct, addPrice);
+                newCart.Add(productToAdd);
+                File.WriteAllLines("../../../Cart.csv", newCart);
+            }
+
+        }
+        public static void showProducts()
+        {
+            {
+                Admin admin = new Admin(); 
+                admin.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+
+                foreach (var item in admin.newCart)
+                {
+                    Console.WriteLine(item);
+                }
+            }
 
         }
 
-
-
-
     }
+
+
 
 }
 
