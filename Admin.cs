@@ -70,9 +70,9 @@ namespace WebShop5
             List<string> newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
 
-            Console.WriteLine("Add a product");
+            Console.WriteLine("Add to cart :");
             string? addProduct = Console.ReadLine();
-            Console.WriteLine("Add price for the product");
+            Console.WriteLine("Price :");
             string? addPrice = Console.ReadLine();
 
 
