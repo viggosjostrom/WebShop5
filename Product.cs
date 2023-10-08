@@ -14,17 +14,13 @@ public class Product
     string? category;
     int price;
 
-    public static void ProductInventory()
+    public static void AddProduct()
     {
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../products.csv"));
 
 
-        List<string> productName = new List<string>();
-        List<string> productPrice = new List<string>();
-
         string newProduct = string.Empty;
-
 
 
         while (newProduct != "n")
@@ -57,6 +53,11 @@ public class Product
 
     public void RemoveProduct()
     {
+
+        List<string> productList = new List<string>(File.ReadAllLines("../../../products.csv"));
+
+        Console.WriteLine("What postion do you want to remove?");
+
 
     }
 
