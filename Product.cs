@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -30,7 +31,8 @@ public class Product
 
             Console.Write("Add a product: ");
             string? addProduct = Console.ReadLine();
-            
+
+            //For-loop? som lägger till en siffra ("1." , "2.") framför varje ny artikel som läggs till
 
             Console.Write("Add price for the product: ");
             string addPrice = Console.ReadLine();
@@ -51,13 +53,23 @@ public class Product
 
     }
 
-    public void RemoveProduct()
+    public static void RemoveProduct()
     {
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../products.csv"));
 
-        Console.WriteLine("What postion do you want to remove?");
+        Console.WriteLine("What postion do you want to remove?: ");
+        Console.WriteLine();
 
+        foreach (string row in productList)
+        {
+            Console.WriteLine(row);
+        }
+        Console.WriteLine();
+        Console.Write("Number: ");
+        productList.Remove(Console.ReadLine());
+
+        File.WriteAllLines("../../../products.csv", productList);
 
     }
 
