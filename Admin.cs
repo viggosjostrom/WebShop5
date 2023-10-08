@@ -30,7 +30,7 @@ namespace WebShop5
                     Console.WriteLine("ADMIN MENY: ");
                     Console.WriteLine("1 : Lägg till produkt");
                     Console.WriteLine("2 : Visa Produkter");
-                    Console.WriteLine("3 : Kolla Kvitton/Köp");
+                    Console.WriteLine("3 : Ta bort produkter");
                     Console.WriteLine("0 : EXIT");
                     int AdminChoice = Convert.ToInt32(Console.ReadLine());
 
@@ -50,8 +50,9 @@ namespace WebShop5
                             break;
 
                         case 3:
-                            Console.WriteLine("Something");
+                            removeproducts();
                             break;
+                            
                     }
 
                 }
@@ -89,6 +90,37 @@ namespace WebShop5
             }
 
         }
+
+       public static void removeproducts()
+        {
+            {
+                
+                Admin Remove = new Admin();
+               Remove.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+
+                Console.WriteLine("Items in the cart:");
+                for (int i = 0; i < Remove.newCart.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {Remove.newCart[i]}");
+                }
+
+                Console.Write("Enter the number of the item you wish to remove: ");
+                if (int.TryParse(Console.ReadLine(), out int choice) &&  choice <=Remove.newCart.Count)
+                 
+                {
+                       Remove.newCart.RemoveAt(choice - 1);
+                       File.WriteAllLines("../../../Cart.csv", Remove.newCart);
+                       Console.WriteLine("Item has been removed from the cart.");
+                   
+                }
+                           else
+                           {
+                               Console.WriteLine("Invalid selection. No items were removed.");
+                           }
+            }
+        }
+
+    
         public static void showProducts()
         {
             {
