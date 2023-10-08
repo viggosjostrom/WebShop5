@@ -34,12 +34,11 @@ public class Product
 
             Console.Write("Add a product: ");
             string? addProduct = Console.ReadLine();
-            productList.Add(addProduct);
-            File.WriteAllLines("../../../products.csv", productList);
+            
 
             Console.Write("Add price for the product: ");
             string addPrice = Console.ReadLine();
-            productList.Add(addPrice + "$");
+            productList.Add(addProduct + ", " + addPrice + "$");
             File.WriteAllLines("../../../products.csv", productList);
             Console.Clear();
 
@@ -53,6 +52,11 @@ public class Product
         {
             Console.WriteLine(row);
         }
+
+    }
+
+    public void RemoveProduct()
+    {
 
     }
 
