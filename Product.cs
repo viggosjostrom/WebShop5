@@ -22,7 +22,6 @@ public class Product
 
 
         string newProduct = string.Empty;
-        int positionNumber = 1;        // Lägger till siffran "1." igen när ny produkt ska läggas till, lösa att den ska börja i slutet av listan?
 
 
         while (newProduct != "n")
