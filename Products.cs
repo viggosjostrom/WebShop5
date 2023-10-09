@@ -42,9 +42,9 @@ public class Products
 
             foreach (string item in productList)
             {
-                if (item.Contains(addProduct))
+                if (item.Contains(addProduct)) // Något fel här som lägger till allt som innehåller något!!!!
                 {
-                    userCart.Add(item.Split('.')[0]);
+                    userCart.Add(item);
                 }
             }
 
@@ -56,7 +56,11 @@ public class Products
 
 
 
-            File.WriteAllLines("../../../products.csv", userCart);
+            // Skriv över filen products.csv om användaren vill lägga till mer produkter.
+            if (newProduct == "y")
+            {
+                File.WriteAllLines("../../../products.csv", userCart);
+            }
 
 
             Console.WriteLine();
@@ -66,7 +70,9 @@ public class Products
 
         }
 
-        foreach (string row in userCart)         // En check så att det läggs till i listan
+        // Skriver ut användarens kundvagn.
+        Console.WriteLine("Your cart:");
+        foreach (string row in userCart)
         {
             Console.WriteLine(row);
         }

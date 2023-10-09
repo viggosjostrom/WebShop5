@@ -34,6 +34,8 @@ namespace WebShop5
                     Console.WriteLine("2 : Visa Produkter");
                     Console.WriteLine("3 : Ta bort produkter");
                     Console.WriteLine("0 : EXIT");
+                    Console.WriteLine();
+                    Console.Write("Make a choice: ");
                     int AdminChoice = Convert.ToInt32(Console.ReadLine());
 
 
@@ -73,10 +75,11 @@ namespace WebShop5
             List<string> newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
             Console.Clear();
-            Console.Write("Add to cart: ");
+            Console.Write("Add new product: ");
             string? addProduct = Console.ReadLine();
-            Console.Write("Price: ");
+            Console.Write("Price in $: ");
             string? addPrice = Console.ReadLine();
+            Console.WriteLine();
 
 
             if (addPrice == string.Empty || addProduct == string.Empty)
@@ -89,10 +92,13 @@ namespace WebShop5
                 string productToAdd = string.Format("{0}, {1}$", addProduct, addPrice);
                 newCart.Add(productToAdd);
 
+                
                 for (int i = 0; i < newCart.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {newCart[i]}");
+                    newCart[i] = $"{i + 1}. {newCart[i]}";
                 }
+
+                Console.WriteLine();
                 File.WriteAllLines("../../../Cart.csv", newCart);
             }
 
