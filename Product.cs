@@ -22,6 +22,7 @@ public class Product
 
 
         string newProduct = string.Empty;
+        int positionNumber = 1;
 
 
         while (newProduct != "n")
@@ -32,12 +33,12 @@ public class Product
             Console.Write("Add a product: ");
             string? addProduct = Console.ReadLine();
 
-            //For-loop? som lägger till en siffra ("1." , "2.") framför varje ny artikel som läggs till
 
-            Console.Write("Add price for the product: ");
+            Console.Write("Add price in $ for the product: ");
             string addPrice = Console.ReadLine();
-            productList.Add(addProduct + ", " + addPrice + "$");
+            productList.Add(positionNumber.ToString() + ". " + addProduct + ", " + addPrice + "$");
             File.WriteAllLines("../../../products.csv", productList);
+            positionNumber++;
             Console.Clear();
 
             Console.Write("Want to add more? y/n?: ");
@@ -65,11 +66,11 @@ public class Product
         {
             Console.WriteLine(row);
         }
-        Console.WriteLine();
-        Console.Write("Number: ");
-        productList.Remove(Console.ReadLine());
+        //Console.WriteLine();
+        //Console.Write("Number: ");
+        //productList.Remove(Console.ReadLine());
 
-        File.WriteAllLines("../../../products.csv", productList);
+        //File.WriteAllLines("../../../products.csv", productList);
 
     }
 
