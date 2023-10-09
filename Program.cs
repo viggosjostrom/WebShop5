@@ -18,14 +18,14 @@
                 {
                     case 0: break;
 
-                  //*  case "1": User();
-                  //*      break;
+                    case 1: User.SignUp();
+                    break;
                     
-                  //*  case "2": LogInUser();
-                  //*      break;
+                    case 2: User.LogIn();
+                    break;
 
                     case 3: Admin.AdminLogIn();
-                        break;
+                    break;
                 }
 
 
