@@ -8,7 +8,7 @@ namespace WebShop5;
 
 public class User
 {
-     
+
     public string? Username;
     public string? Password;
 
@@ -18,8 +18,8 @@ public class User
     {
         User currentUser = new User();
 
-       List<string> Usernames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
-       List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
+        List<string> Usernames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
+        List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
 
 
         Console.WriteLine("Choose a username: ");
@@ -32,9 +32,9 @@ public class User
         Passwords.Add(SignUpPasswordChoice);
         File.WriteAllLines("../../../passwords.csv", Passwords);
 
-            
 
-       
+
+
 
 
 
@@ -44,10 +44,10 @@ public class User
     {
         List<string> Usernames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
         List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
-        bool loginSuccess = false; 
+        bool loginSuccess = false;
 
-        
-        
+
+
         while (!loginSuccess)
         {
             Console.WriteLine("Enter your username: ");
@@ -56,8 +56,8 @@ public class User
 
             foreach (string username in Usernames)
             {
-               
-                if(username == InputUsername)
+
+                if (username == InputUsername)
                 {
                     int ListNumber = Usernames.IndexOf(InputUsername);
                     Console.WriteLine("Enter your password: ");
@@ -69,10 +69,10 @@ public class User
                         Console.Clear();
                         Console.WriteLine("Logged in successfully!");
                         loginSuccess = true;
-                        
+
 
                     }
-                    
+
                     else
                     {
                         Console.Clear();
@@ -82,13 +82,50 @@ public class User
                     break;
 
                 }
-                
-                
+
+
             }
 
         }
-        
 
-        
+
+
     }
+
+    public static void UserShoppingMenu()
+    {
+        bool UserMenu = true;
+        while (UserMenu)
+        {
+            Console.WriteLine("MENU: ");
+            Console.WriteLine("1 : Browse products");
+            Console.WriteLine("2 : Shopping bag");
+            Console.WriteLine("3 : Order history");
+            Console.WriteLine("0 : EXIT");
+            int UserChoice = Convert.ToInt32(Console.ReadLine());
+
+
+            switch (UserChoice)
+            {
+                case 0:
+                    UserMenu = false;
+                    break;
+
+                case 1:
+                    //Browse products (Kristoffers kod)
+                    break;
+
+                case 2:
+                    // Shopping cart / Pay checkout (Dans kod)
+                    break;
+
+                case 3:
+                    // Order history (Fredriks kod)
+                    break;
+
+
+            }
+        }
+    }
+
 }
