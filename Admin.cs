@@ -107,7 +107,7 @@ namespace WebShop5
         public static void removeproducts()
         {
             {
-
+                Console.Clear();
                 Admin Remove = new Admin();
                 Remove.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
@@ -124,11 +124,13 @@ namespace WebShop5
                     Remove.newCart.RemoveAt(choice - 1);
                     File.WriteAllLines("../../../Cart.csv", Remove.newCart);
                     Console.WriteLine("Item has been removed from the cart.");
+                    Console.WriteLine();
 
                 }
                 else
                 {
                     Console.WriteLine("Invalid selection. No items were removed.");
+                    Console.WriteLine();
                 }
             }
         }
@@ -137,6 +139,7 @@ namespace WebShop5
         public static void showProducts()
         {
             {
+                Console.Clear();
                 Admin admin = new Admin();
                 admin.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
@@ -144,6 +147,7 @@ namespace WebShop5
                 {
                     Console.WriteLine(item);
                 }
+                Console.WriteLine();
             }
 
         }

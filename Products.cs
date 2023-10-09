@@ -42,21 +42,21 @@ public class Products
 
             foreach (string item in productList)
             {
-                if (item.Contains(addProduct)) // Något fel här som lägger till allt som innehåller något!!!!
+                if (item.Contains(addProduct)) 
                 {
                     userCart.Add(item);
                 }
             }
 
 
-            for (int i = 0; i < userCart.Count; i++) // Lägger till ett nummer i början av produkten.
+            for (int i = 0; i < userCart.Count; i++) // Lägger till ett nummer i början av produkten. Kanske inte behövs??
             {
                 Console.WriteLine($"{i + 1}. {userCart[i]}");
             }
 
 
 
-            // Skriv över filen products.csv om användaren vill lägga till mer produkter.
+            // Skriv över filen "products.csv" om användaren vill lägga till mer produkter.
             if (newProduct == "y")
             {
                 File.WriteAllLines("../../../products.csv", userCart);
