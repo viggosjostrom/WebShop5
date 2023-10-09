@@ -36,9 +36,15 @@ public class Product
 
             Console.Write("Add price in $ for the product: ");
             string addPrice = Console.ReadLine();
-            productList.Add(positionNumber.ToString() + ". " + addProduct + ", " + addPrice + "$");
+            productList.Add(addProduct + ", " + addPrice + "$");
+
+            for (int i = 0; i < productList.Count; i++)
+            {
+                productList[i] = (i + 1) + ". ";
+            }
+
             File.WriteAllLines("../../../products.csv", productList);
-            positionNumber++;
+         
             Console.Clear();
 
             Console.Write("Want to add more? y/n?: ");
@@ -66,11 +72,13 @@ public class Product
         {
             Console.WriteLine(row);
         }
-        //Console.WriteLine();
-        //Console.Write("Number: ");
-        //productList.Remove(Console.ReadLine());
+        Console.WriteLine();
+        Console.Write("Number: ");
+        string? removeNumber = Console.ReadLine();
+        int removeIndex = int.Parse(removeNumber);
+        productList.RemoveAt(removeIndex);
 
-        //File.WriteAllLines("../../../products.csv", productList);
+        File.WriteAllLines("../../../products.csv", productList); //Måste uppdatera så listans nummer också uppdateras.
 
     }
 
