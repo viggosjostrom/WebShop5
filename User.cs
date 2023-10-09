@@ -40,7 +40,7 @@ public class User
 
     }
 
-    public static void LogIn()
+    public static bool LogIn()
     {
         List<string> Usernames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
         List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
@@ -69,6 +69,8 @@ public class User
                         Console.Clear();
                         Console.WriteLine("Logged in successfully!");
                         loginSuccess = true;
+                        UserShoppingMenu();
+                        return true;
 
 
                     }
@@ -85,9 +87,9 @@ public class User
 
 
             }
-
+            
         }
-
+        return false;
 
 
     }
@@ -95,6 +97,7 @@ public class User
     public static void UserShoppingMenu()
     {
         bool UserMenu = true;
+        
         while (UserMenu)
         {
             Console.WriteLine("MENU: ");
