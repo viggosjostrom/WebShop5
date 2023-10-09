@@ -15,12 +15,14 @@ namespace WebShop5
             string AdminUserName = "1";
             string AdminPassword = "1";
 
-            Console.WriteLine("Admin Home");
+            Console.Clear();
+            Console.WriteLine("Admin Home\n");
 
             Console.Write("Enter your admin log in: ");
             string inputLogin = Console.ReadLine();
             Console.Write("Enter your password: ");
             string inputPassword = Console.ReadLine();
+            Console.Clear();
 
             if (inputLogin == AdminUserName && inputPassword == AdminPassword)
             {
@@ -70,10 +72,10 @@ namespace WebShop5
         {
             List<string> newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
-
-            Console.Write("Add to cart :");
+            Console.Clear();
+            Console.Write("Add to cart: ");
             string? addProduct = Console.ReadLine();
-            Console.Write("Price :");
+            Console.Write("Price: ");
             string? addPrice = Console.ReadLine();
 
 
@@ -84,7 +86,7 @@ namespace WebShop5
 
             else
             {
-                string productToAdd = string.Format("{0} , {1}$", addProduct, addPrice);
+                string productToAdd = string.Format("{0}, {1}$", addProduct, addPrice);
                 newCart.Add(productToAdd);
 
                 for (int i = 0; i < newCart.Count; i++)
@@ -103,7 +105,7 @@ namespace WebShop5
                 Admin Remove = new Admin();
                 Remove.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
-                Console.WriteLine("Items in the cart:");
+                Console.WriteLine("Items in the cart: ");
                 for (int i = 0; i < Remove.newCart.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {Remove.newCart[i]}");
@@ -141,8 +143,6 @@ namespace WebShop5
         }
 
     }
-
-
 
 }
 
