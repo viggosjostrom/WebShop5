@@ -37,7 +37,7 @@ public class Product
             string addPrice = Console.ReadLine();
             productList.Add(addProduct + ", " + addPrice + "$");
 
-            for (int i = 0; i < productList.Count; i++)
+            for (int i = 0; i < productList.Count; i++) // LÄgger till ett nummer i början av produkten.
             {
                 productList[i] = (i + 1) + ". ";
             }
@@ -77,7 +77,7 @@ public class Product
         int removeIndex = int.Parse(removeNumber);
         productList.RemoveAt(removeIndex);
 
-        File.WriteAllLines("../../../products.csv", productList); //Måste uppdatera så listans nummer också uppdateras.
+        File.WriteAllLines("../../../products.csv", productList); //Måste uppdatera så listans nummer också uppdateras??
 
     }
 
