@@ -52,7 +52,7 @@ namespace WebShop5
                         case 3:
                             removeproducts();
                             break;
-                            
+
                     }
 
                 }
@@ -71,9 +71,9 @@ namespace WebShop5
             List<string> newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
 
-            Console.WriteLine("Add to cart :");
+            Console.Write("Add to cart :");
             string? addProduct = Console.ReadLine();
-            Console.WriteLine("Price :");
+            Console.Write("Price :");
             string? addPrice = Console.ReadLine();
 
 
@@ -84,19 +84,24 @@ namespace WebShop5
 
             else
             {
-                string productToAdd = string.Format("{0},{1}", addProduct, addPrice);
+                string productToAdd = string.Format("{0} , {1}$", addProduct, addPrice);
                 newCart.Add(productToAdd);
+
+                for (int i = 0; i < newCart.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {newCart[i]}");
+                }
                 File.WriteAllLines("../../../Cart.csv", newCart);
             }
 
         }
 
-       public static void removeproducts()
+        public static void removeproducts()
         {
             {
-                
+
                 Admin Remove = new Admin();
-               Remove.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+                Remove.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
                 Console.WriteLine("Items in the cart:");
                 for (int i = 0; i < Remove.newCart.Count; i++)
@@ -105,26 +110,26 @@ namespace WebShop5
                 }
 
                 Console.Write("Enter the number of the item you wish to remove: ");
-                if (int.TryParse(Console.ReadLine(), out int choice) &&  choice <=Remove.newCart.Count)
-                 
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice <= Remove.newCart.Count)
+
                 {
-                       Remove.newCart.RemoveAt(choice - 1);
-                       File.WriteAllLines("../../../Cart.csv", Remove.newCart);
-                       Console.WriteLine("Item has been removed from the cart.");
-                   
+                    Remove.newCart.RemoveAt(choice - 1);
+                    File.WriteAllLines("../../../Cart.csv", Remove.newCart);
+                    Console.WriteLine("Item has been removed from the cart.");
+
                 }
-                           else
-                           {
-                               Console.WriteLine("Invalid selection. No items were removed.");
-                           }
+                else
+                {
+                    Console.WriteLine("Invalid selection. No items were removed.");
+                }
             }
         }
 
-    
+
         public static void showProducts()
         {
             {
-                Admin admin = new Admin(); 
+                Admin admin = new Admin();
                 admin.newCart = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
                 foreach (var item in admin.newCart)

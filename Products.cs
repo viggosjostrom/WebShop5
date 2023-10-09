@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebShop5;
 
-public class Product
+public class Products
 {
 
     string? name;
@@ -18,8 +18,9 @@ public class Product
     public static void AddProduct()
     {
 
-        List<string> productList = new List<string>(File.ReadAllLines("../../../products.csv"));
+        List<string> productList = new List<string>(File.ReadAllLines("../../../Cart.csv"));
 
+        List<string> userCart = new List<string>();
 
         string newProduct = string.Empty;
 
@@ -27,39 +28,52 @@ public class Product
         while (newProduct != "n")
         {
 
-            Console.WriteLine("\t\t\tADD PRODUCTS\n");
+            Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
 
-            Console.Write("Add a product: ");
-            string? addProduct = Console.ReadLine();
-
-
-            Console.Write("Add price in $ for the product: ");
-            string addPrice = Console.ReadLine();
-            productList.Add(addProduct + ", " + addPrice + "$");
-
-            for (int i = 0; i < productList.Count; i++) // LÄgger till ett nummer i början av produkten.
+            foreach (string item in productList)
             {
-                productList[i] = (i + 1) + ". ";
+                Console.WriteLine(item);
             }
 
-            File.WriteAllLines("../../../products.csv", productList);
+            Console.WriteLine();
+            Console.WriteLine("Enter number of the product you want to add in cart: ");
+            string addProduct = Console.ReadLine();
 
-            Console.Clear();
 
+            foreach (string item in productList)
+            {
+                if (item.Contains(addProduct))
+                {
+                    userCart.Add(item.Split('.')[0]);
+                }
+            }
+
+
+            for (int i = 0; i < userCart.Count; i++) // Lägger till ett nummer i början av produkten.
+            {
+                Console.WriteLine($"{i + 1}. {userCart[i]}");
+            }
+
+
+
+            File.WriteAllLines("../../../products.csv", userCart);
+
+
+            Console.WriteLine();
             Console.Write("Want to add more? y/n?: ");
             newProduct = Console.ReadLine().ToLower();
             Console.Clear();
 
         }
 
-        foreach (string row in productList)
+        foreach (string row in userCart)         // En check så att det läggs till i listan
         {
             Console.WriteLine(row);
         }
 
     }
 
-    public static void RemoveProduct()
+    public static void RemoveProduct() // inte klar med denna.
     {
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../products.csv"));
