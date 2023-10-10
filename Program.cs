@@ -16,7 +16,7 @@ namespace WebShop5
 
         static void Main(string[] args)
         {
-           User.UserShoppingMenu();
+           
 
             bool Showmenu = true;
 
