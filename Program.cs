@@ -13,7 +13,8 @@ namespace WebShop5
     {
         static void Main(string[] args)
         {
-            Products.AddProduct();
+            Products.AddToShoppingbag();
+            Products.RemoveFromShoppingbag();
 
             bool Showmenu = true;
 

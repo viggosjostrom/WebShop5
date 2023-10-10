@@ -92,11 +92,6 @@ namespace WebShop5
                 string productToAdd = string.Format("{0}, {1}$", addProduct, addPrice);
                 newCart.Add(productToAdd);
 
-                
-                for (int i = 0; i < newCart.Count; i++)
-                {
-                    newCart[i] = $"{i + 1}. {newCart[i]}";
-                }
 
                 Console.WriteLine();
                 File.WriteAllLines("../../../Cart.csv", newCart);

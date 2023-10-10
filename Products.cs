@@ -15,7 +15,7 @@ public class Products
     string? category;
     int price;
 
-    public static void AddProduct()
+    public static void AddToShoppingbag()
     {
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../Cart.csv"));
@@ -23,6 +23,7 @@ public class Products
         List<string> userCart = new List<string>();
 
         string newProduct = string.Empty;
+        string newItem = string.Empty;
 
 
         while (newProduct != "n")
@@ -30,36 +31,33 @@ public class Products
 
             Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
 
-            foreach (string item in productList)
+            Console.WriteLine("Products to buy: ");
+            for (int i = 0; i < productList.Count; i++)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"{i + 1}. {productList[i]}");
             }
 
             Console.WriteLine();
             Console.WriteLine("Enter number of the product you want to add in cart: ");
-            string addProduct = Console.ReadLine();
 
-
-            foreach (string item in productList)
+            if (int.TryParse(Console.ReadLine(), out int choice))
             {
-                if (item.Contains(addProduct)) 
-                {
-                    userCart.Add(item);
-                }
+                newItem = productList[choice - 1];
+            }
+            else
+            {
+                Console.WriteLine("Invalid selection. No items were added.");
+                Console.WriteLine();
             }
 
-
-            for (int i = 0; i < userCart.Count; i++) // Lägger till ett nummer i början av produkten. Kanske inte behövs??
-            {
-                Console.WriteLine($"{i + 1}. {userCart[i]}");
-            }
+            userCart.Add(newItem);
 
 
 
             // Skriv över filen "products.csv" om användaren vill lägga till mer produkter.
             if (newProduct == "y")
             {
-                File.WriteAllLines("../../../products.csv", userCart);
+                File.WriteAllLines("../../../Shoppingbag.csv", userCart);
             }
 
 
@@ -71,6 +69,7 @@ public class Products
         }
 
         // Skriver ut användarens kundvagn.
+
         Console.WriteLine("Your cart:");
         foreach (string row in userCart)
         {
@@ -79,26 +78,39 @@ public class Products
 
     }
 
-    public static void RemoveProduct() // inte klar med denna.
-    {
+    public static void RemoveFromShoppingbag()
+    { 
+        List<string> userCart = new List<string>(File.ReadAllLines("../../../Shoppingbag.csv"));
 
-        List<string> productList = new List<string>(File.ReadAllLines("../../../products.csv"));
+        string removeItem = string.Empty;
 
         Console.WriteLine("What postion do you want to remove?: ");
         Console.WriteLine();
 
-        foreach (string row in productList)
+        for (int i = 0; i < userCart.Count; i++)
         {
-            Console.WriteLine(row);
+            Console.WriteLine($"{i + 1}. {userCart[i]}");
         }
+
         Console.WriteLine();
-        Console.Write("Number: ");
-        string? removeNumber = Console.ReadLine();
-        int removeIndex = int.Parse(removeNumber);
-        productList.RemoveAt(removeIndex);
+        Console.WriteLine("Enter number of the product you want to remove from cart: ");
 
-        File.WriteAllLines("../../../products.csv", productList); //Måste uppdatera så listans nummer också uppdateras??
+        if (int.TryParse(Console.ReadLine(), out int choice))
+        {
+            userCart.RemoveAt(choice - 1);
+            File.WriteAllLines("../../../Shoppingbag.csv", userCart);
+            Console.WriteLine("Item as been removed from cart.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid selection. No items were added.");
+            Console.WriteLine();
+        }
 
+        foreach (var item in userCart)
+        {
+            Console.WriteLine(item);
+        }
     }
 
 }
