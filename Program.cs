@@ -11,14 +11,13 @@ namespace WebShop5
 {
     class Program
     {
-        
 
+        
 
         static void Main(string[] args)
         {
-           
 
-            bool Showmenu = true;
+
 
             while (Showmenu)
             {

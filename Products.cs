@@ -18,7 +18,7 @@ public class Products
     public static void AddToShoppingbag()
     {
 
-        List<string> productList = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+        List<string> productList = new List<string>(File.ReadAllLines("../../../ListOfProducts.csv"));
 
         List<string> userCart = new List<string>();
 
@@ -71,6 +71,7 @@ public class Products
         // Skriver ut användarens kundvagn.
 
         Console.WriteLine("Your cart:");
+        Console.WriteLine();
         foreach (string row in userCart)
         {
             Console.WriteLine(row);
@@ -125,6 +126,7 @@ public class Products
             Console.Write("Want to remove more? y/n?: ");
             removeProduct = Console.ReadLine().ToLower();
             Console.Clear();
+
         }
     }
 }
