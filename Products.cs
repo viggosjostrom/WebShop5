@@ -84,7 +84,7 @@ public class Products
 
         string removeItem = string.Empty;
 
-        Console.WriteLine("What postion do you want to remove?: ");
+        Console.WriteLine("Enter the number of the product do you want to remove?: ");
         Console.WriteLine();
 
         for (int i = 0; i < userCart.Count; i++)
