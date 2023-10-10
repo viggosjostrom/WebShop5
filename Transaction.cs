@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,8 @@ public class Transaction
 
     public void printHistory()
     {
-        
+        //skriver ut kvitto till alla köp
+
         foreach (string transaction in transactionHistory) 
         { 
             Console.WriteLine(transaction);
@@ -22,6 +24,7 @@ public class Transaction
 
     public void viewReceipt()
     {
+        //skriver ut kvitto till alla köp
         foreach (string transaction in transactionHistory)
         {
             Console.WriteLine(transaction);
@@ -39,9 +42,9 @@ public class Transaction
 
         foreach (string a in transactionHistory)
         {
-
+            // använder userinputen vi fick för att printa ut en fil
             string[] transaction = a.Split(",");
-            string compare = transaction[1];
+            string compare = transaction[0];
 
             if (userInput == compare)
             {
@@ -55,10 +58,31 @@ public class Transaction
             
 
         }
-    } 
+    }
 
-    
-    
+    public void makeReceipt()
+    {
+        //funktion för att skriva alla linjer till en dictionary till huvudfilen med alla köp
+        Dictionary<string, string> reWriteFile = new Dictionary<string, string>();
+
+        foreach (string a in transactionHistory)
+        {
+            string[] transaction = a.Split(",");
+
+            reWriteFile.Add(transaction[0], transaction[1]);
+
+
+        }
+
+        //reWriteFile.Add(/*string[0], string[1]*/);
+        // !!! byt string[0] och string[1] när jag vet vad köpets saker blir !!!
+
+        //File.WriteAllText("../../../transactions/receipt.txt", reWriteFile);
+        //"cannot convert from dictionary to string
+
+        //funktion för att skriva till helt ny fil som inte finns än
+    }
+
 
 }
 
