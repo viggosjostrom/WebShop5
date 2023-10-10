@@ -79,38 +79,52 @@ public class Products
     }
 
     public static void RemoveFromShoppingbag()
-    { 
-        List<string> userCart = new List<string>(File.ReadAllLines("../../../Shoppingbag.csv"));
+    {
+        string removeProduct = string.Empty;
 
-        string removeItem = string.Empty;
 
-        Console.WriteLine("Enter the number of the product do you want to remove?: ");
-        Console.WriteLine();
-
-        for (int i = 0; i < userCart.Count; i++)
+        while (removeProduct != "n")
         {
-            Console.WriteLine($"{i + 1}. {userCart[i]}");
-        }
 
-        Console.WriteLine();
-        Console.WriteLine("Enter number of the product you want to remove from cart: ");
 
-        if (int.TryParse(Console.ReadLine(), out int choice))
-        {
-            userCart.RemoveAt(choice - 1);
-            File.WriteAllLines("../../../Shoppingbag.csv", userCart);
-            Console.WriteLine("Item as been removed from cart.");
-        }
-        else
-        {
-            Console.WriteLine("Invalid selection. No items were added.");
+            List<string> userCart = new List<string>(File.ReadAllLines("../../../Shoppingbag.csv"));
+
+            string removeItem = string.Empty;
+            Console.WriteLine("\t\t\tREMOVE PRODUCTS FROM CART\n");
+
             Console.WriteLine();
-        }
 
-        foreach (var item in userCart)
-        {
-            Console.WriteLine(item);
+            for (int i = 0; i < userCart.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {userCart[i]}");
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("Enter number of the product you want to remove from cart: ");
+
+
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+                userCart.RemoveAt(choice - 1);
+                File.WriteAllLines("../../../Shoppingbag.csv", userCart);
+                Console.WriteLine("Item as been removed from cart.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid selection. No items were added.");
+                Console.WriteLine();
+            }
+
+            foreach (var item in userCart)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            Console.Write("Want to remove more? y/n?: ");
+            removeProduct = Console.ReadLine().ToLower();
+            Console.Clear();
         }
     }
-
 }
