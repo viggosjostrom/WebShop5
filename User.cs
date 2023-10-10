@@ -27,10 +27,25 @@ public class User
         Usernames.Add(SignUpUsernameChoice);
         File.WriteAllLines("../../../usernames.csv", Usernames);
 
-        Console.WriteLine("Choose a password: ");
-        string SignUpPasswordChoice = Console.ReadLine();
-        Passwords.Add(SignUpPasswordChoice);
-        File.WriteAllLines("../../../passwords.csv", Passwords);
+        bool usernameCheck = false;
+        while(!usernameCheck)
+        {
+            Console.WriteLine("Choose a password: ");
+            string SignUpPasswordChoice = Console.ReadLine();
+            if (SignUpPasswordChoice == string.Empty)
+            {
+                Console.WriteLine("Error: Your username must contain atleast 1 character.");
+            }
+            else
+            {
+                Passwords.Add(SignUpPasswordChoice);
+                File.WriteAllLines("../../../passwords.csv", Passwords);
+                usernameCheck = true; 
+
+            }
+            
+        }
+        
 
 
 
