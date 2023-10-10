@@ -45,12 +45,19 @@ public class Transaction
 
             if (userInput == compare)
             {
-                //lägg till någon sorts funktion som använder input för att kunna hitta och printa en transaction fil
+                string[] file = File.ReadAllLines($"../../../transactions/receipt{userInput}.txt");
+
+                foreach (string line in file)
+                {
+                    Console.WriteLine(line);
+                }    
             }
             
 
         }
     } 
+
+    
     
 
 }
