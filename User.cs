@@ -111,15 +111,18 @@ public class User
 
     public static void UserShoppingMenu()
     {
+        List<string> productList = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+
         bool UserMenu = true;
         
         while (UserMenu)
         {
             Console.WriteLine("MENU: ");
-            Console.WriteLine("1 : Browse products");
-            Console.WriteLine("2 : Shopping bag");
-            Console.WriteLine("3 : Order history");
-            Console.WriteLine("0 : EXIT");
+            Console.WriteLine("1 : Show Products");
+            Console.WriteLine("2 : Shop Products");
+            Console.WriteLine("3 : Remove from your Shopping Bag");
+            Console.WriteLine("4 : Order History");
+            Console.WriteLine("0 : Sign Out");
             int UserChoice = Convert.ToInt32(Console.ReadLine());
 
 
@@ -130,14 +133,25 @@ public class User
                     break;
 
                 case 1:
-                    //Browse products (Kristoffers kod)
+                    // Loop som listar alla produkter
+                    foreach (var item in productList)
+                    {
+                        Console.WriteLine(item);
+                    }
+                   
                     break;
 
                 case 2:
-                    // Shopping cart / Pay checkout (Dans kod)
+                    // Användaren kan lägga till från produkterna i sin Shoppingbag
+                    Products.AddToShoppingbag();
                     break;
 
                 case 3:
+                    // Användaren kan ta bort produkter från sin shoppingbag
+                    Products.RemoveFromShoppingbag();
+                    break;
+                
+                case 4:
                     // Order history (Fredriks kod)
                     break;
 
