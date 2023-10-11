@@ -134,6 +134,9 @@ public class Products
     public static void PurchaseShoppingbag()
     {
 
+        Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
+
+
         Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
 
         string[] bag = File.ReadAllLines("../../../Shoppingbag.csv");
