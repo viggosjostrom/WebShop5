@@ -131,7 +131,7 @@ public class Products
         }
     }
 
-    public static void Purchase()
+    public static void PurchaseShoppingbag()
     {
 
         Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
@@ -169,9 +169,39 @@ public class Products
             }
             //DateTime date = DateTime.Now;
 
-            Console.WriteLine("Total: " + sum + "$ ");    
+            Console.WriteLine("Total: " + sum + "$ ");
 
+            bool purchase = true;
+
+            while (purchase)
+            {
+
+                Console.Write("Would you like to complete the purchase? y/n?: ");
+                string choice = Console.ReadLine().ToLower();
+
+                if (choice == "y")
+                {
+                    //Göra ett kvitto och tömma Shoppingbag???
+                    purchase = false;
+                }
+                else if (choice == "n")
+                {
+                    Console.WriteLine("To bad, you will be redirected to user menu");
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey();
+
+                    purchase = false;
+                    User.UserShoppingMenu();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invaild choice.");
+
+                }
+            }
         }
+
         else
         {
             Console.WriteLine("Nothing in shoppingbag to purchase");
