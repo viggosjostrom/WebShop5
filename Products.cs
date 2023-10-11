@@ -133,36 +133,48 @@ public class Products
 
     public static void Purchase()
     {
-        // List<string> checkoutShoppingbag = new List<string>(File.ReadAllLines("../../../Shoppingbag.csv"));
 
-        Dictionary<string, int> checkout = new Dictionary<string, int>();
+        Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
 
-        string[] shop = File.ReadAllLines("../../../Shoppingbag.csv");
-
+        string[] bag = File.ReadAllLines("../../../Shoppingbag.csv");
 
 
-        if (shop != null)
+
+        if (bag.Length != 0)
         {
 
             int sum = 0;
 
-            foreach (string line in shop)
+            foreach (string line in bag)
             {
                 string[] split = line.Split(", ");
 
                 string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-                    checkout.Add(split[0], price);
+                    checkoutShoppingbag.Add(split[0], price);
                     sum += price;
                 }
+                else
+                {
+                    Console.WriteLine("Something went wrong with the 'Parse'.");
+                }
+
             }
-                    Console.WriteLine(sum + "$");
+
+            foreach (KeyValuePair<string, int> line in checkoutShoppingbag)
+            {
+                //"Key (Name) = {0}, Value (Price) = {1}", line.Key, line.Value
+                Console.WriteLine("{0}, {1}$", line.Key, line.Value);
+            }
+            //DateTime date = DateTime.Now;
+
+            Console.WriteLine("Total: " + sum + "$ ");    
 
         }
         else
         {
-            Console.WriteLine("Nothing in shoppingbag to Purchase");
+            Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
             User.UserShoppingMenu();
