@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,9 @@ public class User
     public string? Username;
     public string? Password;
 
+    
 
-
+    
     public static void SignUp()
     {
         User currentUser = new User();
@@ -21,26 +23,45 @@ public class User
         List<string> Usernames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
         List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
 
-
-        Console.WriteLine("Choose a username: ");
-        string SignUpUsernameChoice = Console.ReadLine();
-        Usernames.Add(SignUpUsernameChoice);
-        File.WriteAllLines("../../../usernames.csv", Usernames);
-
         bool usernameCheck = false;
         while(!usernameCheck)
+        {
+            Console.WriteLine("Choose a username: ");
+            string SignUpUsernameChoice = Console.ReadLine();
+            if(SignUpUsernameChoice == string.Empty)
+            {
+                Console.WriteLine("Error: Your username must contain atleast 1 character.");
+
+            }
+            if(Usernames.Contains(SignUpUsernameChoice))
+            {
+                Console.WriteLine("The username you've entered is already taken");
+            }
+            else
+            {
+                Usernames.Add(SignUpUsernameChoice);
+                File.WriteAllLines("../../../usernames.csv", Usernames);
+                usernameCheck = true;
+            }
+            
+        }
+        
+
+        bool passwordCheck = false;
+        while(!passwordCheck)
         {
             Console.WriteLine("Choose a password: ");
             string SignUpPasswordChoice = Console.ReadLine();
             if (SignUpPasswordChoice == string.Empty)
             {
-                Console.WriteLine("Error: Your username must contain atleast 1 character.");
+                Console.WriteLine("Error: Your password must contain atleast 1 character.");
             }
+           
             else
             {
                 Passwords.Add(SignUpPasswordChoice);
                 File.WriteAllLines("../../../passwords.csv", Passwords);
-                usernameCheck = true; 
+                passwordCheck = true; 
 
             }
             
