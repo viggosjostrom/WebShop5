@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -127,6 +128,44 @@ public class Products
             removeProduct = Console.ReadLine().ToLower();
             Console.Clear();
 
+        }
+    }
+
+    public static void Purchase()
+    {
+        // List<string> checkoutShoppingbag = new List<string>(File.ReadAllLines("../../../Shoppingbag.csv"));
+
+        Dictionary<string, int> checkout = new Dictionary<string, int>();
+
+        string[] shop = File.ReadAllLines("../../../Shoppingbag.csv");
+
+
+
+        if (shop != null)
+        {
+
+            int sum = 0;
+
+            foreach (string line in shop)
+            {
+                string[] split = line.Split(", ");
+
+                string res = split[1];
+                if (int.TryParse(split[1], out int price))
+                {
+                    checkout.Add(split[0], price);
+                    sum += price;
+                }
+            }
+                    Console.WriteLine(sum + "$");
+
+        }
+        else
+        {
+            Console.WriteLine("Nothing in shoppingbag to Purchase");
+            Console.WriteLine("Press any key to go to User Menu");
+            Console.ReadKey();
+            User.UserShoppingMenu();
         }
     }
 }

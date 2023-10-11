@@ -19,6 +19,8 @@ namespace WebShop5
 
 
 
+            bool Showmenu = true;
+
             while (Showmenu)
             {
                 
