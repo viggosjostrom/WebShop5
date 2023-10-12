@@ -9,7 +9,7 @@ namespace WebShop5;
 
 public class Transaction
 {
-    public string[] transactionHistory = File.ReadAllLines("transactions/history.csv");
+    public string[] transactionHistory = File.ReadAllLines("../../transactions/history.csv");
 
     public void printHistory()
     {
