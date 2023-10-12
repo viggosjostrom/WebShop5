@@ -33,6 +33,7 @@ namespace WebShop5
                     Console.WriteLine("1 : Lägg till produkt");
                     Console.WriteLine("2 : Visa Produkter");
                     Console.WriteLine("3 : Ta bort produkter");
+                    Console.WriteLine("4 : Ta bort/Ändra användare");
                     Console.WriteLine("0 : EXIT");
                     Console.WriteLine();
                     Console.Write("Make a choice: ");
@@ -55,6 +56,10 @@ namespace WebShop5
 
                         case 3:
                             removeproducts();
+                            break;
+
+                        case 4:
+                            ChangeUser();
                             break;
 
                     }
@@ -144,6 +149,75 @@ namespace WebShop5
                 }
                 Console.WriteLine();
             }
+
+        }
+
+        public static void ChangeUser()
+        {
+            List<string> userNames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
+            List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
+
+            for (int i = 0; i < userNames.Count; i++)
+            {
+
+                Console.WriteLine("Do you wish to remove or change? : Type: remove - To remove Type: change - To change");
+                string change = Console.ReadLine();
+                if (change == "remove")
+                {
+                    Console.WriteLine($"{i + 1}. {userNames[i]}");
+
+
+                    Console.Write("Enter the number of the item you wish to remove: ");
+                    if (int.TryParse(Console.ReadLine(), out int removeNumb) && removeNumb <= userNames.Count)
+                    {
+                        userNames.RemoveAt(removeNumb - 1);
+                        File.WriteAllLines("../../../usernames.csv", userNames);
+                        Console.WriteLine("User succesfully removed! Updated user list:");
+                        foreach (var item in userNames)
+                        {
+                            Console.WriteLine(userNames);
+                        }
+                    }
+                }
+
+                if (change == "change")
+                {
+                    Console.WriteLine($"{i + 1}. {userNames[i]}");
+
+
+                    Console.WriteLine("What user do you want to change? Enter a number:");
+                    if (int.TryParse(Console.ReadLine(), out int changeNumb) && changeNumb <= userNames.Count)
+                    {
+                        Console.WriteLine($"You choosed: {userNames[changeNumb - 1]}");
+                        Console.WriteLine("Enter you change: ");
+                        string changedUser = Console.ReadLine();
+                        Console.WriteLine($"Previus password :{Passwords[changeNumb - 1]}");
+                        Console.WriteLine("Enter your new");
+                        string? newPassword = Console.ReadLine();
+
+                        Passwords[changeNumb - 1] = newPassword;
+                        userNames[changeNumb - 1] = changedUser;
+                        File.WriteAllLines("../../../usernames.csv", userNames);
+                        File.WriteAllLines("../../../passwords.csv", Passwords);
+
+                        Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
+                        Console.ReadKey();
+                        Console.Clear();
+                        foreach (var item in userNames)
+                        {
+                            Console.WriteLine(userNames);
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
+                }
+
+
+            }
+
 
         }
 
