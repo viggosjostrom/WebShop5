@@ -155,7 +155,6 @@ public class User
                     // Order history (Fredriks kod)
                     break;
 
-
             }
         }
     }

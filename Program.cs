@@ -11,12 +11,13 @@ namespace WebShop5
 {
     class Program
     {
-        
 
+        
 
         static void Main(string[] args)
         {
-           
+
+            Products.PurchaseShoppingbag();
 
             bool Showmenu = true;
 
