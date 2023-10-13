@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace WebShop5;
 
-public record Customer(string Username, List<NewProducts> Cart) : IUser
+public interface IUser
 {
-
 }

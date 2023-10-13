@@ -51,10 +51,10 @@ public class LoginMenu
         File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
     }
 
-    public void LogIn()
+    public IUser LogIn()
     {
-        bool loginLoop = true;
-        while (loginLoop)
+        
+        while (true)
         {
             string[] users = File.ReadAllLines("../../../users.csv");
 
@@ -71,13 +71,22 @@ public class LoginMenu
                     if (userInfo[1].Equals(input))
                     {
                         Console.WriteLine($"Welcome {userInfo[0]}!");
-                        List<NewProducts> shoppingBag = new List<NewProducts>();
-                        string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{userInfo[0]}.csv");
-                        foreach (string item in savedShoppingBag)
+                        if (Enum.TryParse(userInfo[2], out Role r))
                         {
-                            //shoppingBag.Add(new NewProducts(item));
+
+                             switch (r)
+                            {
+                                case Role.Customer: return LoadCustomer(userInfo[0]);
+                                case Role.Admin:return new Admin(userInfo[0]);
+                            }  
                         }
-                        loginLoop = false;
+                        else
+                        {
+                            throw new Exception();
+
+                            //shoppingBag.Add(new NewProducts(item));
+
+                        }
                         
                     }
                     else
@@ -95,5 +104,14 @@ public class LoginMenu
             }
         }
     }
-
+private Customer LoadCustomer(string username)
+{
+    List<NewProducts> shoppingBag = new List<NewProducts>();
+    string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
+    foreach (string item in savedShoppingBag)
+    {
+        shoppingBag.Add(new NewProducts(item));
+    }
+    return new Customer(username, shoppingBag);
+}
 }

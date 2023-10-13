@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebShop5;
 
-public record Admin(string Username) 
-{
 
+public record Admin(string Username) : IUser
+{
 }
