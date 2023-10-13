@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+namespace WebShop5;
 
-using WebShop5;
+public record Customer(string Username, List<NewProducts> Cart, Role Role)
+{
 
-var register = new LoginMenu();
-
-
-register.LogIn();
+}

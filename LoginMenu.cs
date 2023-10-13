@@ -48,6 +48,52 @@ public class LoginMenu
 
         }
         File.Create($"../../../ShoppingBag/{username}.csv").Close();
-
+        File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
     }
+
+    public void LogIn()
+    {
+        bool loginLoop = true;
+        while (loginLoop)
+        {
+            string[] users = File.ReadAllLines("../../../users.csv");
+            
+            Customer user = null;
+            Console.WriteLine("Enter username: ");
+            string input = Console.ReadLine() ?? string.Empty;
+            foreach (string line in users)
+            {
+                string[] userInfo = line.Split(',');
+                if (userInfo[0].Equals(input))
+                {
+                    Console.WriteLine("Enter password: ");
+                    input = Console.ReadLine() ?? string.Empty;
+                    if (userInfo[1].Equals(input))
+                    {
+                        Console.WriteLine($"Welcome {userInfo[0]}!");
+                        List<NewProducts> shoppingBag = new List<NewProducts>();
+                        string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{userInfo[0]}.csv");
+                        foreach (string item in savedShoppingBag)
+                        {
+                            shoppingBag.Add(new NewProducts(item));
+                        }
+                        loginLoop = false;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong password! Try to login again");
+                        break;
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("The username you've entered does not exist. Try again..");
+                    break;
+                }
+            }
+        }
+    }
+
 }
