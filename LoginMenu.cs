@@ -73,6 +73,7 @@ public class LoginMenu
                         Console.WriteLine($"Welcome {userInfo[0]}!");
                         if (Enum.TryParse(userInfo[2], out Role r))
                         {
+
                              switch (r)
                             {
                                 case Role.Customer: return LoadCustomer(userInfo[0]);
@@ -82,6 +83,9 @@ public class LoginMenu
                         else
                         {
                             throw new Exception();
+
+                            //shoppingBag.Add(new NewProducts(item));
+
                         }
                         
                     }

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
 using WebShop5;
+
 
 LoginMenu menu = new LoginMenu();
 IUser user;
+
 
 
 bool Showmenu = true;
