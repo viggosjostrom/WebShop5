@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 using WebShop5;
 
-var user = new LoginMenu();
+LoginMenu menu = new LoginMenu();
+IUser user;
 
 
 bool Showmenu = true;
@@ -19,7 +20,6 @@ while (Showmenu)
 
     Console.WriteLine("1 - Create new user");
     Console.WriteLine("2 - Login as existing user");
-    Console.WriteLine("3 - Login as admin");
     Console.WriteLine("0 - To Exit");
     int Choice = Convert.ToInt32(Console.ReadLine());
     switch (Choice)
@@ -29,11 +29,12 @@ while (Showmenu)
             break;
 
         case 1:
-            user.Register();
+
+            menu.Register();
             break;
 
         case 2:
-            user.LogIn();
+            user = menu.LogIn();
             break;
 
     }
