@@ -7,5 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace WebShop5;
+using WebShop5;
 
+var register = new LoginMenu();
+register.Register();
