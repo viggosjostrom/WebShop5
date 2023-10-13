@@ -11,10 +11,10 @@ public class NewProducts
 
     public string Name;
     public int Price;
-    public string Catogory;
 
-    public void Products()
+    public void AddProducts()
     {
+
 
         NewProducts product = new NewProducts();
 
@@ -23,15 +23,14 @@ public class NewProducts
 
         while (addProduct)
         {
-
+            Console.WriteLine("\t\t\tADD PRODUCTS TO LIST\n");
 
 
             Console.Write("Name of the product: ");
             product.Name = Console.ReadLine();
             Console.Write("Price of the product: ");
             product.Price = int.Parse(Console.ReadLine());
-            //Console.WriteLine("Catogory of the product: ");
-            //product.Catogory = Console.ReadLine();
+
 
 
             File.AppendAllText("../../../listofproducts.csv", $"{product.Name},{product.Price}\n");
@@ -40,22 +39,27 @@ public class NewProducts
 
             while (addMore)
             {
+
                 Console.WriteLine("Do you want to add more? y/n?");
                 string choice = Console.ReadLine().ToLower();
                 if (choice == "y")
                 {
                     addProduct = true;
                     addMore = false;
+                    Console.Clear();
                 }
                 else if (choice == "n")
                 {
                     addMore = false;
                     addProduct = false;
+                    Console.Clear();
                 }
                 else
                 {
+
                     Console.WriteLine("Not a valid choice!");
                     addMore = true;
+
                 }
 
             }

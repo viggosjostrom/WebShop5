@@ -8,13 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WebShop5;
 
-//Ta bort innan Merge
-var add = new NewProducts();
-add.Products();
-
-//Ta bort innan merge
-var user = new LoginMenu();
-
 
 bool Showmenu = true;
 
