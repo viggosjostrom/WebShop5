@@ -16,6 +16,9 @@ public class NewProducts
     public NewProducts(string data)
     {
 
+        string name;
+        int price;
+
     }
 
 
