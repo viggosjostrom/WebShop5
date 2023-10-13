@@ -57,10 +57,10 @@ public class LoginMenu
         while (loginLoop)
         {
             string[] users = File.ReadAllLines("../../../users.csv");
-            
-            Customer user = null;
+
+            string input = string.Empty;
             Console.WriteLine("Enter username: ");
-            string input = Console.ReadLine() ?? string.Empty;
+            input = Console.ReadLine() ?? string.Empty;
             foreach (string line in users)
             {
                 string[] userInfo = line.Split(',');
@@ -78,19 +78,19 @@ public class LoginMenu
                             shoppingBag.Add(new NewProducts(item));
                         }
                         loginLoop = false;
-                        break;
+                        
                     }
                     else
                     {
                         Console.WriteLine("Wrong password! Try to login again");
-                        break;
+                        
                     }
 
                 }
-                else
+                else if (userInfo[0].Equals(input)) // Varför skrivs denna ej ut?
                 {
                     Console.WriteLine("The username you've entered does not exist. Try again..");
-                    break;
+                    
                 }
             }
         }
