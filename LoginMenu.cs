@@ -77,7 +77,7 @@ public class LoginMenu
                              switch (r)
                             {
                                 case Role.Customer: return LoadCustomer(userInfo[0]);
-                                case Role.Admin:return new Admin(userInfo[0]);
+                                case Role.Admin:return IUser.AdminUser(userInfo[0]);
                             }  
                         }
                         else
@@ -114,4 +114,6 @@ private Customer LoadCustomer(string username)
     }
     return new Customer(username, shoppingBag);
 }
+
+
 }
