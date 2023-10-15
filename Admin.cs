@@ -11,187 +11,213 @@ public class AdminUser
 {
 
 
-        public List<string> productlist = new List<string>(); // Deklarera newCart som en instansvariabel
+
+    public List<string> productlist = new List<string>(); // Deklarera newCart som en instansvariabel
 
 
 
-         public static void loadAdmin()
+    public static void loadAdmin(string User)
     {
-
-        Console.WriteLine("1 :zz");
-        Console.WriteLine("2 :zz");
-        Console.WriteLine("3 :zz");
-        Console.WriteLine("4 :zz");
-        int Choice = Convert.ToInt32(Console.ReadLine());
-        switch (Choice)
+        while (true)
         {
-            case 1:AdminUser.updateCart();
+            Console.WriteLine($"Welcome {User}");
+            Console.WriteLine();
+            Console.WriteLine("You are now logged in as admin - Make your choice");
+            Console.WriteLine("1 : Add Products");
+            Console.WriteLine("2 : Remove Products");
+            Console.WriteLine("3 : Show Productlist");
+            Console.WriteLine("4 : Change or del - Users");
+            Console.WriteLine("5 : Go back to main Menu");
+            int Choice = Convert.ToInt32(Console.ReadLine());
+            switch (Choice)
+            {
+                case 1:
+                    AdminUser.updateCart();
                     break;
-            case 2:AdminUser.removeproducts();
+                case 2:
+                    AdminUser.removeproducts();
                     break;
-            case 3:AdminUser.showProducts();
-                break;
-            case 4:AdminUser.ChangeUser();
-                break;
+                case 3:
+                    AdminUser.showProducts();
+                    break;
+                case 4:
+                    AdminUser.ChangeUser();
+                    break;
+                case 5: return;
 
-            
+
+            }
+
+
         }
     }
 
 
 
-        public static void updateCart()
+    public static void updateCart()
+    {
+        List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+
+        Console.Clear();
+        Console.Write("Add new product: ");
+        string? addProduct = Console.ReadLine();
+        Console.Write("Price in $: ");
+        string? addPrice = Console.ReadLine();
+        Console.WriteLine();
+
+
+        if (addPrice == string.Empty || addProduct == string.Empty)
         {
-            List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+            Console.WriteLine("Enter Either a product or the price");
+        }
 
-            Console.Clear();
-            Console.Write("Add new product: ");
-            string? addProduct = Console.ReadLine();
-            Console.Write("Price in $: ");
-            string? addPrice = Console.ReadLine();
+        else
+        {
+            string productToAdd = string.Format("{0}, {1}$", addProduct, addPrice);
+            productlist.Add(productToAdd);
+
+
             Console.WriteLine();
+            File.WriteAllLines("../../../listofproducts.csv", productlist);
+        }
+
+    }
+
+    public static void removeproducts()
+    {
 
 
-            if (addPrice == string.Empty || addProduct == string.Empty)
+        AdminUser remove = new AdminUser();
+        {
+            remove.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+
+            Console.WriteLine("Items in the cart: ");
+            for (int i = 0; i < remove.productlist.Count; i++)
             {
-                Console.WriteLine("Enter Either a product or the price");
+                Console.WriteLine($"{i + 1}. {remove.productlist[i]}");
             }
 
+            Console.Write("Enter the number of the item you wish to remove: ");
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice <= remove.productlist.Count)
+
+            {
+                remove.productlist.RemoveAt(choice - 1);
+                File.WriteAllLines("../../../Cart.csv",
+                    remove.productlist);
+                Console.WriteLine("Item has been removed from the cart.");
+                Console.WriteLine();
+
+            }
             else
             {
-                string productToAdd = string.Format("{0}, {1}$", addProduct, addPrice);
-                productlist.Add(productToAdd);
-
-
+                Console.WriteLine("Invalid selection. No items were removed.");
                 Console.WriteLine();
-                File.WriteAllLines("../../../listofproducts.csv", productlist);
             }
 
         }
 
-        public static void removeproducts()
+    }
+
+    public static void showProducts()
+    {
+
+        AdminUser show = new AdminUser();
+        {
+            Console.Clear();
+
+            show.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+
+            foreach (var item in show.productlist)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine();
+
+        }
+
+
+    }
+
+    public static void ChangeUser()
+    {
+        List<string> userNames = new List<string>(File.ReadAllLines("../../../users.csv"));
+        List<string> Passwords = new List<string>(File.ReadAllLines("../../../users.csv"));
+
+        for (int i = 0; i < userNames.Count; i++)
         {
 
 
-              AdminUser remove = new AdminUser();
-             {
-                productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
-    
-                 Console.WriteLine("Items in the cart: ");
-                for (int i = 0; i < remove.productlist.Count; i++)
+            Console.WriteLine("Do you wish to remove or change? : Type: remove - To remove Type: change - To change");
+            string change = Console.ReadLine();
+            if (change == "remove")
+            {
+                for(int v = 0; i < userNames.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {remove.productlist[i]}");
+                    Console.WriteLine($"{i + 1}. {userNames[i]}");
                 }
 
                 Console.Write("Enter the number of the item you wish to remove: ");
-                if (int.TryParse(Console.ReadLine(), out int choice) && choice <= remove.productlist.Count)
-
+                if (int.TryParse(Console.ReadLine(), out int removeNumb) && removeNumb <= userNames.Count)
                 {
-                    remove.productlist.RemoveAt(choice - 1);
-                    File.WriteAllLines("../../../Cart.csv",
-                        remove.productlist);
-                    Console.WriteLine("Item has been removed from the cart.");
-                    Console.WriteLine();
+                    userNames.RemoveAt(removeNumb - 1);
+                    File.WriteAllLines("../../../users.csv", userNames);
+                    Console.WriteLine("User succesfully removed! Updated user list:");
+                    foreach (string users in userNames)
+                    {
+                        Console.WriteLine(users);
+                        Console.ReadKey();
+                        Console.Clear();
+
+                    }
+                }
+            }
+
+            if (change == "change")
+            {
+                for(int v = 0; i < userNames.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {userNames[i]}");
+                }
+
+
+
+                Console.WriteLine("What user do you want to change? Enter a number:");
+                if (int.TryParse(Console.ReadLine(), out int changeNumb) && changeNumb <= userNames.Count)
+                {
+                    Console.WriteLine($"You choosed: {userNames[changeNumb - 1]}");
+                    Console.WriteLine("Enter you change: ");
+                    string changedUser = Console.ReadLine();
+                    Console.WriteLine($"Previus password :{Passwords[changeNumb - 1]}");
+                    Console.WriteLine("Enter your new");
+                    string? newPassword = Console.ReadLine();
+
+                    Passwords[changeNumb - 1] = newPassword;
+                    userNames[changeNumb - 1] = changedUser;
+                    File.WriteAllLines("../../../users.csv", userNames);
+                    File.WriteAllLines("../../../users.csv", Passwords);
+
+                    Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
+                    Console.ReadKey();
+                    Console.Clear();
+                    foreach (string userschange in userNames)
+                    {
+                        Console.WriteLine(userschange);
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
 
                 }
                 else
                 {
-                    Console.WriteLine("Invalid selection. No items were removed.");
-                    Console.WriteLine();
+                    Console.WriteLine("Invalid input");
                 }
-
-            }
-
-            }
-
-            public static void showProducts()
-        {
-            
-        AdminUser show = new AdminUser();
-        {
-                        Console.Clear();
-               
-                show.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
-
-                foreach (var item in show.productlist)
-                {
-                    Console.WriteLine(item);
-                }
-                Console.WriteLine();
-
-        }
-                    
-
-        }
-
-            public static void ChangeUser()
-        {
-            List<string> userNames = new List<string>(File.ReadAllLines("../../../users.csv"));
-            List<string> Passwords = new List<string>(File.ReadAllLines("../../../users.csv"));
-
-            for (int i = 0; i < userNames.Count; i++)
-            {
-
-                Console.WriteLine("Do you wish to remove or change? : Type: remove - To remove Type: change - To change");
-                string change = Console.ReadLine();
-                if (change == "remove")
-                {
-                    Console.WriteLine($"{i + 1}. {userNames[i]}");
-
-
-                    Console.Write("Enter the number of the item you wish to remove: ");
-                    if (int.TryParse(Console.ReadLine(), out int removeNumb) && removeNumb <= userNames.Count)
-                    {
-                        userNames.RemoveAt(removeNumb - 1);
-                        File.WriteAllLines("../../../users.csv", userNames);
-                        Console.WriteLine("User succesfully removed! Updated user list:");
-                        foreach (var item in userNames)
-                        {
-                            Console.WriteLine(userNames);
-                        }
-                    }
-                }
-
-                if (change == "change")
-                {
-                    Console.WriteLine($"{i + 1}. {userNames[i]}");
-
-
-                    Console.WriteLine("What user do you want to change? Enter a number:");
-                    if (int.TryParse(Console.ReadLine(), out int changeNumb) && changeNumb <= userNames.Count)
-                    {
-                        Console.WriteLine($"You choosed: {userNames[changeNumb - 1]}");
-                        Console.WriteLine("Enter you change: ");
-                        string changedUser = Console.ReadLine();
-                        Console.WriteLine($"Previus password :{Passwords[changeNumb - 1]}");
-                        Console.WriteLine("Enter your new");
-                        string? newPassword = Console.ReadLine();
-
-                        Passwords[changeNumb - 1] = newPassword;
-                        userNames[changeNumb - 1] = changedUser;
-                        File.WriteAllLines("../../../users.csv", userNames);
-                        File.WriteAllLines("../../../users.csv", Passwords);
-
-                        Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
-                        Console.ReadKey();
-                        Console.Clear();
-                        foreach (var item in userNames)
-                        {
-                            Console.WriteLine(userNames);
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input");
-                    }
-                }
-
-
             }
 
 
         }
+
+
+    }
 
 }
 

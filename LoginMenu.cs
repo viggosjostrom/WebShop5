@@ -77,7 +77,10 @@ public class LoginMenu
                              switch (r)
                             {
                                /* case Role.Customer: return LoadCustomer(userInfo[0]);*/
-                                case Role.Admin:return AdminUser.loadAdmin(userInfo[0]);
+                            
+                                case Role.Admin:AdminUser.loadAdmin(userInfo[0]);
+                                    break;
+
                             }  
                         }
                         else
