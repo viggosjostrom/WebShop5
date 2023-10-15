@@ -76,8 +76,8 @@ public class LoginMenu
 
                              switch (r)
                             {
-                                case Role.Customer: return LoadCustomer(userInfo[0]);
-                                case Role.Admin:return IUser.AdminUser(userInfo[0]);
+                               /* case Role.Customer: return LoadCustomer(userInfo[0]);*/
+                                case Role.Admin:return AdminUser.loadAdmin(userInfo[0]);
                             }  
                         }
                         else
@@ -104,6 +104,7 @@ public class LoginMenu
             }
         }
     }
+   /* 
 private Customer LoadCustomer(string username)
 {
     List<NewProducts> shoppingBag = new List<NewProducts>();
@@ -114,6 +115,6 @@ private Customer LoadCustomer(string username)
     }
     return new Customer(username, shoppingBag);
 }
-
+*/
 
 }

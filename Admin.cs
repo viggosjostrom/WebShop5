@@ -11,14 +11,38 @@ public class AdminUser
 {
 
 
-        public List<string> productlistt = new List<string>(); // Deklarera newCart som en instansvariabel
+        public List<string> productlist = new List<string>(); // Deklarera newCart som en instansvariabel
 
+
+
+         public static void loadAdmin()
+    {
+
+        Console.WriteLine("1 :zz");
+        Console.WriteLine("2 :zz");
+        Console.WriteLine("3 :zz");
+        Console.WriteLine("4 :zz");
+        int Choice = Convert.ToInt32(Console.ReadLine());
+        switch (Choice)
+        {
+            case 1:AdminUser.updateCart();
+                    break;
+            case 2:AdminUser.removeproducts();
+                    break;
+            case 3:AdminUser.showProducts();
+                break;
+            case 4:AdminUser.ChangeUser();
+                break;
+
+            
+        }
+    }
 
 
 
         public static void updateCart()
         {
-            List<string> productlist = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+            List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
             Console.Clear();
             Console.Write("Add new product: ");
@@ -40,7 +64,7 @@ public class AdminUser
 
 
                 Console.WriteLine();
-                File.WriteAllLines("../../../Cart.csv", productlist);
+                File.WriteAllLines("../../../listofproducts.csv", productlist);
             }
 
         }
@@ -51,21 +75,21 @@ public class AdminUser
 
               AdminUser remove = new AdminUser();
              {
-                productlistt = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+                productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
     
                  Console.WriteLine("Items in the cart: ");
-                for (int i = 0; i < remove.productlistt.Count; i++)
+                for (int i = 0; i < remove.productlist.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {remove.productlistt[i]}");
+                    Console.WriteLine($"{i + 1}. {remove.productlist[i]}");
                 }
 
                 Console.Write("Enter the number of the item you wish to remove: ");
-                if (int.TryParse(Console.ReadLine(), out int choice) && choice <= remove.productlistt.Count)
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice <= remove.productlist.Count)
 
                 {
-                    remove.productlistt.RemoveAt(choice - 1);
+                    remove.productlist.RemoveAt(choice - 1);
                     File.WriteAllLines("../../../Cart.csv",
-                        remove.productlistt);
+                        remove.productlist);
                     Console.WriteLine("Item has been removed from the cart.");
                     Console.WriteLine();
 
@@ -87,9 +111,9 @@ public class AdminUser
         {
                         Console.Clear();
                
-                show.productlistt = new List<string>(File.ReadAllLines("../../../Cart.csv"));
+                show.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-                foreach (var item in show.productlistt)
+                foreach (var item in show.productlist)
                 {
                     Console.WriteLine(item);
                 }
@@ -102,8 +126,8 @@ public class AdminUser
 
             public static void ChangeUser()
         {
-            List<string> userNames = new List<string>(File.ReadAllLines("../../../usernames.csv"));
-            List<string> Passwords = new List<string>(File.ReadAllLines("../../../passwords.csv"));
+            List<string> userNames = new List<string>(File.ReadAllLines("../../../users.csv"));
+            List<string> Passwords = new List<string>(File.ReadAllLines("../../../users.csv"));
 
             for (int i = 0; i < userNames.Count; i++)
             {
@@ -119,7 +143,7 @@ public class AdminUser
                     if (int.TryParse(Console.ReadLine(), out int removeNumb) && removeNumb <= userNames.Count)
                     {
                         userNames.RemoveAt(removeNumb - 1);
-                        File.WriteAllLines("../../../usernames.csv", userNames);
+                        File.WriteAllLines("../../../users.csv", userNames);
                         Console.WriteLine("User succesfully removed! Updated user list:");
                         foreach (var item in userNames)
                         {
@@ -145,8 +169,8 @@ public class AdminUser
 
                         Passwords[changeNumb - 1] = newPassword;
                         userNames[changeNumb - 1] = changedUser;
-                        File.WriteAllLines("../../../usernames.csv", userNames);
-                        File.WriteAllLines("../../../passwords.csv", Passwords);
+                        File.WriteAllLines("../../../users.csv", userNames);
+                        File.WriteAllLines("../../../users.csv", Passwords);
 
                         Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
                         Console.ReadKey();
