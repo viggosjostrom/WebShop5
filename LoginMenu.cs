@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,9 +77,15 @@ public class LoginMenu
 
                             switch (r)
                             {
-                                case Role.Customer: return LoadCustomer(userInfo[0]);
-                                case Role.Admin: return new Admin(userInfo[0]);
-                            }
+
+
+                                case Role.Customer:UserMenu.UserShoppingMenu(userInfo[0]);
+                            
+                                case Role.Admin:AdminUser.loadAdmin(userInfo[0]);
+                                    break;
+
+                            }  
+
                         }
                         else
                         {
@@ -105,7 +111,13 @@ public class LoginMenu
             }
         }
     }
-    private Customer LoadCustomer(string username)
+
+
+   /*
+private Customer LoadCustomer(string username)
+{
+
+
     {
         List<NewProducts> shoppingBag = new List<NewProducts>();
         string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
@@ -115,4 +127,9 @@ public class LoginMenu
         }
         return new Customer(username, shoppingBag);
     }
+
+}
+*/
+
+
 }
