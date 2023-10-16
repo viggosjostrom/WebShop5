@@ -8,13 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WebShop5;
 
-//TA BORT INNAN MERGE!!
-//_________________
-////UserMenu Umenu = new UserMenu();
-////UserMenu.UserShoppingMenu();
-//__________________
-
-
 IUser user;
 
 LoginMenu menu = new LoginMenu();

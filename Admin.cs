@@ -45,9 +45,6 @@ public class AdminUser
                     AdminUser.ChangeUser();
                     break;
                 case 5:
-                    LoginMenu menu = new LoginMenu();
-                    menu.Register();
-
                     break;
                   
 
