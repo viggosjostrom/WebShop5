@@ -45,3 +45,15 @@ while (Showmenu)
 
     }
 }
+
+
+
+if (user is Customer)
+{
+    UserMenu usermenu = new UserMenu();
+    usermenu.UserShoppingMenu();
+}
+//if (user is Admin)
+//{
+
+//}

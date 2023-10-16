@@ -32,7 +32,7 @@ public class UserMenu : IUser
             switch (UserChoice)
             {
                 case 0:
-                    // Användaren loggar ut
+                    // Användaren loggar ut                  
                     UserMenu = false;
                     Console.Clear();
                     break;
@@ -50,27 +50,28 @@ public class UserMenu : IUser
                     Console.WriteLine();
                     break;
 
-                //case 2:
-                //    // Användaren kan lägga till från produkterna i sin Shoppingbag
-                //    Products.AddToShoppingbag();
-                //    break;
+                case 2:
+                    // Användaren kan lägga till saker från produktlistan till sin Shoppingbag
+                    //LoginMenu.LoadCustomer();   //Funkar inte
 
-                //case 3:
-                //    // Användaren kan ta bort produkter från sin shoppingbag
-                //    Products.RemoveFromShoppingbag();
-                //    break;
-                //case 4:
-                //    // Användaren kan efter att ha lagt till produkter i sin varukorg nu välja
-                //    // att genomföra köpet. Denna infon ska kopplas till kvitto / orderhistorik för användaren
-                //    // Products.PurchaseShoppingBag();
-                //    break;
-                //case 5:
-                //    // Se sin egen Order history (Fredriks kod)
-                //    break;
+
+                    break;
+
+                    //case 3:
+                    //    // Användaren kan ta bort produkter från sin shoppingbag
+                    //    Products.RemoveFromShoppingbag();
+                    //    break;
+                    //case 4:
+                    //    // Användaren kan efter att ha lagt till produkter i sin varukorg nu välja
+                    //    // att genomföra köpet. Denna infon ska kopplas till kvitto / orderhistorik för användaren
+                    //    // Products.PurchaseShoppingBag();
+                    //    break;
+                    //case 5:
+                    //    // Se sin egen Order history (Fredriks kod)
+                    //    break;
 
             }
         }
     }
-
 }
 

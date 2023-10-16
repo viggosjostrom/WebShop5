@@ -111,7 +111,7 @@ public class LoginMenu
         string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
         foreach (string item in savedShoppingBag)
         {
-            //shoppingBag.Add(new NewProducts(item));
+           //shoppingBag.Add(new NewProducts(item));
         }
         return new Customer(username, shoppingBag);
     }
