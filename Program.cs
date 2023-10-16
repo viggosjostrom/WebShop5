@@ -11,7 +11,7 @@ using WebShop5;
 //TA BORT INNAN MERGE!!
 //_________________
 UserMenu Umenu = new UserMenu();
-Umenu.UserShoppingMenu();
+UserMenu.UserShoppingMenu();
 //__________________
 
 LoginMenu menu = new LoginMenu();
@@ -49,12 +49,12 @@ while (Showmenu)
 
 
 
-if (user is Customer)
-{
-    UserMenu usermenu = new UserMenu();
-    usermenu.UserShoppingMenu();
-}
-//if (user is Admin)
+//if (user is Customer)
 //{
-
+//    UserMenu usermenu = new UserMenu();
+//    usermenu.UserShoppingMenu()
 //}
+////if (user is Admin)
+////{
+
+////}

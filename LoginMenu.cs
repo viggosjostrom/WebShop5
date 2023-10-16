@@ -77,14 +77,15 @@ public class LoginMenu
 
                             switch (r)
                             {
-
-
-                                case Role.Customer:UserMenu.UserShoppingMenu(userInfo[0]);
-                            
-                                case Role.Admin:AdminUser.loadAdmin(userInfo[0]);
+                                case Role.Customer:
+                                    UserMenu.UserShoppingMenu(userInfo[0]);
                                     break;
 
-                            }  
+                                case Role.Admin:
+                                    AdminUser.loadAdmin(userInfo[0]);
+                                    break;
+
+                            }
 
                         }
                         else
@@ -113,23 +114,23 @@ public class LoginMenu
     }
 
 
-   /*
-private Customer LoadCustomer(string username)
-{
+    /*
+ private Customer LoadCustomer(string username)
+ {
 
 
-    {
-        List<NewProducts> shoppingBag = new List<NewProducts>();
-        string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
-        foreach (string item in savedShoppingBag)
-        {
-           //shoppingBag.Add(new NewProducts(item));
-        }
-        return new Customer(username, shoppingBag);
-    }
+     {
+         List<NewProducts> shoppingBag = new List<NewProducts>();
+         string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
+         foreach (string item in savedShoppingBag)
+         {
+            //shoppingBag.Add(new NewProducts(item));
+         }
+         return new Customer(username, shoppingBag);
+     }
 
-}
-*/
+ }
+ */
 
 
 }
