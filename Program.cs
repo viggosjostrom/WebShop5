@@ -10,8 +10,8 @@ using WebShop5;
 
 //TA BORT INNAN MERGE!!
 //_________________
-UserMenu Umenu = new UserMenu();
-UserMenu.UserShoppingMenu();
+////UserMenu Umenu = new UserMenu();
+////UserMenu.UserShoppingMenu();
 //__________________
 
 LoginMenu menu = new LoginMenu();
