@@ -32,7 +32,8 @@ public class AdminUser
             switch (Choice)
             {
                 case 1:
-                    AdminUser.updateCart();
+                    NewProducts add = new NewProducts();
+                    add.AddProducts();
                     break;
                 case 2:
                     AdminUser.removeproducts();
@@ -43,8 +44,8 @@ public class AdminUser
                 case 4:
                     AdminUser.ChangeUser();
                     break;
-                case 5: return;
-
+                case 5: program.Main();
+                    break;
 
             }
 

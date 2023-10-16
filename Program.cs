@@ -9,6 +9,15 @@ using System.Threading.Tasks;
 using WebShop5;
 
 
+
+
+
+public class program
+{
+    public static void Main()
+    {
+    
+
 LoginMenu menu = new LoginMenu();
 IUser user;
 
@@ -43,4 +52,9 @@ while (Showmenu)
 }
 
 
+
+
+    }
+
+}
 
