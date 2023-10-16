@@ -8,10 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using WebShop5;
 
-//TA BORT INNAN MERGE!!
+
+
+
+public class program
+{
+    public static void Main()
+    {
+        //TA BORT INNAN MERGE!!
 //_________________
 UserMenu Umenu = new UserMenu();
-Umenu.UserShoppingMenu();
+
 //__________________
 
 LoginMenu menu = new LoginMenu();
@@ -47,7 +54,7 @@ while (Showmenu)
     }
 }
 
-
+/*
 
 if (user is Customer)
 {
@@ -57,4 +64,9 @@ if (user is Customer)
 //if (user is Admin)
 //{
 
-//}
+//}*/
+
+
+    }
+
+}
