@@ -14,8 +14,10 @@ using WebShop5;
 ////UserMenu.UserShoppingMenu();
 //__________________
 
-LoginMenu menu = new LoginMenu();
+
 IUser user;
+
+LoginMenu menu = new LoginMenu();
 
 
 
@@ -42,7 +44,7 @@ while (Showmenu)
         case 2:
             user = menu.LogIn();
             break;
-        
+
 
     }
 }
