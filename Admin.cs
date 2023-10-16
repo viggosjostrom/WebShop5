@@ -32,7 +32,8 @@ public class AdminUser
             switch (Choice)
             {
                 case 1:
-                    AdminUser.updateCart();
+                    NewProducts add = new NewProducts();
+                    add.AddProducts();
                     break;
                 case 2:
                     AdminUser.removeproducts();
