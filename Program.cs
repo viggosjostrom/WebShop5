@@ -11,15 +11,12 @@ using WebShop5;
 
 
 
+
 public class program
 {
     public static void Main()
     {
-        //TA BORT INNAN MERGE!!
-//_________________
-UserMenu Umenu = new UserMenu();
-
-//__________________
+    
 
 LoginMenu menu = new LoginMenu();
 IUser user;
@@ -54,19 +51,10 @@ while (Showmenu)
     }
 }
 
-/*
 
-if (user is Customer)
-{
-    UserMenu usermenu = new UserMenu();
-    usermenu.UserShoppingMenu();
-}
-//if (user is Admin)
-//{
-
-//}*/
 
 
     }
 
 }
+

@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace WebShop5;
 
+
 public class UserMenu : IUser
 {
+
     public static void UserShoppingMenu(string userrr)
+
     {
 
         string[] productList = File.ReadAllLines("../../../listofproducts.csv");
@@ -51,10 +54,8 @@ public class UserMenu : IUser
                     break;
 
                 case 2:
-                    // Användaren kan lägga till saker från produktlistan till sin Shoppingbag
-                    //LoginMenu.LoadCustomer();   //Funkar inte
-
-
+                    Utilities U = new Utilities();
+                    U.AddToShoppingbag();
                     break;
 
                     //case 3:
@@ -73,5 +74,12 @@ public class UserMenu : IUser
             }
         }
     }
+
+
+
+    
+
 }
+
+
 
