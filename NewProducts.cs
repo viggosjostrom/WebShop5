@@ -15,7 +15,6 @@ public class NewProducts
     public void AddProducts()
     {
 
-
         NewProducts product = new NewProducts();
 
         List<string> listofproducts = new List<string>();

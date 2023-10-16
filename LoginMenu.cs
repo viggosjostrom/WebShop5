@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebShop5;
 
@@ -29,14 +30,14 @@ public class LoginMenu
             Console.WriteLine("Choose a password");
             password = Console.ReadLine() ?? string.Empty;
             Console.Clear();
-            
+
             if (password.Length is < 8 or > 64)
             {
                 password = string.Empty;
                 Console.WriteLine("Password needs to be longer than 8 characters and shorter than 64.");
 
             }
-           else if (password.Length is > 8 or < 64)
+            else if (password.Length is > 8 or < 64)
             {
                 Console.WriteLine("Please re-enter your choosen password");
                 if (!password.Equals(Console.ReadLine()))
@@ -53,7 +54,7 @@ public class LoginMenu
 
     public IUser LogIn()
     {
-        
+
         while (true)
         {
             string[] users = File.ReadAllLines("../../../users.csv");
@@ -74,11 +75,11 @@ public class LoginMenu
                         if (Enum.TryParse(userInfo[2], out Role r))
                         {
 
-                             switch (r)
+                            switch (r)
                             {
                                 case Role.Customer: return LoadCustomer(userInfo[0]);
-                                case Role.Admin:return new Admin(userInfo[0]);
-                            }  
+                                case Role.Admin: return new Admin(userInfo[0]);
+                            }
                         }
                         else
                         {
@@ -87,31 +88,31 @@ public class LoginMenu
                             //shoppingBag.Add(new NewProducts(item));
 
                         }
-                        
+
                     }
                     else
                     {
                         Console.WriteLine("Wrong password! Try to login again");
-                        
+
                     }
 
                 }
                 else if (userInfo[0].Equals(input)) // Varför skrivs denna ej ut?
                 {
                     Console.WriteLine("The username you've entered does not exist. Try again..");
-                    
+
                 }
             }
         }
     }
-private Customer LoadCustomer(string username)
-{
-    List<NewProducts> shoppingBag = new List<NewProducts>();
-    string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
-    foreach (string item in savedShoppingBag)
+    private Customer LoadCustomer(string username)
     {
-        shoppingBag.Add(new NewProducts(item));
+        List<NewProducts> shoppingBag = new List<NewProducts>();
+        string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
+        foreach (string item in savedShoppingBag)
+        {
+            //shoppingBag.Add(new NewProducts(item));
+        }
+        return new Customer(username, shoppingBag);
     }
-    return new Customer(username, shoppingBag);
-}
 }
