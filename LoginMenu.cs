@@ -10,6 +10,7 @@ namespace WebShop5;
 
 public class LoginMenu
 {
+    
     public void Register()
     {
         string username = string.Empty;
@@ -80,6 +81,7 @@ public class LoginMenu
 
 
                                 case Role.Customer:UserMenu.UserShoppingMenu(userInfo[0]);
+                                    break;
                             
                                 case Role.Admin:AdminUser.loadAdmin(userInfo[0]);
                                     break;
