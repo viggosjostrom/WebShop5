@@ -30,7 +30,6 @@ while (Showmenu)
             break;
 
         case 1:
-
             menu.Register();
             break;
 
