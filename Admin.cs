@@ -12,7 +12,7 @@ public class AdminUser
 
 
 
-    public List<string> productlist = new List<string>(); // Deklarera newCart som en instansvariabel
+    public List<string> productlist = new List<string>(); // Deklarera som en instansvariabel
 
 
 
@@ -87,23 +87,23 @@ public class AdminUser
     {
 
 
-        AdminUser remove = new AdminUser();
+        AdminUser admin = new AdminUser();
         {
-            remove.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+            admin.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
             Console.WriteLine("Items in the cart: ");
-            for (int i = 0; i < remove.productlist.Count; i++)
+            for (int i = 0; i < admin.productlist.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {remove.productlist[i]}");
+                Console.WriteLine($"{i + 1}. {admin.productlist[i]}");
             }
 
             Console.Write("Enter the number of the item you wish to remove: ");
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice <= remove.productlist.Count)
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice <= admin.productlist.Count)
 
             {
-                remove.productlist.RemoveAt(choice - 1);
+                admin.productlist.RemoveAt(choice - 1);
                 File.WriteAllLines("../../../Cart.csv",
-                    remove.productlist);
+                    admin.productlist);
                 Console.WriteLine("Item has been removed from the cart.");
                 Console.WriteLine();
 
@@ -121,13 +121,13 @@ public class AdminUser
     public static void showProducts()
     {
 
-        AdminUser show = new AdminUser();
+        AdminUser admin = new AdminUser();
         {
             Console.Clear();
 
-            show.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+            admin.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-            foreach (var item in show.productlist)
+            foreach (var item in admin.productlist)
             {
                 Console.WriteLine(item);
             }
