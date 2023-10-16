@@ -8,7 +8,7 @@ namespace WebShop5;
 
 public class UserMenu : IUser
 {
-    public void UserShoppingMenu()
+    public static void UserShoppingMenu(string userrr)
     {
 
         string[] productList = File.ReadAllLines("../../../listofproducts.csv");

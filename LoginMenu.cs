@@ -79,8 +79,13 @@ public class LoginMenu
                             {
 
 
-                                case Role.Customer:UserMenu.UserShoppingMenu(userInfo[0]);
-                            
+                                
+                                case Role.Customer:
+                                
+                                UserMenu.UserShoppingMenu(userInfo[0]);
+                                    break;
+
+
                                 case Role.Admin:AdminUser.loadAdmin(userInfo[0]);
                                     break;
 

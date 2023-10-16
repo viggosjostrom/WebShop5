@@ -43,8 +43,8 @@ public class AdminUser
                 case 4:
                     AdminUser.ChangeUser();
                     break;
-                case 5: return;
-
+                case 5: program.Main();
+                    break;
 
             }
 
