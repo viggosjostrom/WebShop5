@@ -20,7 +20,7 @@ public class AdminUser
     {
         while (true)
         {
-            Console.WriteLine($"Welcome {User}");
+            
             Console.WriteLine();
             Console.WriteLine("You are now logged in as admin - Make your choice");
             Console.WriteLine("1 : Add Products");
@@ -73,7 +73,7 @@ public class AdminUser
 
         else
         {
-            string productToAdd = string.Format("{0}, {1}$", addProduct, addPrice);
+            string productToAdd = string.Format("{0},{1}", addProduct, addPrice);
             productlist.Add(productToAdd);
 
 
