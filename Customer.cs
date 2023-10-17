@@ -20,4 +20,6 @@ public record Customer(string Username, List<Product> Cart) : IUser
         File.AppendAllLines($"../../../ShoppingBag/{Username}.csv", tempCart);
 
     }
+    
+    
 }

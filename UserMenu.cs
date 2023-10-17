@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,7 +55,8 @@ public class UserMenu
                     break;
 
                 case 2:
-                    //Utilities.AddToShoppingbag();
+                    var add = new Utilities();
+                    add.AddToShoppingbag(); 
                     break;
 
                     //case 3:

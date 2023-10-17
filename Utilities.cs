@@ -9,9 +9,9 @@ namespace WebShop5;
 public class Utilities
 {
 
-    public void AddToShoppingbag(Customer Username) 
+    public void AddToShoppingbag(Customer Username)
     {
-
+        
         
         // få in så att vi kan koppla användare hit 
 
