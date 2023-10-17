@@ -61,12 +61,19 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
+                if(choice > productList.Count)
+                {
+                    Console.WriteLine("Invalid selection. No items were added.");
+                    Console.WriteLine();
+                    break;
+                }
                 newItem = productList[choice - 1];
             }
             else
             {
                 Console.WriteLine("Invalid selection. No items were added.");
                 Console.WriteLine();
+                break;
             }
 
             ShoppingBag.Add(newItem);
@@ -168,12 +175,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             foreach (string line in bag)
             {
-                string[] split = line.Split(", ");
+                string[] split = line.Split(",");
 
                 string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-                    checkoutShoppingbag.Add(split[0], price);
+                    checkoutShoppingbag.Add(split[0],price);
                     sum += price;
                 }
                 else
