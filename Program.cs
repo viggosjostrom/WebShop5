@@ -46,9 +46,6 @@ if(user is Admin)
 
 if(user is Customer c)
 {
-<<<<<<< HEAD
-    UserMenu.UserShoppingMenu();
-=======
     bool UserMenu = true;
 
     Console.WriteLine("\t\t\tUSER MENU\n");
@@ -100,7 +97,7 @@ if(user is Customer c)
 
         }
     }
->>>>>>> main
+
     
     c.SaveCart(); // spara nuvarande användares shoppingbag
     // c.Cart.Add customer lägger till produkt i sin shoppingbag
