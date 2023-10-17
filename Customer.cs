@@ -107,7 +107,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
 
 
-            List<string> userCart = new List<string>(File.ReadAllLines("../../../Shoppingbag.csv"));
+            List<string> userCart = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
 
             string removeItem = string.Empty;
             Console.WriteLine("\t\t\tREMOVE PRODUCTS FROM CART\n");
@@ -127,7 +127,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
                 userCart.RemoveAt(choice - 1);
-                File.WriteAllLines("../../../Shoppingbag.csv", userCart);
+                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", userCart);
                 Console.WriteLine("Item as been removed from cart.");
             }
             else
@@ -157,7 +157,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
 
-        string[] bag = File.ReadAllLines("../../../Shoppingbag.csv");
+        string[] bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
 
 
 
@@ -228,8 +228,20 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
-            User.UserShoppingMenu();
+            
         }
+    }
+
+    public void ShowProducts()
+    {
+        List<string> Catalog = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+
+        foreach (var item in Catalog)
+        {
+            Console.WriteLine($"{item}$");
+        }
+        Console.WriteLine();
+        Console.WriteLine();
     }
 
 
