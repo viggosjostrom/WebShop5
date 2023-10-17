@@ -8,16 +8,6 @@ using WebShop5;
 
 namespace WebShop5;
 
-public class receipt
+public class Receipt
 {
-    public void printReceipts(Customer user)
-    {
-        string usernameFile = user.Username;
-        string[] receiptList = File.ReadAllLines($"../../../{usernameFile}.csv");
-
-
-        Console.WriteLine(receiptList);
-        
-
-    }
 }
