@@ -20,6 +20,17 @@ public record Customer(string Username, List<Product> Cart) : IUser
         File.AppendAllLines($"../../../ShoppingBag/{Username}.csv", tempCart);
 
     }
-    
-    
+
+
+    public void PrintReceipts()
+    {
+        string[] receipt = File.ReadAllLines($"../../../{Username}.csv");
+        foreach(string item in receipt)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+
+
 }
