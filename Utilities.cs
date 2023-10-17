@@ -8,10 +8,10 @@ namespace WebShop5;
 
 public class Utilities
 {
-    public void AddToShoppingbag(Customer user) // vad är user i detta fallet? 
+    public void AddToShoppingbag() 
     {
-
-        string username = user.Username; // Kan detta funka för att skriva till shoppingbag??
+        
+        // få in så att vi kan koppla användare hit 
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 

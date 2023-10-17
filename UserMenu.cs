@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace WebShop5;
 
 
-public class UserMenu : IUser
+public class UserMenu
 {
 
-    public static void UserShoppingMenu(string userrr)
+    public static void UserShoppingMenu(string userCurrent)
 
     {
 

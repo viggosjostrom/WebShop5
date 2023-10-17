@@ -16,7 +16,6 @@ public class NewProducts
     {
 
         NewProducts product = new NewProducts();
-
         List<string> listofproducts = new List<string>();
         bool addProduct = true;
 

@@ -5,5 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WebShop5;
-
-public record Admin(string Username) : IUser;
+public record Product(string Name, int Price)
+{
+    public string ToCSVString()
+    {
+        return $"{Name},{Price}";
+    }
+}

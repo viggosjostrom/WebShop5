@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebShop5;
+﻿using WebShop5;
 
 
-
-
-
-public class program
-{
-    public static void Main()
-    {
-    
 
 LoginMenu menu = new LoginMenu();
-IUser user;
+IUser? user = null;
 
 
 
@@ -52,9 +36,15 @@ while (Showmenu)
 }
 
 
-
-
-    }
+if(user is Admin)
+{
 
 }
+
+if(user is Customer c)
+{
+    c.SaveCart(); // spara nuvarande användares shoppingbag
+    // c.Cart.Add customer lägger till produkt i sin shoppingbag
+}
+
 
