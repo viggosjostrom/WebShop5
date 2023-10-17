@@ -50,17 +50,19 @@ if(user is Customer c)
     c.SaveCart(); // spara nuvarande användares shoppingbag
     // c.Cart.Add customer lägger till produkt i sin shoppingbag
     c.PrintReceipts();
+    c.AddToShoppingbag();
+    c.RemoveFromShoppingbag();
+    c.PurchaseShoppingbag();
+    //Catalog.ShowProducts();
 
-    Catalog.ShowProducts();
-
-    if(int.TryParse(Console.ReadLine(), out int choice) && choice <= Catalog.Count())
-    {
-        c.Cart.Add(Catalog.Products[choice - 1]);
-    }
-    else
-    {
-        Console.WriteLine("Please enter a valid product number");
-    }
+    //if(int.TryParse(Console.ReadLine(), out int choice) && choice <= Catalog.Count())
+    //{
+    //    c.Cart.Add(Catalog.Products[choice - 1]);
+    //}
+    //else
+    //{
+    //    Console.WriteLine("Please enter a valid product number");
+    //}
 
 }
 

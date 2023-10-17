@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WebShop5;
 
 
-public class UserMenu
+public class UserMenu : IUser
 {
 
     public static void UserShoppingMenu()
@@ -55,8 +55,10 @@ public class UserMenu
                     break;
 
                 case 2:
-                    var add = new Utilities();
-                    add.AddToShoppingbag(); 
+
+                    
+                    
+
                     break;
 
                     //case 3:
