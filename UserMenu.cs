@@ -54,7 +54,7 @@ public class UserMenu
                     break;
 
                 case 2:
-                    //Utilities.AddToShoppingbag();
+                    Utilities.AddToShoppingbag();
                     break;
 
                     //case 3:

@@ -44,6 +44,7 @@ if(user is Admin)
 if(user is Customer c)
 {
     UserMenu.UserShoppingMenu();
+    
     c.SaveCart(); // spara nuvarande användares shoppingbag
     // c.Cart.Add customer lägger till produkt i sin shoppingbag
 }
