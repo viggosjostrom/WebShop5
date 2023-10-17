@@ -10,7 +10,7 @@ namespace WebShop5;
 public class UserMenu
 {
 
-    public static void UserShoppingMenu(string userCurrent)
+    public static void UserShoppingMenu()
 
     {
 
@@ -54,8 +54,7 @@ public class UserMenu
                     break;
 
                 case 2:
-                    Utilities U = new Utilities();
-                    U.AddToShoppingbag();
+                    //Utilities.AddToShoppingbag();
                     break;
 
                     //case 3:

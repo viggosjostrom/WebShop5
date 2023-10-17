@@ -8,14 +8,16 @@ namespace WebShop5;
 
 public class Utilities
 {
-    public void AddToShoppingbag() 
+
+    public void AddToShoppingbag(Customer Username) 
     {
+
         
         // få in så att vi kan koppla användare hit 
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-        List<string> userCart = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{username}.csv"));
+        List<string> userCart = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
 
         string newProduct = string.Empty;
         string newItem = string.Empty;
@@ -52,7 +54,7 @@ public class Utilities
             // Skriv över filen "products.csv" om användaren vill lägga till mer produkter.
             if (newProduct == "y")
             {
-                File.WriteAllLines($"../../../ShoppingBag/{username}.csv", userCart); // denna bör väl skriva till användarens personliga shopping bag?
+                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", userCart); // denna bör väl skriva till användarens personliga shopping bag?
             }
 
 

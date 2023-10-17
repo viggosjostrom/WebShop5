@@ -16,7 +16,7 @@ public class AdminMenu
 
 
 
-    public static void loadAdmin(string User)
+    public static void loadAdmin()
     {
         while (true)
         {
@@ -36,15 +36,15 @@ public class AdminMenu
                     add.AddProducts();
                     break;
                 case 2:
-                    AdminUser.removeproducts();
+                    AdminMenu.removeproducts();
                     break;
                 case 3:
-                    AdminUser.showProducts();
+                    AdminMenu.showProducts();
                     break;
                 case 4:
-                    AdminUser.ChangeUser();
+                    AdminMenu.ChangeUser();
                     break;
-                case 5: program.Main();
+                case 5:
                     break;
 
             }
@@ -88,7 +88,7 @@ public class AdminMenu
     {
 
 
-        AdminUser admin = new AdminUser();
+        AdminMenu admin = new AdminMenu();
         {
             admin.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
@@ -122,7 +122,7 @@ public class AdminMenu
     public static void showProducts()
     {
 
-        AdminUser admin = new AdminUser();
+        AdminMenu admin = new AdminMenu();
         {
             Console.Clear();
 
