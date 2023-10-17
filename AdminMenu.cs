@@ -32,8 +32,8 @@ public class AdminMenu
             switch (Choice)
             {
                 case 1:
-                    NewProducts add = new NewProducts();
-                    add.AddProducts();
+                    Product add = new Product();
+                    add.ToCSVString();
                     break;
                 case 2:
                     AdminMenu.removeproducts();

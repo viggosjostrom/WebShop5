@@ -9,7 +9,7 @@ namespace WebShop5;
 public class Utilities
 {
 
-    public void AddToShoppingbag(Customer Username) 
+    public void AddToShoppingbag(Customer Username)
     {
 
         
