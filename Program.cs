@@ -29,8 +29,8 @@ while (Showmenu)
 
         case 2:
             user = menu.LogIn();
+            Showmenu = false;
             break;
-        
 
     }
 }
@@ -38,11 +38,12 @@ while (Showmenu)
 
 if(user is Admin)
 {
-
+    AdminMenu.loadAdmin();
 }
 
 if(user is Customer c)
 {
+    UserMenu.UserShoppingMenu();
     c.SaveCart(); // spara nuvarande användares shoppingbag
     // c.Cart.Add customer lägger till produkt i sin shoppingbag
 }
