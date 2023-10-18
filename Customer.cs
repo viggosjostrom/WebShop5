@@ -173,8 +173,6 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         if (bag.Length != 0)
         {
-
-
             foreach (string lines in bag)
             {
                 string[] split = lines.Split(",");
@@ -182,7 +180,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-                    checkoutShoppingbag.Add(split[0], new List<int>());                   
+                    checkoutShoppingbag.Add(split[0], new List<int>());               
                 }
                 else
                 {
