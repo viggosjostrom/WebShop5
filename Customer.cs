@@ -165,7 +165,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
 
-        Dictionary<string, List<int>> checkoutShoppingbag = new Dictionary<string, List<int>>();
+        Dictionary<string, List<int>> checkoutShoppingbag = new Dictionary<string, List<int>>();    //Nested list i dictionary
 
         string[] bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
 
@@ -174,7 +174,6 @@ public record Customer(string Username, List<Product> Cart) : IUser
         if (bag.Length != 0)
         {
 
-            int sum = 0;
 
             foreach (string lines in bag)
             {
@@ -183,11 +182,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-
-                    checkoutShoppingbag.Add(split[0], new List<int>(price));
-                    //checkoutShoppingbag[split[1]].Add(price);
-
-                    sum += price;
+                    checkoutShoppingbag.Add(split[0], new List<int>());                   
                 }
                 else
                 {
@@ -198,25 +193,26 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
 
 
+            DateTime date = DateTime.Now;
             foreach (string name in checkoutShoppingbag.Keys)
-            {                
-                Console.WriteLine($"hej {name}");
+            {
+                foreach (List<int> price in checkoutShoppingbag.Values) // Price funkar inte att skriva ut????
+                {
+                    Console.WriteLine($"{name}, \t{price[0]}$, \t\t{date}");
+                }
             }
 
-                //foreach (List<int> price in checkoutShoppingbag.Values)
-                //{
-                //Console.WriteLine(price);
-                //}
 
-            //// Totala priset
-            //int totalSum = 0;
+            // Total price of the products
+            int totalSum = 0;
+            foreach (List<int> price in checkoutShoppingbag.Values)
+            {
+                totalSum += price.Sum();
+            }
+            Console.WriteLine("Total: " + totalSum + "$ ");
 
-            //Console.WriteLine("Total: " + totalSum + "$ ");
 
 
-            ////DateTime date = DateTime.Now;
-
-            Console.WriteLine("Total: " + sum + "$ ");
 
             bool purchase = true;
 
