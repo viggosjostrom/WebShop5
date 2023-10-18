@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
     public void SaveCart()
     {
         List<string> tempCart = new List<string>();
-        foreach(Product product in Cart)
+        foreach (Product product in Cart)
         {
             tempCart.Add(product.ToCSVString());
         }
@@ -25,7 +26,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
     public void PrintReceipts()
     {
         string[] receipt = File.ReadAllLines($"../../../{Username}.csv");
-        foreach(string item in receipt)
+        foreach (string item in receipt)
         {
             Console.WriteLine(item);
         }
@@ -35,7 +36,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
     {
 
 
-       
+
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
@@ -61,7 +62,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
-                if(choice > productList.Count)
+                if (choice > productList.Count)
                 {
                     Console.WriteLine("Invalid selection. No items were added.");
                     Console.WriteLine();
@@ -159,10 +160,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
     public void PurchaseShoppingbag()
     {
 
+
+
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
 
-        Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
+        Dictionary<string, List<int>> checkoutShoppingbag = new Dictionary<string, List<int>>();
 
         string[] bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
 
@@ -173,14 +176,17 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             int sum = 0;
 
-            foreach (string line in bag)
+            foreach (string lines in bag)
             {
-                string[] split = line.Split(",");
+                string[] split = lines.Split(",");
 
                 string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-                    checkoutShoppingbag.Add(split[0],price);
+
+                    checkoutShoppingbag.Add(split[0], new List<int>(price));
+                    //checkoutShoppingbag[split[1]].Add(price);
+
                     sum += price;
                 }
                 else
@@ -190,12 +196,25 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             }
 
-            foreach (KeyValuePair<string, int> line in checkoutShoppingbag)
-            {
-                //"Key (Name) = {0}, Value (Price) = {1}", line.Key, line.Value
-                Console.WriteLine("{0}, {1}$", line.Key, line.Value);
+
+
+            foreach (string name in checkoutShoppingbag.Keys)
+            {                
+                Console.WriteLine($"hej {name}");
             }
-            //DateTime date = DateTime.Now;
+
+                //foreach (List<int> price in checkoutShoppingbag.Values)
+                //{
+                //Console.WriteLine(price);
+                //}
+
+            //// Totala priset
+            //int totalSum = 0;
+
+            //Console.WriteLine("Total: " + totalSum + "$ ");
+
+
+            ////DateTime date = DateTime.Now;
 
             Console.WriteLine("Total: " + sum + "$ ");
 
@@ -219,7 +238,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.ReadKey();
 
                     purchase = false;
-                    
+
                 }
                 else
                 {
@@ -235,7 +254,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
-            
+
         }
     }
 
