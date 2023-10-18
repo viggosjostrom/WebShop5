@@ -49,20 +49,28 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
 
             Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
-
+            
             Console.WriteLine("Products to buy: ");
             for (int i = 0; i < productList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {productList[i]}");
             }
-
+            
             Console.WriteLine();
             Console.WriteLine("Enter number of the product you want to add in cart: ");
-
-            if (int.TryParse(Console.ReadLine(), out int choice))
+            Console.WriteLine("To go back to menu write x");
+            string? input = Console.ReadLine();
+            if(input == "x")
             {
+                newProduct = "n";
+                break;
+            }
+            if (int.TryParse(input, out int choice))
+            {
+                
                 if(choice > productList.Count)
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid selection. No items were added.");
                     Console.WriteLine();
                     break;
@@ -71,6 +79,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("Invalid selection. No items were added.");
                 Console.WriteLine();
                 break;
@@ -96,13 +105,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         // Skriver ut användarens kundvagn.
 
-        Console.WriteLine("Your cart:");
+        Console.WriteLine("\t\t\tYOUR SHOPPINGBAG:");
         Console.WriteLine();
         foreach (string row in ShoppingBag)
         {
             Console.WriteLine(row);
         }
-
+        Console.WriteLine();
     }
 
     public void RemoveFromShoppingbag()
