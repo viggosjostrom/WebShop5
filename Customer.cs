@@ -171,42 +171,38 @@ public record Customer(string Username, List<Product> Cart) : IUser
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
 
-        Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
-
-        string[] bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
-
+      
+        List<string> bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv").ToList();
 
 
-        if (bag.Length != 0)
+        if (bag.Count != 0)
         {
 
             int sum = 0;
-
+           
             foreach (string line in bag)
             {
+                
                 string[] split = line.Split(",");
+                
 
-                string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-                    checkoutShoppingbag.Add(split[0],price);
+                    
                     sum += price;
                 }
                 else
                 {
                     Console.WriteLine("Something went wrong with the 'Parse'.");
                 }
-
+                string str = line.Replace(',', '\t');
+                Console.WriteLine($"{str}$");
             }
 
-            foreach (KeyValuePair<string, int> line in checkoutShoppingbag)
-            {
-                //"Key (Name) = {0}, Value (Price) = {1}", line.Key, line.Value
-                Console.WriteLine("{0}, {1}$", line.Key, line.Value);
-            }
-            //DateTime date = DateTime.Now;
+         
+            DateTime date = DateTime.Now;
 
-            Console.WriteLine("Total: " + sum + "$ ");
+            Console.WriteLine("Total: " + sum + "$\t\t  " + date);
 
             bool purchase = true;
 
