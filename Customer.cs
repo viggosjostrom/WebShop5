@@ -25,7 +25,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
         }
     }
 
-    public void chooseReceipt()
+    public void ChooseReceipt()
     {
         string userInput = null;
 

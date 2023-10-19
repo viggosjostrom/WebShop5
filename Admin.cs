@@ -8,7 +8,7 @@ namespace WebShop5;
 
 public record Admin(string Username) : IUser
 {
-    public void updateCart()
+    public void AddToCatalog()
     {
         List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
@@ -37,7 +37,7 @@ public record Admin(string Username) : IUser
 
     }
 
-    public void removeproducts()
+    public void Removeproducts()
     {
 
 
@@ -72,7 +72,7 @@ public record Admin(string Username) : IUser
 
     }
 
-    public void showProducts()
+    public void DisplayCatalog()
     {
 
         AdminMenu admin = new AdminMenu();

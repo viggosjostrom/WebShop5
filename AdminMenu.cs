@@ -9,11 +9,7 @@ namespace WebShop5;
 
 public class AdminMenu
 {
-
-
-
-    public List<string> productlist = new List<string>(); // Deklarera som en instansvariabel
- 
+    public List<string> productlist = new List<string>(); // Deklarera som en instansvariabel 
 }
 
 

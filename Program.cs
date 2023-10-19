@@ -56,13 +56,13 @@ if(user is Admin a)
         {
             case 1:
 
-                a.updateCart(); // Ska bytas till AddToCatalog(); ?
+                a.AddToCatalog(); // Ska bytas till AddToCatalog(); ?
                 break;
             case 2:
-                a.removeproducts();
+                a.Removeproducts();
                 break;
             case 3:
-                a.showProducts(); // ska bytas till DisplayCatalog(); ?
+                a.DisplayCatalog(); // ska bytas till DisplayCatalog(); ?
                 break;
             case 4:
                 a.ChangeUser();
