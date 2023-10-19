@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebShop5;
+﻿namespace WebShop5;
 
 public record Customer(string Username, List<Product> Cart) : IUser
 {
     public void SaveCart()
     {
         List<string> tempCart = new List<string>();
-        foreach(Product product in Cart)
+        foreach (Product product in Cart)
         {
             tempCart.Add(product.ToCSVString());
         }
@@ -25,7 +19,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
     public void PrintReceipts()
     {
         string[] receipt = File.ReadAllLines($"../../../{Username}.csv");
-        foreach(string item in receipt)
+        foreach (string item in receipt)
         {
             Console.WriteLine(item);
         }
@@ -60,7 +54,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
     {
 
 
-       
+
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
@@ -92,8 +86,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
             if (int.TryParse(input, out int choice))
             {
-                
+             
                 if(choice > productList.Count)
+
                 {
                     Console.Clear();
                     Console.WriteLine("Invalid selection. No items were added.");
@@ -192,42 +187,30 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void PurchaseShoppingbag()
     {
-
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
 
-      
-        List<string> bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv").ToList();
+        if (Cart.Count() == 0)
 
-
-        if (bag.Count != 0)
         {
+            Console.WriteLine("Nothing in shoppingbag to purchase");
+            Console.WriteLine("Press any key to go to User Menu");
+            Console.ReadKey();
+            return;
+        }
+        else
+        {
+            DateTime date = DateTime.Now;
+            int total = 0;
 
-            int sum = 0;
-           
-            foreach (string line in bag)
+            foreach (Product product in Cart)
             {
-                
-                string[] split = line.Split(",");
-                
-
-                if (int.TryParse(split[1], out int price))
-                {
-                    
-                    sum += price;
-                }
-                else
-                {
-                    Console.WriteLine("Something went wrong with the 'Parse'.");
-                }
-                string str = line.Replace(',', '\t');
-                Console.WriteLine($"{str}$");
+                Console.WriteLine($"{product.Name}, \t{product.Price}$, \t\t{date}");
+                total += product.Price;
             }
 
-         
-            DateTime date = DateTime.Now;
+            Console.WriteLine($"Total: {total}$");
 
-            Console.WriteLine("Total: " + sum + "$\t\t  " + date);
 
             bool purchase = true;
 
@@ -249,7 +232,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.ReadKey();
 
                     purchase = false;
-                    
+
                 }
                 else
                 {
@@ -260,13 +243,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
         }
 
-        else
-        {
-            Console.WriteLine("Nothing in shoppingbag to purchase");
-            Console.WriteLine("Press any key to go to User Menu");
-            Console.ReadKey();
-            
-        }
+
     }
 
     public void ShowProducts()

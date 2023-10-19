@@ -135,6 +135,7 @@ if(user is Customer c)
 
         }
     }
+
     
     c.SaveCart(); // spara nuvarande användares shoppingbag
     // c.Cart.Add customer lägger till produkt i sin shoppingbag
