@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebShop5;
+﻿namespace WebShop5;
 
 public record Customer(string Username, List<Product> Cart) : IUser
 {
@@ -159,58 +152,27 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void PurchaseShoppingbag()
     {
-
-
-
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
-
-        Dictionary<string, List<int>> checkoutShoppingbag = new Dictionary<string, List<int>>();    //Nested list i dictionary
-
-        string[] bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
-
-
-
-        if (bag.Length != 0)
+        if (Cart.Count() == 0)
         {
-            foreach (string lines in bag)
-            {
-                string[] split = lines.Split(",");
-
-                string res = split[1];
-                if (int.TryParse(split[1], out int price))
-                {
-                    checkoutShoppingbag.Add(split[0], new List<int>());               
-                }
-                else
-                {
-                    Console.WriteLine("Something went wrong with the 'Parse'.");
-                }
-
-            }
-
-
-
+            Console.WriteLine("Nothing in shoppingbag to purchase");
+            Console.WriteLine("Press any key to go to User Menu");
+            Console.ReadKey();
+            return;
+        }
+        else
+        {
             DateTime date = DateTime.Now;
-            foreach (string name in checkoutShoppingbag.Keys)
+            int total = 0;
+
+            foreach (Product product in Cart)
             {
-                foreach (List<int> price in checkoutShoppingbag.Values) // Price funkar inte att skriva ut????
-                {
-                    Console.WriteLine($"{name}, \t{price[0]}$, \t\t{date}");
-                }
+                Console.WriteLine($"{product.Name}, \t{product.Price}$, \t\t{date}");
+                total += product.Price;
             }
 
-
-            // Total price of the products
-            int totalSum = 0;
-            foreach (List<int> price in checkoutShoppingbag.Values)
-            {
-                totalSum += price.Sum();
-            }
-            Console.WriteLine("Total: " + totalSum + "$ ");
-
-
-
+            Console.WriteLine($"Total: {total}$");
 
             bool purchase = true;
 
@@ -243,13 +205,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
         }
 
-        else
-        {
-            Console.WriteLine("Nothing in shoppingbag to purchase");
-            Console.WriteLine("Press any key to go to User Menu");
-            Console.ReadKey();
 
-        }
     }
 
     public void ShowProducts()
