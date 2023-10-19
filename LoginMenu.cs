@@ -107,7 +107,7 @@ public class LoginMenu
                 }
             }
         }
-    }
+    } // Kolla felhanteringen!
 
 
    

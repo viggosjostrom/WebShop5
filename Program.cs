@@ -1,14 +1,8 @@
 ﻿using System.Data.Common;
 using WebShop5;
 
-
-
 LoginMenu menu = new LoginMenu();
 IUser? user = null;
-
-
-
-
 bool Showmenu = true;
 
 while (Showmenu)
@@ -37,8 +31,6 @@ while (Showmenu)
 }
 
 
-
-
 if(user is Admin a)
 {
     while (true)
@@ -51,7 +43,7 @@ if(user is Admin a)
         Console.WriteLine("3 : Show Productlist");
         Console.WriteLine("4 : Change or del - Users");
         Console.WriteLine("5 : Go back to main Menu");
-        int Choice = Convert.ToInt32(Console.ReadLine());
+            int Choice = Convert.ToInt32(Console.ReadLine());
         switch (Choice)
         {
             case 1:
@@ -137,7 +129,7 @@ if(user is Customer c)
     }
 
     
-    c.SaveCart(); // spara nuvarande användares shoppingbag
+    // c.SaveCart(); // spara nuvarande användares shoppingbag
     // c.Cart.Add customer lägger till produkt i sin shoppingbag
   
     //Catalog.ShowProducts();
