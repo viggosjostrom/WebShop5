@@ -252,7 +252,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         foreach (var item in Catalog)
         {
-            Console.WriteLine($"{item}$");
+           
+            string str = item.Replace(',', '\t');
+            Console.WriteLine($"{str}$");
         }
         Console.WriteLine();
         Console.WriteLine();
