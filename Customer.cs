@@ -74,20 +74,28 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
 
             Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
-
+            
             Console.WriteLine("Products to buy: ");
             for (int i = 0; i < productList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {productList[i]}");
             }
-
+            
             Console.WriteLine();
             Console.WriteLine("Enter number of the product you want to add in cart: ");
-
-            if (int.TryParse(Console.ReadLine(), out int choice))
+            Console.WriteLine("To go back to menu write x");
+            string? input = Console.ReadLine();
+            if(input == "x")
             {
+                newProduct = "n";
+                break;
+            }
+            if (int.TryParse(input, out int choice))
+            {
+                
                 if(choice > productList.Count)
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid selection. No items were added.");
                     Console.WriteLine();
                     break;
@@ -96,6 +104,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("Invalid selection. No items were added.");
                 Console.WriteLine();
                 break;
@@ -121,13 +130,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         // Skriver ut användarens kundvagn.
 
-        Console.WriteLine("Your cart:");
+        Console.WriteLine("\t\t\tYOUR SHOPPINGBAG:");
         Console.WriteLine();
         foreach (string row in ShoppingBag)
         {
             Console.WriteLine(row);
         }
-
+        Console.WriteLine();
     }
 
     public void RemoveFromShoppingbag()
@@ -187,42 +196,38 @@ public record Customer(string Username, List<Product> Cart) : IUser
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
 
-        Dictionary<string, int> checkoutShoppingbag = new Dictionary<string, int>();
-
-        string[] bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
-
+      
+        List<string> bag = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv").ToList();
 
 
-        if (bag.Length != 0)
+        if (bag.Count != 0)
         {
 
             int sum = 0;
-
+           
             foreach (string line in bag)
             {
+                
                 string[] split = line.Split(",");
+                
 
-                string res = split[1];
                 if (int.TryParse(split[1], out int price))
                 {
-                    checkoutShoppingbag.Add(split[0],price);
+                    
                     sum += price;
                 }
                 else
                 {
                     Console.WriteLine("Something went wrong with the 'Parse'.");
                 }
-
+                string str = line.Replace(',', '\t');
+                Console.WriteLine($"{str}$");
             }
 
-            foreach (KeyValuePair<string, int> line in checkoutShoppingbag)
-            {
-                //"Key (Name) = {0}, Value (Price) = {1}", line.Key, line.Value
-                Console.WriteLine("{0}, {1}$", line.Key, line.Value);
-            }
-            //DateTime date = DateTime.Now;
+         
+            DateTime date = DateTime.Now;
 
-            Console.WriteLine("Total: " + sum + "$ ");
+            Console.WriteLine("Total: " + sum + "$\t\t  " + date);
 
             bool purchase = true;
 

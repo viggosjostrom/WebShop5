@@ -39,19 +39,52 @@ while (Showmenu)
 
 
 
-if(user is Admin)
+if(user is Admin a)
 {
-    AdminMenu.loadAdmin();
+    while (true)
+    {
+
+        Console.WriteLine();
+        Console.WriteLine("You are now logged in as admin - Make your choice");
+        Console.WriteLine("1 : Add Products");
+        Console.WriteLine("2 : Remove Products");
+        Console.WriteLine("3 : Show Productlist");
+        Console.WriteLine("4 : Change or del - Users");
+        Console.WriteLine("5 : Go back to main Menu");
+        int Choice = Convert.ToInt32(Console.ReadLine());
+        switch (Choice)
+        {
+            case 1:
+
+                a.updateCart(); // Ska bytas till AddToCatalog(); ?
+                break;
+            case 2:
+                a.removeproducts();
+                break;
+            case 3:
+                a.showProducts(); // ska bytas till DisplayCatalog(); ?
+                break;
+            case 4:
+                a.ChangeUser();
+                break;
+            case 5:
+                break;
+
+        }
+
+
+    }
 }
 
 if(user is Customer c)
 {
     bool UserMenu = true;
 
-    Console.WriteLine("\t\t\tUSER MENU\n");
+    
 
     while (UserMenu)
     {
+        Console.WriteLine("\t\t\tUSER MENU\n");
         Console.WriteLine("MENU: ");
         Console.WriteLine("1 : Show Products");
         Console.WriteLine("2 : Shop Products");
@@ -72,22 +105,27 @@ if(user is Customer c)
 
             case 1:
                 // Loop som listar alla produkter
-                c.ShowProducts(); 
+                Console.Clear();
+                c.ShowProducts();
                 break;
 
             case 2:
+                Console.Clear();
                 c.AddToShoppingbag();
                 break;
             
             case 3:
+                Console.Clear();
                 c.RemoveFromShoppingbag();
                 break;
             
             case 4:
+                Console.Clear();
                 c.PurchaseShoppingbag();
                 break;
 
             case 5:
+                Console.Clear();
                 c.PrintReceipts();
                 break;
             
