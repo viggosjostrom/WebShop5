@@ -31,6 +31,31 @@ public record Customer(string Username, List<Product> Cart) : IUser
         }
     }
 
+    public void chooseReceipt()
+    {
+        string userInput = null;
+
+        string path = @"receipts/";
+        string[] receipts = Directory.GetFiles(path);
+
+        while (string.IsNullOrWhiteSpace(userInput))
+        {
+            Console.WriteLine("please enter a valid receipt number");
+            userInput = Console.ReadLine();
+        } 
+            
+        for(int i = 0; i <= receipts.Length; i++)
+        {
+            int compare = i + 1;
+            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice) ;
+            {
+                Console.WriteLine(receipts[i]);
+                string[] receipt = File.ReadAllLines($"receipts/{Username}.csv");
+            }
+        }
+    }
+
+
     public void AddToShoppingbag()
     {
 
