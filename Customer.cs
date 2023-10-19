@@ -25,6 +25,31 @@ public record Customer(string Username, List<Product> Cart) : IUser
         }
     }
 
+    public void chooseReceipt()
+    {
+        string userInput = null;
+
+        string path = @"receipts/";
+        string[] receipts = Directory.GetFiles(path);
+
+        while (string.IsNullOrWhiteSpace(userInput))
+        {
+            Console.WriteLine("please enter a valid receipt number");
+            userInput = Console.ReadLine();
+        } 
+            
+        for(int i = 0; i <= receipts.Length; i++)
+        {
+            int compare = i + 1;
+            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice) ;
+            {
+                Console.WriteLine(receipts[i]);
+                string[] receipt = File.ReadAllLines($"receipts/{Username}.csv");
+            }
+        }
+    }
+
+
     public void AddToShoppingbag()
     {
 
@@ -43,20 +68,29 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
 
             Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
-
+            
             Console.WriteLine("Products to buy: ");
             for (int i = 0; i < productList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {productList[i]}");
             }
-
+            
             Console.WriteLine();
             Console.WriteLine("Enter number of the product you want to add in cart: ");
-
-            if (int.TryParse(Console.ReadLine(), out int choice))
+            Console.WriteLine("To go back to menu write x");
+            string? input = Console.ReadLine();
+            if(input == "x")
             {
-                if (choice > productList.Count)
+                newProduct = "n";
+                break;
+            }
+            if (int.TryParse(input, out int choice))
+            {
+             
+                if(choice > productList.Count)
+
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid selection. No items were added.");
                     Console.WriteLine();
                     break;
@@ -65,6 +99,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("Invalid selection. No items were added.");
                 Console.WriteLine();
                 break;
@@ -90,13 +125,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         // Skriver ut användarens kundvagn.
 
-        Console.WriteLine("Your cart:");
+        Console.WriteLine("\t\t\tYOUR SHOPPINGBAG:");
         Console.WriteLine();
         foreach (string row in ShoppingBag)
         {
             Console.WriteLine(row);
         }
-
+        Console.WriteLine();
     }
 
     public void RemoveFromShoppingbag()
@@ -154,7 +189,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
     {
         Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
 
+
         if (Cart.Count() == 0)
+
         {
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
@@ -173,6 +210,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             }
 
             Console.WriteLine($"Total: {total}$");
+
 
             bool purchase = true;
 
