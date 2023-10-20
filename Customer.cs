@@ -105,7 +105,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 break;
             }
 
-            ShoppingBag.Add(newItem);
+            ShoppingBag.Add(newItem); // Använd "Cart" lista istället?
+
 
 
 
@@ -132,7 +133,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine(row);
         }
         Console.WriteLine();
-    }
+    } // Använd Cart
 
     public void RemoveFromShoppingbag()
     {
@@ -183,7 +184,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.Clear();
 
         }
-    }
+    } // Använd Cart , samma som i PurchaseShoppingBag
 
     public void PurchaseShoppingbag()
     {
