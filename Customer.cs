@@ -196,7 +196,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
-            return;
+            
         }
         else
         {
