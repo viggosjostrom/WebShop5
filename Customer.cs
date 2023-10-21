@@ -2,6 +2,12 @@
 
 public record Customer(string Username, List<Product> Cart) : IUser
 {
+
+    public void ShowMainMenu()
+    {
+        Console.WriteLine("Make a menu");
+        Console.ReadLine();
+    }
     public void SaveCart()
     {
         List<string> tempCart = new List<string>();
