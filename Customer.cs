@@ -18,7 +18,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void PrintReceipts()
     {
-        string[] receipt = File.ReadAllLines($"../../../{Username}.csv");
+        string[] receipt = File.ReadAllLines($"../../../ShoppingBag/{Username}.csv");
         foreach (string item in receipt)
         {
             Console.WriteLine(item);
