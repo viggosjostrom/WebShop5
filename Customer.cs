@@ -5,8 +5,69 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void ShowMainMenu()
     {
-        Console.WriteLine("Make a menu");
-        Console.ReadLine();
+        while (true)
+        {
+            Console.WriteLine("\t\t\tUSER MENU\n");
+            Console.WriteLine("MENU: ");
+            Console.WriteLine("1 : Show Products");
+            Console.WriteLine("2 : Shop Products");
+            Console.WriteLine("3 : Remove from your Shopping Bag");
+            Console.WriteLine("4 : Go to payment / Checkout");
+            Console.WriteLine("5 : Order History");
+            Console.WriteLine("0 : Sign Out");
+
+
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+                switch (choice)
+                {
+                    case 0:
+                        // Användaren loggar ut                  
+
+                        Console.Clear();
+                        break;
+
+                    case 1:
+                        // Loop som listar alla produkter
+                        Console.Clear();
+                        ShowProducts();
+                        break;
+
+                    case 2:
+                        Console.Clear();
+                        AddToShoppingbag();
+                        break;
+
+                    case 3:
+                        Console.Clear();
+                        RemoveFromShoppingbag();
+                        break;
+
+                    case 4:
+                        Console.Clear();
+                        PurchaseShoppingbag();
+                        break;
+
+                    case 5:
+                        Console.Clear();
+                        PrintReceipts();
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice");
+                        break;
+
+                }
+
+
+            }
+            else
+            {
+                Console.WriteLine("Input must be number");
+                Console.ReadLine();
+            }
+
+        }
     }
     public void SaveCart()
     {
@@ -42,9 +103,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
             Console.WriteLine("please enter a valid receipt number");
             userInput = Console.ReadLine();
-        } 
-            
-        for(int i = 0; i <= receipts.Length; i++)
+        }
+
+        for (int i = 0; i <= receipts.Length; i++)
         {
             int compare = i + 1;
             if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice) ;
@@ -74,26 +135,26 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
 
             Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
-            
+
             Console.WriteLine("Products to buy: ");
             for (int i = 0; i < productList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {productList[i]}");
             }
-            
+
             Console.WriteLine();
             Console.WriteLine("Enter number of the product you want to add in cart: ");
             Console.WriteLine("To go back to menu write x");
             string? input = Console.ReadLine();
-            if(input == "x")
+            if (input == "x")
             {
                 newProduct = "n";
                 break;
             }
             if (int.TryParse(input, out int choice))
             {
-             
-                if(choice > productList.Count)
+
+                if (choice > productList.Count)
 
                 {
                     Console.Clear();
@@ -259,7 +320,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         foreach (var item in Catalog)
         {
-           
+
             string str = item.Replace(',', '\t');
             Console.WriteLine($"{str}$");
         }

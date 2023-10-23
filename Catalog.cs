@@ -37,7 +37,7 @@ public class Catalog
 
     }
 
-    public void removeproducts()
+    public void RemoveProducts()
     {
 
 
@@ -53,26 +53,29 @@ public class Catalog
             Console.Write("Enter the number of the item you wish to remove: ");
             if (int.TryParse(Console.ReadLine(), out int choice) && choice <= productlist.Count)
 
-            {
+            {        
+                Console.Clear();
+
                 productlist.RemoveAt(choice - 1);
                 File.WriteAllLines("../../../listofproduct.csv", productlist);
                 Console.WriteLine("Item has been removed from the cart.");
                 Console.WriteLine();
-            Console.Clear();
+           
 
             }
             else
-            {
+            {                       
+                Console.Clear();
+
                 Console.WriteLine("Invalid selection. No items were removed.");
                 Console.WriteLine();
-                        Console.Clear();
 
                 
             }
 
     }
 
-        public static void displaycatalog()
+        public static void DisplayCatalog()
         {    
             Console.Clear();
             List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
@@ -82,7 +85,6 @@ public class Catalog
                 Console.WriteLine(item);
             }
             Console.WriteLine();
-                        Console.Clear();
 
         }
 

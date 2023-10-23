@@ -29,10 +29,10 @@ public record Admin(string Username) : IUser
                          Catalog.AddToCatalog(); 
                               break;
                   case 2:
-                         c.removeproducts();
+                         c.RemoveProducts();
                               break;
                   case 3:
-                         Catalog.displaycatalog();
+                         Catalog.DisplayCatalog();
                               break;
                   case 4:
                          ChangeUser();
