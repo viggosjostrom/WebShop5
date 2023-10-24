@@ -51,11 +51,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         PurchaseShoppingbag();
                         break;
 
+
                     case 5:                
-                       
+
 
                         Console.Clear();
-                        DisplayReceipts();
+                        ChooseReceipt();
 
                         break;
                         
@@ -91,22 +92,24 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void DisplayReceipts()
     {
-        string path = @$"receipts/{Username}/";
-        string[] receipts = Directory.GetFiles(path);
-        foreach (string receipt in receipts)
-        {
-            string[] receiptInfo = receipt.Split(path);
-            Console.WriteLine(receiptInfo[1]);
-        }
     }
 
 
     public void ChooseReceipt()
     {
-        string userInput = null;
-
         string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
+        int receiptNumber = 1;
+        foreach (string receipt in receipts)
+        {
+            string[] receiptInfo = receipt.Split(path);
+            Console.WriteLine(receiptNumber + ". " + receiptInfo[1]);
+            receiptNumber += 1;
+        }
+        string userInput = null; 
+
+        
+        
 
         while (string.IsNullOrWhiteSpace(userInput))
         {
@@ -117,10 +120,15 @@ public record Customer(string Username, List<Product> Cart) : IUser
         for (int i = 0; i <= receipts.Length; i++)
         {
             int compare = i + 1;
-            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice) ;
+            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice)
             {
                 Console.WriteLine(receipts[i]);
-                string[] receipt = File.ReadAllLines($"receipts/{Username}/");
+                string choicepath = receipts[i];
+                string[] receipt = File.ReadAllLines(choicepath);
+                foreach(string line in receipt)
+                {
+                    Console.WriteLine(line);
+                }
             }
         }
     }
@@ -306,15 +314,22 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                 if (choice == "y")
                 {
-                    string path = @$"receipts/{Username}/{Username}-{receiptdate}";
+                    string path = @$"receipts/{Username}/{Username}-{receiptdate}.csv";
 
                     Directory.CreateDirectory(@$"receipts/{Username}");
 
                     List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
+                    List<string> tempCart = new List<string>();
 
-                    File.Create(path + ".csv").Close();
-                    File.WriteAllLines(path + ".csv", ShoppingBag);
+                    foreach (Product product in Cart)
+                    {
+                       tempCart.Add(product.ToCSVString());
+                    }
 
+                    File.Create(path).Close();
+                    File.WriteAllLines(path, tempCart);
+                    File.AppendAllText(path, "\n \n" + total.ToString() + "$");
+                    
                     purchase = false;
                 }
                 else if (choice == "n")
