@@ -25,6 +25,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 {
                     case 0:
                         // Användaren loggar ut                  
+                        SaveCart(); // Sparar användarens Cart vid utloggning
                         Console.Clear();
                         MainMenu.Start();
                         break;
@@ -51,11 +52,16 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         break;
 
                     case 5:
+
+                        
+                        PrintReceipts();
+
                         Console.Clear();
                         DisplayReceipts();
-                        break;
 
-                    default:
+                        break;
+                        
+                        default:
                         Console.WriteLine("Invalid choice");
                         break;
 
@@ -96,6 +102,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
         }
     }
 
+
     public void ChooseReceipt()
     {
         string userInput = null;
@@ -125,10 +132,10 @@ public record Customer(string Username, List<Product> Cart) : IUser
     {
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-        List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
-
         string newProduct = string.Empty;
-        string newItem = string.Empty;
+        string tempProduct = string.Empty;
+        string choosenProductName = string.Empty;
+        int choosenProductPrice;
 
 
         while (newProduct != "n")
@@ -149,6 +156,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             if (input == "x")
             {
                 newProduct = "n";
+                Console.Clear();
                 break;
             }
             if (int.TryParse(input, out int choice))
@@ -162,7 +170,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.WriteLine();
                     break;
                 }
-                newItem = productList[choice - 1];
+                tempProduct = productList[choice - 1];  // Ska ta fram rätt rad (produkten användaren valt) från listofproducts
+                string[] NameAndPrice = tempProduct.Split(','); // Splittar raden för att få fram namn och pris separat
+                choosenProductName = NameAndPrice[0].ToString(); // Sparar produktnamnet på plats 0 till variabel string
+                choosenProductPrice = int.Parse(NameAndPrice[1]); // Sparar produktpriset på plats 1 till variabel int
+
+
+
             }
             else
             {
@@ -172,35 +186,36 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 break;
             }
 
-            ShoppingBag.Add(newItem); // Använd "Cart" lista istället?
+            Cart.Add(new Product(choosenProductName, choosenProductPrice)); // Lägger till vald produkt i Cart
 
 
 
 
-            // Skriv över filen "products.csv" om användaren vill lägga till mer produkter.
-            if (newProduct == "y")
-            {
-                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", ShoppingBag); // denna bör väl skriva till användarens personliga shopping bag?
-            }
 
 
+
+            // File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", Cart); // Cart funkar inte som argument här, vad krävs?
             Console.WriteLine();
             Console.Write("Want to add more? y/n?: ");
             newProduct = Console.ReadLine().ToLower();
             Console.Clear();
-
+            if (newProduct == "y")
+            {
+                Console.WriteLine("yes");
+            }
         }
 
         // Skriver ut användarens kundvagn.
 
         Console.WriteLine("\t\t\tYOUR SHOPPINGBAG:");
         Console.WriteLine();
-        foreach (string row in ShoppingBag)
+        foreach (Product p in Cart)
         {
-            Console.WriteLine(row);
+            Console.WriteLine($"{p.Name} {p.Price}$");
+
         }
         Console.WriteLine();
-    } // Använd Cart
+    }
 
     public void RemoveFromShoppingbag()
     {
@@ -211,17 +226,21 @@ public record Customer(string Username, List<Product> Cart) : IUser
         {
 
 
-            List<string> userCart = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
-
+            int count = 0;
             string removeItem = string.Empty;
             Console.WriteLine("\t\t\tREMOVE PRODUCTS FROM CART\n");
 
             Console.WriteLine();
 
-            for (int i = 0; i < userCart.Count; i++)
+
+            foreach (Product p in Cart)
             {
-                Console.WriteLine($"{i + 1}. {userCart[i]}");
+
+                count++;
+                Console.WriteLine($"{count}. {p.Name} {p.Price}$");
             }
+
+
 
 
             Console.WriteLine();
@@ -230,8 +249,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
-                userCart.RemoveAt(choice - 1);
-                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", userCart);
+                Cart.RemoveAt(choice - 1);
                 Console.WriteLine("Item as been removed from cart.");
             }
             else
@@ -240,10 +258,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 Console.WriteLine();
             }
 
-            foreach (var item in userCart)
-            {
-                Console.WriteLine(item);
-            }
+            
 
             Console.WriteLine();
             Console.Write("Want to remove more? y/n?: ");
@@ -251,7 +266,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.Clear();
 
         }
-    } // Använd Cart , samma som i PurchaseShoppingBag
+    }
 
     public void PurchaseShoppingbag()
     {
@@ -268,13 +283,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
         }
         else
         {
-            DateTime date = DateTime.Now;
+            
             int total = 0;
 
-            foreach (Product product in Cart)
+            foreach (Product p in Cart)
             {
-                Console.WriteLine($"{product.Name}, \t{product.Price}$, \t\t{date}");
-                total += product.Price;
+                Console.WriteLine($"{p.Name}, \t{p.Price}$");
+                total += p.Price;
             }
 
             Console.WriteLine($"Total: {total}$");
@@ -301,7 +316,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     File.Create(path + ".csv").Close();
                     File.WriteAllLines(path + ".csv", ShoppingBag);
-                    
+
                     purchase = false;
                 }
                 else if (choice == "n")
