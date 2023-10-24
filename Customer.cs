@@ -51,10 +51,10 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     case 5:
 
                         
-                        PrintReceipts();
+                        
 
                         Console.Clear();
-                        DisplayReceipts();
+                        ChooseReceipt();
 
                         break;
                         
@@ -90,22 +90,24 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void DisplayReceipts()
     {
-        string path = @$"receipts/{Username}/";
-        string[] receipts = Directory.GetFiles(path);
-        foreach (string receipt in receipts)
-        {
-            string[] receiptInfo = receipt.Split(path);
-            Console.WriteLine(receiptInfo[1]);
-        }
     }
 
 
     public void ChooseReceipt()
     {
-        string userInput = null;
-
         string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
+        int receiptNumber = 1;
+        foreach (string receipt in receipts)
+        {
+            string[] receiptInfo = receipt.Split(path);
+            Console.WriteLine(receiptNumber + ". " + receiptInfo[1]);
+            receiptNumber += 1;
+        }
+        string userInput = null; 
+
+        
+        
 
         while (string.IsNullOrWhiteSpace(userInput))
         {
@@ -121,6 +123,10 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 Console.WriteLine(receipts[i]);
                 string choicepath = receipts[i];
                 string[] receipt = File.ReadAllLines(choicepath);
+                foreach(string line in receipt)
+                {
+                    Console.WriteLine(line);
+                }
             }
         }
     }

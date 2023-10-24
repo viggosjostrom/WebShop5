@@ -56,7 +56,7 @@ public static class LoginMenu
         }
         File.Create($"../../../ShoppingBag/{username}.csv").Close();   
 
-        File.AppendAllText("../../../users.csv", $"\n{username},{password},{Role.Customer}");
+        File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
       Console.Clear();
 
     }
