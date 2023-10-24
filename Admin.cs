@@ -1,5 +1,6 @@
-﻿
+
 namespace WebShop5;
+
 
 public record Admin(string Username) : IUser
 {
@@ -132,8 +133,8 @@ public record Admin(string Username) : IUser
                         role = Role.Customer;
                     }
 
-                    users.RemoveAt(choice); // [a,b,c] => [a,c]
-                    users.Insert(choice, $"{username},{password},{role}"); // [a,c] => [a,d,c]
+                    users.RemoveAt(choice); 
+                    users.Insert(choice, $"{username},{password},{role}"); 
                 }
                 else
                 {
@@ -149,10 +150,6 @@ public record Admin(string Username) : IUser
 
     }
 }
-
-
-
-
 
 
 
