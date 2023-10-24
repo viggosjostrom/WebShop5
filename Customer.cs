@@ -121,10 +121,6 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void AddToShoppingbag()
     {
-
-
-
-
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
         List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
@@ -266,7 +262,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
-            return;
+            
         }
         else
         {
@@ -340,6 +336,5 @@ public record Customer(string Username, List<Product> Cart) : IUser
         Console.WriteLine();
         Console.WriteLine();
     }
-
 
 }
