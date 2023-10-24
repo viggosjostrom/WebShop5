@@ -5,6 +5,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void ShowMainMenu()
     {
+        
+        
         while (true)
         {
             Console.WriteLine("\t\t\tUSER MENU\n");
@@ -23,8 +25,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 {
                     case 0:
                         // Användaren loggar ut                  
-
                         Console.Clear();
+                        MainMenu.Start();
                         break;
 
                     case 1:
