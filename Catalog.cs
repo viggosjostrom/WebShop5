@@ -57,7 +57,7 @@ public class Catalog
                 Console.Clear();
 
                 productlist.RemoveAt(choice - 1);
-                File.WriteAllLines("../../../listofproduct.csv", productlist);
+                File.WriteAllLines("../../../listofproducts.csv", productlist);
                 Console.WriteLine("Item has been removed from the cart.");
                 Console.WriteLine();
            
@@ -85,6 +85,7 @@ public class Catalog
                 Console.WriteLine(item);
             }
             Console.WriteLine();
+        Console.ReadKey();
 
         }
 
