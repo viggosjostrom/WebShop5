@@ -47,12 +47,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         Console.Clear();
                         PurchaseShoppingbag();
                         break;
-
+/*
                     case 5:
-                        Console.Clear();
+                        
                         PrintReceipts();
                         break;
-
+*/
                     default:
                         Console.WriteLine("Invalid choice");
                         break;
@@ -82,7 +82,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     }
 
-
+/*
     public void DisplayReceipts()
     {
         string path = @$"receipts/{Username}/"
@@ -93,6 +93,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine(receiptInfo[1]);
         }
     }
+*/
 
     public void ChooseReceipt()
     {

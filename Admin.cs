@@ -1,54 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace WebShop5;
-
 
 public record Admin(string Username) : IUser
 {
     public void ShowMainMenu()
     {
-      while (true)
-      {
-                    Catalog c = new Catalog();
-        Console.WriteLine($"Current user: {Username}");
-        Console.WriteLine("1: Add product to catalog");
-        Console.WriteLine("2: Remove product from catalog");
-        Console.WriteLine("3 :Display Product catalog");
-        Console.WriteLine("4 : Edit or remove user");
-       
-        if(int.TryParse(Console.ReadLine(),out int choice))
+        while (true)
         {
+            Catalog c = new Catalog();
+            Console.WriteLine($"Current user: {Username}");
+            Console.WriteLine("1: Add product to catalog");
+            Console.WriteLine("2: Remove product from catalog");
+            Console.WriteLine("3 :Display Product catalog");
+            Console.WriteLine("4 : Edit or remove user");
 
-             switch (choice)
-             {
-                  case 1:
-                         Catalog.AddToCatalog(); 
-                              break;
-                  case 2:
-                         c.RemoveProducts();
-                              break;
-                  case 3:
-                         Catalog.DisplayCatalog();
-                              break;
-                  case 4:
-                         ChangeUser();
-                              break;
-             }
-                      
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+
+                switch (choice)
+                {
+                    case 1:
+                        Catalog.AddToCatalog();
+                        break;
+                    case 2:
+                        c.RemoveProducts();
+                        break;
+                    case 3:
+                        Catalog.DisplayCatalog();
+                        break;
+                    case 4:
+                        ChangeUser();
+                        break;
+                }
+
+
+            }
 
         }
- 
-      }
-        
-        
+
+
 
     }
 
-     public static void ChangeUser()
+    public static void ChangeUser()
     {
         List<string> userNames = new List<string>(File.ReadAllLines("../../../users.csv"));
         List<string> Passwords = new List<string>(File.ReadAllLines("../../../users.csv"));
@@ -103,8 +97,7 @@ public record Admin(string Username) : IUser
 
                     Passwords[changeNumb - 1] = newPassword;
                     userNames[changeNumb - 1] = changedUser;
-                    File.WriteAllLines("../../../users.csv", userNames);
-                    File.WriteAllLines("../../../users.csv", Passwords);
+                   File.AppendAllText("../../../users.csv", $"{changedUser},{newPassword},{Role.Customer}\n");
 
                     Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
                     Console.ReadKey();
@@ -113,7 +106,7 @@ public record Admin(string Username) : IUser
                     {
                         Console.WriteLine(userschange);
                         Console.ReadKey();
-                        Console.Clear();
+                        
                     }
 
                 }
@@ -129,9 +122,11 @@ public record Admin(string Username) : IUser
 
     }
 
-
 }
-    
+
+
+
+
 
 
 
