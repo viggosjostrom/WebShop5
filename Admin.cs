@@ -75,45 +75,72 @@ public record Admin(string Username) : IUser
                     }
                 }
             }
-
             if (change == "change")
             {
-                for (int v = 0; i < userNames.Count; i++)
+                string path = "../../../users.csv";
+
+
+                if (!File.Exists(path))
                 {
-                    Console.WriteLine($"{i + 1}. {userNames[i]}");
+                    File.Create(path).Close();
                 }
 
+                List<string> users = new(File.ReadAllLines(path));
 
-
-                Console.WriteLine("What user do you want to change? Enter a number:");
-                if (int.TryParse(Console.ReadLine(), out int changeNumb) && changeNumb <= userNames.Count)
+                for (int v = 0; i < users.Count; i++)
                 {
-                    Console.WriteLine($"You choosed: {userNames[changeNumb - 1]}");
-                    Console.WriteLine("Enter you change: ");
-                    string changedUser = Console.ReadLine();
-                    Console.WriteLine($"Previus password :{Passwords[changeNumb - 1]}");
-                    Console.WriteLine("Enter your new");
-                    string? newPassword = Console.ReadLine();
+                    Console.WriteLine($"{i}. {users[i]}");
+                }
 
-                    Passwords[changeNumb - 1] = newPassword;
-                    userNames[changeNumb - 1] = changedUser;
-                   File.AppendAllText("../../../users.csv", $"{changedUser},{newPassword},{Role.Customer}\n");
+                Console.WriteLine("enter user index for which you wish to modify");
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice < users.Count())
+                {
+                    string[] old_user = users[choice].Split(',');
 
-                    Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
-                    Console.ReadKey();
-                    Console.Clear();
-                    foreach (string userschange in userNames)
+                    Console.Write("new username (enter to skip): ");
+                    string username = Console.ReadLine() ?? string.Empty;
+                    if (username.Equals(string.Empty) && old_user.Length >= 1)
                     {
-                        Console.WriteLine(userschange);
-                        Console.ReadKey();
+                      username = old_user[0];
+
                         
                     }
+                    
+                     
+                    
 
+                    Console.Write("new password (enter to skip): ");
+                    string password = Console.ReadLine() ?? string.Empty;
+                    if (password.Equals(string.Empty) && old_user.Length >= 2)
+                    {
+                        password = old_user[1];
+                    }
+
+                    Console.Write("new role (enter to skip): ");
+                    string raw_role = Console.ReadLine() ?? string.Empty;
+                    Role role;
+                    if (Enum.TryParse(raw_role, out Role new_role))
+                    {
+                        role = new_role;
+                    }
+                    else if (old_user.Length >= 3 && Enum.TryParse(old_user[2], out Role old_role))
+                    {
+                        role = old_role;
+                    }
+                    else
+                    {
+                        role = Role.Customer;
+                    }
+
+                    users.RemoveAt(choice); // [a,b,c] => [a,c]
+                    users.Insert(choice, $"{username},{password},{role}"); // [a,c] => [a,d,c]
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input");
+                    Console.WriteLine("invalid user index, quitting program");
                 }
+
+                File.WriteAllLines(path, users);
             }
 
 
@@ -121,8 +148,8 @@ public record Admin(string Username) : IUser
 
 
     }
-
 }
+
 
 
 
