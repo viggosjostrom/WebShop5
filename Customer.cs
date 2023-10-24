@@ -292,14 +292,14 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                 if (choice == "y")
                 {
-                    string path = @$"receipts/{Username}/{Username}-{receiptdate}";
+                    string path = @$"receipts/{Username}/{Username}-{receiptdate}.csv";
 
                     Directory.CreateDirectory(@$"receipts/{Username}");
 
                     List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
 
-                    File.Create(path + ".csv").Close();
-                    File.WriteAllLines(path + ".csv", ShoppingBag);
+                    File.Create(path).Close();
+                    File.WriteAllLines(path, ShoppingBag);
                     
                     purchase = false;
                 }
