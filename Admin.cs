@@ -6,93 +6,49 @@ using System.Threading.Tasks;
 
 namespace WebShop5;
 
+
 public record Admin(string Username) : IUser
 {
-    public void AddToCatalog()
+    public void ShowMainMenu()
     {
-        List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
-
-        Console.Clear();
-        Console.Write("Add new product: ");
-        string? addProduct = Console.ReadLine();
-        Console.Write("Price in $: ");
-        string? addPrice = Console.ReadLine();
-        Console.WriteLine();
-
-
-        if (addPrice == string.Empty || addProduct == string.Empty)
+      while (true)
+      {
+                    Catalog c = new Catalog();
+        Console.WriteLine($"Current user: {Username}");
+        Console.WriteLine("1: Add product to catalog");
+        Console.WriteLine("2: Remove product from catalog");
+        Console.WriteLine("3 :Display Product catalog");
+        Console.WriteLine("4 : Edit or remove user");
+       
+        if(int.TryParse(Console.ReadLine(),out int choice))
         {
-            Console.WriteLine("Enter Either a product or the price");
+
+             switch (choice)
+             {
+                  case 1:
+                         Catalog.AddToCatalog(); 
+                              break;
+                  case 2:
+                         c.RemoveProducts();
+                              break;
+                  case 3:
+                         Catalog.DisplayCatalog();
+                              break;
+                  case 4:
+                         ChangeUser();
+                              break;
+             }
+                      
+
         }
-
-        else
-        {
-            string productToAdd = string.Format("{0},{1}", addProduct, addPrice);
-            productlist.Add(productToAdd);
-
-
-            Console.WriteLine();
-            File.WriteAllLines("../../../listofproducts.csv", productlist);
-        }
+ 
+      }
+        
+        
 
     }
 
-    public void Removeproducts()
-    {
-
-
-        AdminMenu admin = new AdminMenu();
-        {
-            admin.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
-
-            Console.WriteLine("Items in the cart: ");
-            for (int i = 0; i < admin.productlist.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {admin.productlist[i]}");
-            }
-
-            Console.Write("Enter the number of the item you wish to remove: ");
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice <= admin.productlist.Count)
-
-            {
-                admin.productlist.RemoveAt(choice - 1);
-                File.WriteAllLines("../../../Cart.csv",
-                    admin.productlist);
-                Console.WriteLine("Item has been removed from the cart.");
-                Console.WriteLine();
-
-            }
-            else
-            {
-                Console.WriteLine("Invalid selection. No items were removed.");
-                Console.WriteLine();
-            }
-
-        }
-
-    }
-
-    public void DisplayCatalog()
-    {
-
-        AdminMenu admin = new AdminMenu();
-        {
-            Console.Clear();
-
-            admin.productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
-
-            foreach (var item in admin.productlist)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine();
-
-        }
-
-
-    }
-
-    public void ChangeUser()
+     public static void ChangeUser()
     {
         List<string> userNames = new List<string>(File.ReadAllLines("../../../users.csv"));
         List<string> Passwords = new List<string>(File.ReadAllLines("../../../users.csv"));
@@ -172,7 +128,11 @@ public record Admin(string Username) : IUser
 
 
     }
+
+
 }
+    
+
 
 
 
