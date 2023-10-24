@@ -110,10 +110,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
         for (int i = 0; i <= receipts.Length; i++)
         {
             int compare = i + 1;
-            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice) ;
+            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice)
             {
                 Console.WriteLine(receipts[i]);
-                string[] receipt = File.ReadAllLines($"receipts/{Username}/");
+                string choicepath = receipts[i];
+                string[] receipt = File.ReadAllLines(choicepath);
             }
         }
     }
