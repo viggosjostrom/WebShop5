@@ -50,7 +50,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     case 5:
                         Console.Clear();
-                        PrintReceipts();
+                        DisplayReceipts();
                         break;
 
                     default:
@@ -85,11 +85,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void DisplayReceipts()
     {
-        string path = @$"receipts/{Username}/"
+        string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
         foreach (string receipt in receipts)
         {
-            string receiptInfo = receipt.Split(path)
+            string[] receiptInfo = receipt.Split(path);
             Console.WriteLine(receiptInfo[1]);
         }
     }
