@@ -25,6 +25,7 @@ public static class LoginMenu
                 username = string.Empty;
                 Console.WriteLine("Username can't be empty or use white spaces!");
             }
+            Console.Clear();
         }
 
         string password = string.Empty;
@@ -45,6 +46,7 @@ public static class LoginMenu
                 Console.WriteLine("Please re-enter your choosen password");
                 if (!password.Equals(Console.ReadLine()))
                 {
+                    Console.Clear();
                     password = string.Empty;
                     Console.WriteLine("The passwords you've entered doesn't match!");
                 }
@@ -53,6 +55,7 @@ public static class LoginMenu
         }
         File.Create($"../../../ShoppingBag/{username}.csv").Close();
         File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
+        Console.Clear();
     }
 
     public static IUser? Login()
