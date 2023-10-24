@@ -23,7 +23,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 {
                     case 0:
                         // Användaren loggar ut                  
-
+                        
                         Console.Clear();
                         break;
 
@@ -130,7 +130,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
    
 
         string newProduct = string.Empty;
-        string newItem = string.Empty;
+        string tempProduct = string.Empty;
         string choosenProduct = string.Empty;
         int choosenProductPrice; 
 
@@ -166,12 +166,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.WriteLine();
                     break;
                 }
-                newItem = productList[choice - 1];
-                newItem.Split(',');
-                choosenProduct = newItem[0].ToString();
-                string tempprice = newItem[1].ToString();
-                choosenProductPrice = Int32.Parse(tempprice); 
-               
+                tempProduct = productList[choice - 1];  // Ska ta fram rätt rad (produkten användaren valt) från listofproducts
+                string[] NameAndPrice = tempProduct.Split(','); // Splittar raden för att få fram namn och pris separat
+                choosenProduct = NameAndPrice[0].ToString(); // Sparar produktnamnet på plats 0 till variabel string
+                choosenProductPrice = int.Parse(NameAndPrice[1]); // Sparar produktpriset på plats 1 till variabel int
+                
+
+
             }
             else
             {
@@ -181,23 +182,23 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 break;
             }
 
-            Cart.Add(new Product(choosenProduct, choosenProductPrice));
-
-            
+            Cart.Add(new Product(choosenProduct, choosenProductPrice)); // Lägger till vald produkt i Cart
 
 
             
-            if (newProduct == "y")
-            {
-                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", Cart); // denna bör väl skriva till användarens personliga shopping bag?
-            }
 
 
+            
+
+            File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", Cart); // Cart funkar inte som argument här, vad krävs?
             Console.WriteLine();
             Console.Write("Want to add more? y/n?: ");
             newProduct = Console.ReadLine().ToLower();
             Console.Clear();
-
+            if (newProduct == "y")
+            {
+                Console.WriteLine("yes");
+            }
         }
 
         // Skriver ut användarens kundvagn.
@@ -206,7 +207,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
         Console.WriteLine();
         foreach (Product p in Cart)
         {
-            Console.WriteLine(p);
+            Console.WriteLine($"{p.Name} {p.Price}$");
+           
         }
         Console.WriteLine();
     } 
@@ -280,10 +282,10 @@ public record Customer(string Username, List<Product> Cart) : IUser
             DateTime date = DateTime.Now;
             int total = 0;
 
-            foreach (Product product in Cart)
+            foreach (Product p in Cart)
             {
-                Console.WriteLine($"{product.Name}, \t{product.Price}$, \t\t{date}");
-                total += product.Price;
+                Console.WriteLine($"{p.Name}, \t{p.Price}$, \t\t{date}");
+                total += p.Price;
             }
 
             Console.WriteLine($"Total: {total}$");
