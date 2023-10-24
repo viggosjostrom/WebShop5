@@ -5,6 +5,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void ShowMainMenu()
     {
+        
+        
         while (true)
         {
             Console.WriteLine("\t\t\tUSER MENU\n");
@@ -25,6 +27,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         // Användaren loggar ut                  
                         SaveCart(); // Sparar användarens Cart vid utloggning
                         Console.Clear();
+                        MainMenu.Start();
                         break;
 
                     case 1:
@@ -48,10 +51,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         PurchaseShoppingbag();
                         break;
 
-                    case 5:
 
-                        
-                        
+                    case 5:                
+
 
                         Console.Clear();
                         ChooseReceipt();

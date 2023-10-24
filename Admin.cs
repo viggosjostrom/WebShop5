@@ -8,18 +8,26 @@ public record Admin(string Username) : IUser
     {
         while (true)
         {
+            Console.Clear();
             Catalog c = new Catalog();
             Console.WriteLine($"Current user: {Username}");
-            Console.WriteLine("1: Add product to catalog");
-            Console.WriteLine("2: Remove product from catalog");
-            Console.WriteLine("3 :Display Product catalog");
+            Console.WriteLine("1 : Add product to catalog");
+            Console.WriteLine("2 : Remove product from catalog");
+            Console.WriteLine("3 : Display Product catalog");
             Console.WriteLine("4 : Edit or remove user");
+            Console.WriteLine("0 : Signout");
+
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
 
                 switch (choice)
                 {
+                    case 0:
+                        Console.Clear();
+                        MainMenu.Start();
+                        break;
+
                     case 1:
                         Catalog.AddToCatalog();
                         break;
@@ -102,13 +110,13 @@ public record Admin(string Username) : IUser
                     string username = Console.ReadLine() ?? string.Empty;
                     if (username.Equals(string.Empty) && old_user.Length >= 1)
                     {
-                      username = old_user[0];
+                        username = old_user[0];
 
-                        
+
                     }
-                    
-                     
-                    
+
+
+
 
                     Console.Write("new password (enter to skip): ");
                     string password = Console.ReadLine() ?? string.Empty;
@@ -133,8 +141,8 @@ public record Admin(string Username) : IUser
                         role = Role.Customer;
                     }
 
-                    users.RemoveAt(choice); 
-                    users.Insert(choice, $"{username},{password},{role}"); 
+                    users.RemoveAt(choice);
+                    users.Insert(choice, $"{username},{password},{role}");
                 }
                 else
                 {
