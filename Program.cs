@@ -3,12 +3,14 @@ using WebShop5;
 IUser? user = null;
 
 
-    Console.WriteLine("1 - Create new user");
-    Console.WriteLine("2 - Login as existing user");
-    Console.WriteLine("0 - To Exit");
+
    
 do
 {
+
+    Console.WriteLine("1 - Create new user");
+    Console.WriteLine("2 - Login as existing user");
+    Console.WriteLine("0 - To Exit");
     switch (Console.ReadLine())
     {
         case "1":

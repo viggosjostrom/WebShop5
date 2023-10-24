@@ -56,10 +56,12 @@ public static class LoginMenu
 
     public static IUser? Login()
     {
+        Console.Clear();
         string[] users = File.ReadAllLines("../../../users.csv");
 
         Console.WriteLine("Enter your username: ");
         string input = Console.ReadLine();
+        bool correctName = false;
 
         foreach (string line in users)
         {
@@ -71,27 +73,38 @@ public static class LoginMenu
             {
                 Console.WriteLine("Enter Password: ");
                 input = Console.ReadLine();
-            }
+                correctName = true;
 
-            if (pass.Equals(input))
-            {
-                if (Enum.TryParse(info[2], out Role role))
+                if (pass.Equals(input))
                 {
-                    switch (role)
+                    if (Enum.TryParse(info[2], out Role role))
                     {
-                        case Role.Customer:
-                            return new Customer(name, LoadCustomer(name));
-                        case Role.Admin:
-                            return new Admin(name);
+                        switch (role)
+                        {
+                            case Role.Customer:
+                                return new Customer(name, LoadCustomer(name));
+                            case Role.Admin:
+                                return new Admin(name);
+                        }
                     }
+                }
+                else
+                {
+
+                    Console.WriteLine("Wrong password! Try to login again");
+                    break;
                 }
             }
 
+        }
+        if (!correctName)
+        {
+            Console.WriteLine("The username you've entered does not exist. Try again..");
 
         }
 
-        return null;
 
+        return null;
     }
 
     private static List<Product> LoadCustomer(string username)
