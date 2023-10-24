@@ -297,9 +297,16 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Directory.CreateDirectory(@$"receipts/{Username}");
 
                     List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
+                    List<string> tempCart = new List<string>();
+
+                    foreach (Product product in Cart)
+                    {
+                       tempCart.Add(product.ToCSVString());
+                    }
 
                     File.Create(path).Close();
-                    File.WriteAllLines(path, ShoppingBag);
+                    File.WriteAllLines(path, tempCart);
+                    File.AppendAllText(path, "\n \n" + total.ToString() + "$");
                     
                     purchase = false;
                 }
