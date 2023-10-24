@@ -39,7 +39,7 @@ public static class LoginMenu
                 Console.WriteLine("Password needs to be longer than 8 characters and shorter than 64.");
 
             }
-            else if (password.Length is > 8 or < 64)
+            else if (password.Length is > 8 and < 64)
             {
                 Console.WriteLine("Please re-enter your choosen password");
                 if (!password.Equals(Console.ReadLine()))
@@ -60,7 +60,8 @@ public static class LoginMenu
 
         Console.WriteLine("Enter your username: ");
         string input = Console.ReadLine();
-
+        Console.WriteLine("test");
+        Console.WriteLine(users.Length);
         foreach (string line in users)
         {
             string[] info = line.Split(',');
@@ -71,21 +72,22 @@ public static class LoginMenu
             {
                 Console.WriteLine("Enter Password: ");
                 input = Console.ReadLine();
-            }
 
-            if (pass.Equals(input))
-            {
-                if (Enum.TryParse(info[2], out Role role))
+                if (pass.Equals(input))
                 {
-                    switch (role)
+                    if (Enum.TryParse(info[2], out Role role))
                     {
-                        case Role.Customer:
-                            return new Customer(name, LoadCustomer(name));
-                        case Role.Admin:
-                            return new Admin(name);
+                        switch (role)
+                        {
+                            case Role.Customer:
+                                return new Customer(name, LoadCustomer(name));
+                            case Role.Admin:
+                                return new Admin(name);
+                        }
                     }
                 }
             }
+
 
 
         }
