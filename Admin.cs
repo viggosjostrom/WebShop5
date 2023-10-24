@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebShop5;
+﻿namespace WebShop5;
 
 public record Admin(string Username) : IUser
 {
@@ -173,6 +167,3 @@ public record Admin(string Username) : IUser
 
     }
 }
-
-
-

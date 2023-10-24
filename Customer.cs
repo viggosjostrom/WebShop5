@@ -52,10 +52,6 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void AddToShoppingbag()
     {
-
-
-
-
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
         List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
@@ -260,6 +256,5 @@ public record Customer(string Username, List<Product> Cart) : IUser
         Console.WriteLine();
         Console.WriteLine();
     }
-
 
 }
