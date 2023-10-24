@@ -83,12 +83,14 @@ public record Customer(string Username, List<Product> Cart) : IUser
     }
 
 
-    public void PrintReceipts()
+    public void DisplayReceipts()
     {
-        string[] receipt = File.ReadAllLines($"../../../{Username}.csv");
-        foreach (string item in receipt)
+        string path = @$"receipts/{Username}/"
+        string[] receipts = Directory.GetFiles(path);
+        foreach (string receipt in receipts)
         {
-            Console.WriteLine(item);
+            string receiptInfo = receipt.Split(path)
+            Console.WriteLine(receiptInfo[1]);
         }
     }
 
@@ -279,6 +281,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             Console.WriteLine($"Total: {total}$");
 
+            string receiptdate = DateTime.Now.ToString();
+            receiptdate = receiptdate.Replace(" ", "-");
+            receiptdate = receiptdate.Replace(":", "-");
 
             bool purchase = true;
 
@@ -290,7 +295,15 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                 if (choice == "y")
                 {
-                    //Göra ett kvitto och tömma Shoppingbag???
+                    string path = @$"receipts/{Username}/{Username}-{receiptdate}";
+
+                    Directory.CreateDirectory(@$"receipts/{Username}");
+
+                    List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
+
+                    File.Create(path + ".csv").Close();
+                    File.WriteAllLines(path + ".csv", ShoppingBag);
+                    
                     purchase = false;
                 }
                 else if (choice == "n")
