@@ -14,6 +14,7 @@ public static class LoginMenu
 
     public static void Register()
     {
+        Console.Clear();
         string username = string.Empty;
         while (username.Length is < 3 or > 20) // inte kortare än 3 eller längre än 20
         {
@@ -100,7 +101,6 @@ public static class LoginMenu
         if (!correctName)
         {
             Console.WriteLine("The username you've entered does not exist. Try again..");
-
         }
 
 
