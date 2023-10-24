@@ -2,7 +2,7 @@
 
 public record Customer(string Username, List<Product> Cart) : IUser
 {
-
+    
     public void ShowMainMenu()
     {
         while (true)
@@ -50,7 +50,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     case 5:
                         Console.Clear();
-                        PrintReceipts();
+                        DisplayReceipts();
                         break;
 
                     default:
@@ -85,11 +85,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void DisplayReceipts()
     {
-        string path = @$"receipts/{Username}/"
+        string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
         foreach (string receipt in receipts)
         {
-            string receiptInfo = receipt.Split(path)
+            string[] receiptInfo = receipt.Split(path);
             Console.WriteLine(receiptInfo[1]);
         }
     }
@@ -127,10 +127,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         List<string> productList = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-        List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
+   
 
         string newProduct = string.Empty;
         string newItem = string.Empty;
+        string choosenProduct = string.Empty;
+        int choosenProductPrice; 
 
 
         while (newProduct != "n")
@@ -165,6 +167,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     break;
                 }
                 newItem = productList[choice - 1];
+                newItem.Split(',');
+                choosenProduct = newItem[0].ToString();
+                string tempprice = newItem[1].ToString();
+                choosenProductPrice = Int32.Parse(tempprice); 
+               
             }
             else
             {
@@ -174,15 +181,15 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 break;
             }
 
-            ShoppingBag.Add(newItem); // Använd "Cart" lista istället?
+            Cart.Add(new Product(choosenProduct, choosenProductPrice));
+
+            
 
 
-
-
-            // Skriv över filen "products.csv" om användaren vill lägga till mer produkter.
+            
             if (newProduct == "y")
             {
-                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", ShoppingBag); // denna bör väl skriva till användarens personliga shopping bag?
+                File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", Cart); // denna bör väl skriva till användarens personliga shopping bag?
             }
 
 
@@ -197,12 +204,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         Console.WriteLine("\t\t\tYOUR SHOPPINGBAG:");
         Console.WriteLine();
-        foreach (string row in ShoppingBag)
+        foreach (Product p in Cart)
         {
-            Console.WriteLine(row);
+            Console.WriteLine(p);
         }
         Console.WriteLine();
-    } // Använd Cart
+    } 
 
     public void RemoveFromShoppingbag()
     {
