@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -52,7 +53,8 @@ public static class LoginMenu
 
         }
         File.Create($"../../../ShoppingBag/{username}.csv").Close();
-        File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
+        File.AppendAllText("../../../users.csv", $"\n{username},{password},{Role.Customer}");
+        Console.WriteLine("debug");
     }
 
     public static IUser? Login()
