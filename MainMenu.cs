@@ -18,11 +18,15 @@ public class MainMenu
         do
         {
             Console.WriteLine("\t\t\tMAIN MENU");
-            Console.WriteLine("1 - Create new user");
-            Console.WriteLine("2 - Login as existing user");
-            Console.WriteLine("0 - To Exit");
+            Console.WriteLine("1 : Create new user");
+            Console.WriteLine("2 : Login as existing user");
+            Console.WriteLine("0 : To Exit");
             switch (Console.ReadLine())
             {
+                case "0":
+                    throw new Exception();
+                    break;
+
                 case "1":
                     LoginMenu.Register();
                     break;

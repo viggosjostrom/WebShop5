@@ -51,10 +51,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         PurchaseShoppingbag();
                         break;
 
-                    case 5:
-
-                        
-                        PrintReceipts();
+                    case 5:                
+                       
 
                         Console.Clear();
                         DisplayReceipts();
