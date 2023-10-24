@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -8,10 +9,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace WebShop5;
 
-public class LoginMenu
+public static class LoginMenu
 {
-    
-    public void Register()
+
+    public static void Register()
     {
         string username = string.Empty;
         while (username.Length is < 3 or > 20) // inte kortare än 3 eller längre än 20
@@ -53,81 +54,65 @@ public class LoginMenu
         File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
     }
 
-    public IUser LogIn()
+    public static IUser? Login()
     {
+        string[] users = File.ReadAllLines("../../../users.csv");
 
-        while (true)
+        Console.WriteLine("Enter your username: ");
+        string input = Console.ReadLine();
+
+        foreach (string line in users)
         {
-            string[] users = File.ReadAllLines("../../../users.csv");
+            string[] info = line.Split(',');
+            string name = info[0];
+            string pass = info[1];
 
-            string input = string.Empty;
-            Console.WriteLine("Enter username: ");
-            input = Console.ReadLine() ?? string.Empty;
-            foreach (string line in users)
+            if (name.Equals(input))
             {
-                string[] userInfo = line.Split(',');
-                if (userInfo[0].Equals(input))
+                Console.WriteLine("Enter Password: ");
+                input = Console.ReadLine();
+            }
+
+            if (pass.Equals(input))
+            {
+                if (Enum.TryParse(info[2], out Role role))
                 {
-                    Console.WriteLine("Enter password: ");
-                    input = Console.ReadLine() ?? string.Empty;
-                    if (userInfo[1].Equals(input))
+                    switch (role)
                     {
-                        Console.WriteLine($"Welcome {userInfo[0]}!");
-                        if (Enum.TryParse(userInfo[2], out Role r))
-                        {
-
-                            switch (r)
-                            {
-                                case Role.Customer:
-                                    return LoadCustomer(userInfo[0]);
-                                case Role.Admin:
-                                    return new Admin(userInfo[0]);
-                            }  
-                        }
-                        else
-                        {
-                            throw new Exception();
-
-                            //shoppingBag.Add(new NewProducts(item));
-
-                        }
-
+                        case Role.Customer:
+                            return new Customer(name, LoadCustomer(name));
+                        case Role.Admin:
+                            return new Admin(name);
                     }
-                    else
-                    {
-                        Console.WriteLine("Wrong password! Try to login again");
-
-                    }
-
-                }
-                else if (userInfo[0].Equals(input)) // Varför skrivs denna ej ut?
-                {
-                    Console.WriteLine("The username you've entered does not exist. Try again..");
-
                 }
             }
+
+
         }
-    } // Kolla felhanteringen!
 
+        return null;
 
-   
-private Customer LoadCustomer(string username)
-{
+    }
 
-
+    private static List<Product> LoadCustomer(string username)
     {
+
+
+
         List<Product> shoppingBag = new List<Product>();
         string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
         foreach (string item in savedShoppingBag)
         {
-                string[] details = item.Split(",");
-                if (int.TryParse(details[1], out int price)){
-                     shoppingBag.Add(new Product(details[0],price));
-                }
+            string[] details = item.Split(",");
+            if (int.TryParse(details[1], out int price))
+            {
+                shoppingBag.Add(new Product(details[0], price));
+            }
         }
-        return new Customer(username, shoppingBag);
+        return shoppingBag;
+
+
     }
-
 }
 
-}
+

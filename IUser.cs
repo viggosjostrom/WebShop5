@@ -8,5 +8,5 @@ namespace WebShop5;
 
 public interface IUser
 {
-    
+   public void ShowMainMenu();
 }
