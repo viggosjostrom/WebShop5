@@ -49,11 +49,16 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         break;
 
                     case 5:
+
+                        
+                        PrintReceipts();
+
                         Console.Clear();
                         DisplayReceipts();
-                        break;
 
-                    default:
+                        break;
+                        
+                        default:
                         Console.WriteLine("Invalid choice");
                         break;
 
@@ -93,6 +98,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine(receiptInfo[1]);
         }
     }
+
 
     public void ChooseReceipt()
     {

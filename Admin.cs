@@ -1,48 +1,49 @@
-﻿namespace WebShop5;
+
+namespace WebShop5;
 
 
 public record Admin(string Username) : IUser
 {
     public void ShowMainMenu()
     {
-      while (true)
-      {
-                    Catalog c = new Catalog();
-        Console.WriteLine($"Current user: {Username}");
-        Console.WriteLine("1: Add product to catalog");
-        Console.WriteLine("2: Remove product from catalog");
-        Console.WriteLine("3 :Display Product catalog");
-        Console.WriteLine("4 : Edit or remove user");
-       
-        if(int.TryParse(Console.ReadLine(),out int choice))
+        while (true)
         {
+            Catalog c = new Catalog();
+            Console.WriteLine($"Current user: {Username}");
+            Console.WriteLine("1: Add product to catalog");
+            Console.WriteLine("2: Remove product from catalog");
+            Console.WriteLine("3 :Display Product catalog");
+            Console.WriteLine("4 : Edit or remove user");
 
-             switch (choice)
-             {
-                  case 1:
-                         Catalog.AddToCatalog(); 
-                              break;
-                  case 2:
-                         c.RemoveProducts();
-                              break;
-                  case 3:
-                         Catalog.DisplayCatalog();
-                              break;
-                  case 4:
-                         ChangeUser();
-                              break;
-             }
-                      
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+
+                switch (choice)
+                {
+                    case 1:
+                        Catalog.AddToCatalog();
+                        break;
+                    case 2:
+                        c.RemoveProducts();
+                        break;
+                    case 3:
+                        Catalog.DisplayCatalog();
+                        break;
+                    case 4:
+                        ChangeUser();
+                        break;
+                }
+
+
+            }
 
         }
- 
-      }
-        
-        
+
+
 
     }
 
-     public static void ChangeUser()
+    public static void ChangeUser()
     {
         List<string> userNames = new List<string>(File.ReadAllLines("../../../users.csv"));
         List<string> Passwords = new List<string>(File.ReadAllLines("../../../users.csv"));
@@ -75,46 +76,72 @@ public record Admin(string Username) : IUser
                     }
                 }
             }
-
             if (change == "change")
             {
-                for (int v = 0; i < userNames.Count; i++)
+                string path = "../../../users.csv";
+
+
+                if (!File.Exists(path))
                 {
-                    Console.WriteLine($"{i + 1}. {userNames[i]}");
+                    File.Create(path).Close();
                 }
 
+                List<string> users = new(File.ReadAllLines(path));
 
-
-                Console.WriteLine("What user do you want to change? Enter a number:");
-                if (int.TryParse(Console.ReadLine(), out int changeNumb) && changeNumb <= userNames.Count)
+                for (int v = 0; i < users.Count; i++)
                 {
-                    Console.WriteLine($"You choosed: {userNames[changeNumb - 1]}");
-                    Console.WriteLine("Enter you change: ");
-                    string changedUser = Console.ReadLine();
-                    Console.WriteLine($"Previus password :{Passwords[changeNumb - 1]}");
-                    Console.WriteLine("Enter your new");
-                    string? newPassword = Console.ReadLine();
+                    Console.WriteLine($"{i}. {users[i]}");
+                }
 
-                    Passwords[changeNumb - 1] = newPassword;
-                    userNames[changeNumb - 1] = changedUser;
-                    File.WriteAllLines("../../../users.csv", userNames);
-                    File.WriteAllLines("../../../users.csv", Passwords);
+                Console.WriteLine("enter user index for which you wish to modify");
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice < users.Count())
+                {
+                    string[] old_user = users[choice].Split(',');
 
-                    Console.WriteLine("User has succesfully been changed press any key to see your updates: ");
-                    Console.ReadKey();
-                    Console.Clear();
-                    foreach (string userschange in userNames)
+                    Console.Write("new username (enter to skip): ");
+                    string username = Console.ReadLine() ?? string.Empty;
+                    if (username.Equals(string.Empty) && old_user.Length >= 1)
                     {
-                        Console.WriteLine(userschange);
-                        Console.ReadKey();
-                        Console.Clear();
+                      username = old_user[0];
+
+                        
+                    }
+                    
+                     
+                    
+
+                    Console.Write("new password (enter to skip): ");
+                    string password = Console.ReadLine() ?? string.Empty;
+                    if (password.Equals(string.Empty) && old_user.Length >= 2)
+                    {
+                        password = old_user[1];
                     }
 
+                    Console.Write("new role (enter to skip): ");
+                    string raw_role = Console.ReadLine() ?? string.Empty;
+                    Role role;
+                    if (Enum.TryParse(raw_role, out Role new_role))
+                    {
+                        role = new_role;
+                    }
+                    else if (old_user.Length >= 3 && Enum.TryParse(old_user[2], out Role old_role))
+                    {
+                        role = old_role;
+                    }
+                    else
+                    {
+                        role = Role.Customer;
+                    }
+
+                    users.RemoveAt(choice); 
+                    users.Insert(choice, $"{username},{password},{role}"); 
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input");
+                    Console.WriteLine("invalid user index, quitting program");
                 }
+
+                File.WriteAllLines(path, users);
             }
 
 
@@ -122,6 +149,9 @@ public record Admin(string Username) : IUser
 
 
     }
-
 }
+
+
+
+
 
