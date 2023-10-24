@@ -16,12 +16,14 @@ public record Customer(string Username, List<Product> Cart) : IUser
     }
 
 
-    public void PrintReceipts()
+    public void DisplayReceipts()
     {
-        string[] receipt = File.ReadAllLines($"../../../{Username}.csv");
-        foreach (string item in receipt)
+        string path = @$"receipts/{Username}/"
+        string[] receipts = Directory.GetFiles(path);
+        foreach (string receipt in receipts)
         {
-            Console.WriteLine(item);
+            string receiptInfo = receipt.Split(path)
+            Console.WriteLine(receiptInfo[1]);
         }
     }
 
