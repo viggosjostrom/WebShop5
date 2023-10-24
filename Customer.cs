@@ -50,7 +50,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     case 5:
                         Console.Clear();
-                        PrintReceipts();
+                        DisplayReceipts();
                         break;
 
                     default:
@@ -85,11 +85,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void DisplayReceipts()
     {
-        string path = @$"receipts/{Username}/"
+        string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
         foreach (string receipt in receipts)
         {
-            string receiptInfo = receipt.Split(path)
+            string[] receiptInfo = receipt.Split(path);
             Console.WriteLine(receiptInfo[1]);
         }
     }
@@ -98,7 +98,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
     {
         string userInput = null;
 
-        string path = @"receipts/";
+        string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
 
         while (string.IsNullOrWhiteSpace(userInput))
@@ -113,7 +113,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice) ;
             {
                 Console.WriteLine(receipts[i]);
-                string[] receipt = File.ReadAllLines($"receipts/{Username}.csv");
+                string[] receipt = File.ReadAllLines($"receipts/{Username}/");
             }
         }
     }
