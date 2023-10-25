@@ -10,6 +10,7 @@ public record Admin(string Username) : IUser
         {
             Console.Clear();
             Catalog c = new Catalog();
+            Console.WriteLine("\t\t\tADMIN MENU");
             Console.WriteLine($"Current user: {Username}");
             Console.WriteLine("1 : Add product to catalog");
             Console.WriteLine("2 : Remove product from catalog");

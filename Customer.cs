@@ -94,7 +94,6 @@ public record Customer(string Username, List<Product> Cart) : IUser
     {
     }
 
-
     public void ChooseReceipt()
     {
         string path = @$"receipts/{Username}/";
@@ -207,7 +206,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.Clear();
             if (newProduct == "y")
             {
-                Console.WriteLine("yes");
+                //Console.WriteLine("yes");
             }
         }
 
