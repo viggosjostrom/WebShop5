@@ -5,8 +5,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void ShowMainMenu()
     {
-        
-        
+
+
         while (true)
         {
             Console.WriteLine("\t\t\tUSER MENU\n");
@@ -52,15 +52,15 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         break;
 
 
-                    case 5:                
+                    case 5:
 
 
                         Console.Clear();
                         ChooseReceipt();
 
                         break;
-                        
-                        default:
+
+                    default:
                         Console.WriteLine("Invalid choice");
                         break;
 
@@ -105,10 +105,10 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine(receiptNumber + ". " + receiptInfo[1]);
             receiptNumber += 1;
         }
-        string userInput = null; 
+        string userInput = null;
 
-        
-        
+
+
 
         while (string.IsNullOrWhiteSpace(userInput))
         {
@@ -124,7 +124,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 Console.WriteLine(receipts[i]);
                 string choicepath = receipts[i];
                 string[] receipt = File.ReadAllLines(choicepath);
-                foreach(string line in receipt)
+                foreach (string line in receipt)
                 {
                     Console.WriteLine(line);
                 }
@@ -211,15 +211,17 @@ public record Customer(string Username, List<Product> Cart) : IUser
         }
 
         // Skriver ut användarens kundvagn.
-
+        int total = 0;
         Console.WriteLine("\t\t\tYOUR SHOPPINGBAG:");
         Console.WriteLine();
         foreach (Product p in Cart)
         {
             Console.WriteLine($"{p.Name} {p.Price}$");
+            total += p.Price;
 
         }
         Console.WriteLine();
+        Console.WriteLine($"Total: {total}$");
     }
 
     public void RemoveFromShoppingbag()
@@ -263,7 +265,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 Console.WriteLine();
             }
 
-            
+
 
             Console.WriteLine();
             Console.Write("Want to remove more? y/n?: ");
@@ -284,11 +286,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
-            
+
         }
         else
         {
-            
+
             int total = 0;
 
             foreach (Product p in Cart)
@@ -322,13 +324,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     foreach (Product product in Cart)
                     {
-                       tempCart.Add(product.ToCSVString());
+                        tempCart.Add(product.ToCSVString());
                     }
 
                     File.Create(path).Close();
                     File.WriteAllLines(path, tempCart);
                     File.AppendAllText(path, "\n \n" + total.ToString() + "$");
-                    
+
                     purchase = false;
                 }
                 else if (choice == "n")
