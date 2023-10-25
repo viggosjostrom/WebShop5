@@ -1,4 +1,6 @@
-﻿namespace WebShop5;
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace WebShop5;
 
 public record Customer(string Username, List<Product> Cart) : IUser
 {
@@ -6,8 +8,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
     public void ShowMainMenu()
     {
 
+        bool exit = false;
 
-        while (true)
+        while (!exit)
         {
             Console.Clear();
             Console.WriteLine("\t\t\tUSER MENU\n");
@@ -17,17 +20,17 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("3 : Remove from your Shopping Bag");
             Console.WriteLine("4 : Go to payment / Checkout");
             Console.WriteLine("5 : Order History");
-            Console.WriteLine("0 : Sign Out");
-
-
-            if (int.TryParse(Console.ReadLine(), out int choice))
+            Console.WriteLine("6 : Sign Out");
+   if (int.TryParse(Console.ReadLine(), out int choice))
             {
                 switch (choice)
                 {
                     case 0:                                         
                         SaveCart(); // Sparar användarens Cart vid utloggning
                         Console.Clear();
-                        MainMenu.Start();
+                        Console.WriteLine("System.Environment.Exit(1337);");
+               
+
                         break;
 
                     case 1:                        
@@ -55,6 +58,16 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         Console.Clear();
                         ChooseReceipt();
                         break;
+
+                    case 6:
+                        exit = true;
+                        break;
+
+
+
+
+
+
 
                     default:
                         Console.WriteLine("Invalid choice");
@@ -324,7 +337,21 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.WriteLine("Invaild choice.");
                     Console.ReadKey();
                 }
+
+                
+                
+
+                
             }
         }
     }
 }
+
+
+    
+
+
+    
+
+    
+        
