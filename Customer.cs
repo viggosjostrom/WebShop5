@@ -23,15 +23,13 @@ public record Customer(string Username, List<Product> Cart) : IUser
             {
                 switch (choice)
                 {
-                    case 0:
-                        // Användaren loggar ut                  
+                    case 0:                                         
                         SaveCart(); // Sparar användarens Cart vid utloggning
                         Console.Clear();
                         MainMenu.Start();
                         break;
 
-                    case 1:
-                        // Loop som listar alla produkter
+                    case 1:                        
                         Console.Clear();
                         ShowProducts();
                         break;
@@ -53,11 +51,8 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
 
                     case 5:
-
-
                         Console.Clear();
                         ChooseReceipt();
-
                         break;
 
                     default:
