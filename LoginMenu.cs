@@ -42,7 +42,7 @@ public static class LoginMenu
                 Console.WriteLine("Password needs to be longer than 8 characters and shorter than 64.");
 
             }
-            else if (password.Length is > 8 or < 64)
+            else if (password.Length is > 8 or < 64) // Hade kunnat skriva något annat då den alltid går in här
             {
                 Console.WriteLine("Please re-enter your choosen password");
                 if (!password.Equals(Console.ReadLine()))
@@ -52,12 +52,10 @@ public static class LoginMenu
                     Console.WriteLine("The passwords you've entered doesn't match!");
                 }
             }
-
         }
-        File.Create($"../../../ShoppingBag/{username}.csv").Close();   
-
+        File.Create($"../../../ShoppingBag/{username}.csv").Close();
         File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
-      Console.Clear();
+        Console.Clear();
 
     }
 
@@ -97,27 +95,20 @@ public static class LoginMenu
                 }
                 else
                 {
-
                     Console.WriteLine("Wrong password! Try to login again");
                     break;
                 }
             }
-
         }
         if (!correctName)
         {
             Console.WriteLine("The username you've entered does not exist. Try again..");
         }
-
-
         return null;
     }
 
     private static List<Product> LoadCustomer(string username)
     {
-
-
-
         List<Product> shoppingBag = new List<Product>();
         string[] savedShoppingBag = File.ReadAllLines($"../../../ShoppingBag/{username}.csv");
         foreach (string item in savedShoppingBag)
@@ -129,7 +120,5 @@ public static class LoginMenu
             }
         }
         return shoppingBag;
-
-
     }
 }
