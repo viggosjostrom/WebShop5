@@ -8,12 +8,9 @@ namespace WebShop5;
 
 public class MainMenu
 {
-
     public static void Start()
     {
-
         IUser? user = null;
-
 
         do
         {
@@ -24,9 +21,8 @@ public class MainMenu
             switch (Console.ReadLine())
             {
                 case "0":
-                    throw new Exception();
-                    break;
-
+                    return;
+                    
                 case "1":
                     LoginMenu.Register();
                     break;
@@ -36,9 +32,6 @@ public class MainMenu
                     break;
             }
         } while (user is null);
-
         user.ShowMainMenu();
-
     }
-
 }

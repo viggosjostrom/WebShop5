@@ -9,6 +9,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("\t\t\tUSER MENU\n");
             Console.WriteLine("MENU: ");
             Console.WriteLine("1 : Show Products");
@@ -31,7 +32,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     case 1:                        
                         Console.Clear();
-                        ShowProducts();
+                        Catalog.DisplayCatalog();
                         break;
 
                     case 2:
@@ -84,13 +85,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     }
 
-
-    public void DisplayReceipts()
-    {
-    }
-
     public void ChooseReceipt()
     {
+        
         string path = @$"receipts/{Username}/";
         string[] receipts = Directory.GetFiles(path);
         int receiptNumber = 1;
@@ -101,7 +98,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             receiptNumber += 1;
         }
         string userInput = null;
-
+      
 
 
 
@@ -125,8 +122,9 @@ public record Customer(string Username, List<Product> Cart) : IUser
                 }
             }
         }
+        
+        Console.ReadKey();
     }
-
 
     public void AddToShoppingbag()
     {
@@ -141,7 +139,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
         while (newProduct != "n")
         {
 
-            Console.WriteLine("\t\t\tADD PRODUCTS IN CART\n");
+            Console.WriteLine("\t\t\tADD PRODUCTS TO SHOPPINGBAG\n");
 
             Console.WriteLine("Products to buy: ");
             for (int i = 0; i < productList.Count; i++)
@@ -188,21 +186,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             Cart.Add(new Product(choosenProductName, choosenProductPrice)); // Lägger till vald produkt i Cart
 
-
-
-
-
-
-
-            // File.WriteAllLines($"../../../ShoppingBag/{Username}.csv", Cart); // Cart funkar inte som argument här, vad krävs?
             Console.WriteLine();
-            Console.Write("Want to add more? y/n?: ");
+            Console.Write("Want to add more? y/n?: "); // För "y" går det att trycka vad som helst förutom "n"
             newProduct = Console.ReadLine().ToLower();
             Console.Clear();
-            if (newProduct == "y")
-            {
-                //Console.WriteLine("yes");
-            }
+            
         }
 
         // Skriver ut användarens kundvagn.
@@ -230,67 +218,59 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             int count = 0;
             string removeItem = string.Empty;
-            Console.WriteLine("\t\t\tREMOVE PRODUCTS FROM CART\n");
-
+            Console.WriteLine("\t\t\tREMOVE PRODUCTS FROM SHOPPINGBAG\n");
             Console.WriteLine();
-
 
             foreach (Product p in Cart)
             {
-
                 count++;
                 Console.WriteLine($"{count}. {p.Name} {p.Price}$");
             }
 
-
-
-
             Console.WriteLine();
             Console.WriteLine("Enter number of the product you want to remove from cart: ");
 
-
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
+                if(choice < Cart.Count)
+                {
                 Cart.RemoveAt(choice - 1);
                 Console.WriteLine("Item as been removed from cart.");
+
+                }
+                else
+                {
+                    Console.WriteLine("Invalid selection. No items were added.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    break;
+                }
             }
-            else
-            {
-                Console.WriteLine("Invalid selection. No items were added.");
-                Console.WriteLine();
-            }
-
-
-
+            
             Console.WriteLine();
             Console.Write("Want to remove more? y/n?: ");
             removeProduct = Console.ReadLine().ToLower();
             Console.Clear();
-
         }
     }
 
     public void PurchaseShoppingbag()
     {
-        Console.WriteLine("\t\t\tPURCHASE PRODUCTS FROM CART\n");
-
+        Console.WriteLine("\t\t\tPURCHASE PRODUCTS IN SHOPPINGBAG\n");
 
         if (Cart.Count() == 0)
-
         {
             Console.WriteLine("Nothing in shoppingbag to purchase");
             Console.WriteLine("Press any key to go to User Menu");
             Console.ReadKey();
-
         }
         else
         {
-
             int total = 0;
 
             foreach (Product p in Cart)
             {
-                Console.WriteLine($"{p.Name}, \t{p.Price}$");
+                Console.WriteLine($"{p.Name}, {p.Price}$");
                 total += p.Price;
             }
 
@@ -304,12 +284,12 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             while (purchase)
             {
-
                 Console.Write("Would you like to complete the purchase? y/n?: ");
                 string choice = Console.ReadLine().ToLower();
 
                 if (choice == "y")
                 {
+                    Console.WriteLine("Purchase successful!");
                     string path = @$"receipts/{Username}/{Username}-{receiptdate}.csv";
 
                     Directory.CreateDirectory(@$"receipts/{Username}");
@@ -324,9 +304,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     File.Create(path).Close();
                     File.WriteAllLines(path, tempCart);
-                    File.AppendAllText(path, "\n \n" + total.ToString() + "$");
+                    File.AppendAllText(path, "\n \nTotal: " + total.ToString() + "$");
 
                     purchase = false;
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey();
                 }
                 else if (choice == "n")
                 {
@@ -334,34 +316,15 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.WriteLine("Press any key to continue.");
                     Console.ReadKey();
                     Console.Clear();
-
                     purchase = false;
-
                 }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine("Invaild choice.");
-
+                    Console.ReadKey();
                 }
             }
         }
-
-
     }
-
-    public void ShowProducts()
-    {
-        List<string> Catalog = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
-
-        foreach (var item in Catalog)
-        {
-
-            string str = item.Replace(',', '\t');
-            Console.WriteLine($"{str}$");
-        }
-        Console.WriteLine();
-        Console.WriteLine();
-    }
-
 }

@@ -60,7 +60,7 @@ public record Admin(string Username) : IUser
         for (int i = 0; i < userNames.Count; i++)
         {
 
-
+            Console.Clear();
             Console.WriteLine("Do you wish to remove or change? : Type: remove - To remove Type: change - To change");
             string change = Console.ReadLine();
             if (change == "remove")
@@ -75,14 +75,15 @@ public record Admin(string Username) : IUser
                 {
                     userNames.RemoveAt(removeNumb - 1);
                     File.WriteAllLines("../../../users.csv", userNames);
+                    Console.Clear();
                     Console.WriteLine("User succesfully removed! Updated user list:");
                     foreach (string users in userNames)
                     {
                         Console.WriteLine(users);
-                        Console.ReadKey();
-                        Console.Clear();
 
                     }
+                        Console.ReadKey();
+                        Console.Clear();
                 }
             }
             if (change == "change")

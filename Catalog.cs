@@ -39,10 +39,10 @@ public class Catalog
 
     public void RemoveProducts()
     {
-
+        Console.Clear();
         productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-        Console.WriteLine("Items in the cart: ");
+        Console.WriteLine("\t\t\tPRODUCTS:");
         for (int i = 0; i < productlist.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {productlist[i]}");
@@ -58,17 +58,12 @@ public class Catalog
             File.WriteAllLines("../../../listofproducts.csv", productlist);
             Console.WriteLine("Item has been removed from the cart.");
             Console.WriteLine();
-
-
         }
         else
         {
             Console.Clear();
-
             Console.WriteLine("Invalid selection. No items were removed.");
             Console.WriteLine();
-
-
         }
 
     }
@@ -76,6 +71,7 @@ public class Catalog
     public static void DisplayCatalog()
     {
         Console.Clear();
+        Console.WriteLine("\t\t\tPRODUCTS:");
         List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
         foreach (var item in productlist)
