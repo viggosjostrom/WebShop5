@@ -40,59 +40,52 @@ public class Catalog
     public void RemoveProducts()
     {
 
+        productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-        
-            productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+        Console.WriteLine("Items in the cart: ");
+        for (int i = 0; i < productlist.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {productlist[i]}");
+        }
 
-            Console.WriteLine("Items in the cart: ");
-            for (int i = 0; i < productlist.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {productlist[i]}");
-            }
+        Console.Write("Enter the number of the item you wish to remove: ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice <= productlist.Count)
 
-            Console.Write("Enter the number of the item you wish to remove: ");
-            if (int.TryParse(Console.ReadLine(), out int choice) && choice <= productlist.Count)
-
-            {        
-                Console.Clear();
-
-                productlist.RemoveAt(choice - 1);
-                File.WriteAllLines("../../../listofproducts.csv", productlist);
-                Console.WriteLine("Item has been removed from the cart.");
-                Console.WriteLine();
-           
-
-            }
-            else
-            {                       
-                Console.Clear();
-
-                Console.WriteLine("Invalid selection. No items were removed.");
-                Console.WriteLine();
-
-                
-            }
-
-    }
-
-        public static void DisplayCatalog()
-        {    
+        {
             Console.Clear();
-            List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
 
-            foreach (var item in productlist)
-            {
-                Console.WriteLine(item);
-            }
+            productlist.RemoveAt(choice - 1);
+            File.WriteAllLines("../../../listofproducts.csv", productlist);
+            Console.WriteLine("Item has been removed from the cart.");
             Console.WriteLine();
-        Console.ReadKey();
+
+
+        }
+        else
+        {
+            Console.Clear();
+
+            Console.WriteLine("Invalid selection. No items were removed.");
+            Console.WriteLine();
+
 
         }
 
-    
+    }
+
+    public static void DisplayCatalog()
+    {
+        Console.Clear();
+        List<string> productlist = new List<string>(File.ReadAllLines("../../../listofproducts.csv"));
+
+        foreach (var item in productlist)
+        {
+            Console.WriteLine($"{item}$");
+        }
+        Console.WriteLine();
+        Console.ReadKey();
+
+    }
 
 
-   }
-
-
-
+}
