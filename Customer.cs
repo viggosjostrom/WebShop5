@@ -336,6 +336,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                     Console.WriteLine("To bad, you will be redirected to user menu");
                     Console.WriteLine("Press any key to continue.");
                     Console.ReadKey();
+                    Console.Clear();
 
                     purchase = false;
 
