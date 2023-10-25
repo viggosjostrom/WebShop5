@@ -151,7 +151,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
             Console.WriteLine("Products to buy: ");
             for (int i = 0; i < productList.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {productList[i]}");
+                Console.WriteLine($"{i + 1}. {productList[i]}$");
             }
 
             Console.WriteLine();
