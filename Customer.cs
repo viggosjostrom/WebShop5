@@ -88,11 +88,11 @@ public record Customer(string Username, List<Product> Cart) : IUser
     public void ChooseReceipt()
     {
         string path = @$"receipts/{Username}/";
-        bool exists = System.IO.Directory.Exists(path);
+        bool exists = Directory.Exists(path);
 
         if (!exists)
         {
-            System.IO.Directory.CreateDirectory(path);
+            Directory.CreateDirectory(path);
             Console.WriteLine("path not found, creating new");
         }
         string[] receipts = Directory.GetFiles(path);
@@ -306,7 +306,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     Directory.CreateDirectory(@$"receipts/{Username}");
 
-                    List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
+                    //List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
                     List<string> tempCart = new List<string>();
 
                     foreach (Product product in Cart)
