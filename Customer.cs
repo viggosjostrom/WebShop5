@@ -87,8 +87,14 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
     public void ChooseReceipt()
     {
-        
         string path = @$"receipts/{Username}/";
+        bool exists = Directory.Exists(path);
+
+        if (!exists)
+        {
+            Directory.CreateDirectory(path);
+            Console.WriteLine("path not found, creating new");
+        }
         string[] receipts = Directory.GetFiles(path);
         int receiptNumber = 1;
         foreach (string receipt in receipts)
@@ -98,29 +104,35 @@ public record Customer(string Username, List<Product> Cart) : IUser
             receiptNumber += 1;
         }
         string userInput = null;
-      
 
 
-
-        while (string.IsNullOrWhiteSpace(userInput))
+        if (receipts.Length > 0)
         {
-            Console.WriteLine("please enter a valid receipt number");
-            userInput = Console.ReadLine();
-        }
 
-        for (int i = 0; i <= receipts.Length; i++)
-        {
-            int compare = i + 1;
-            if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice)
+            while (string.IsNullOrWhiteSpace(userInput))
             {
-                Console.WriteLine(receipts[i]);
-                string choicepath = receipts[i];
-                string[] receipt = File.ReadAllLines(choicepath);
-                foreach (string line in receipt)
+                Console.WriteLine("please enter a valid receipt number");
+                userInput = Console.ReadLine();
+            }
+
+            for (int i = 0; i <= receipts.Length; i++)
+            {
+                int compare = i + 1;
+                if (Int32.TryParse(userInput, out int userChoice) && compare == userChoice)
                 {
-                    Console.WriteLine(line);
+                    Console.WriteLine(receipts[i]);
+                    string choicepath = receipts[i];
+                    string[] receipt = File.ReadAllLines(choicepath);
+                    foreach (string line in receipt)
+                    {
+                        Console.WriteLine(line);
+                    }
                 }
             }
+        }
+        else if (receipts.Length == 0)
+        {
+            Console.WriteLine("this list is empty at the moment, please come back later!");
         }
         
         Console.ReadKey();
@@ -232,7 +244,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
-                if(choice < Cart.Count)
+                if(choice <= Cart.Count)
                 {
                 Cart.RemoveAt(choice - 1);
                 Console.WriteLine("Item as been removed from cart.");
@@ -294,7 +306,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
                     Directory.CreateDirectory(@$"receipts/{Username}");
 
-                    List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
+                    //List<string> ShoppingBag = new List<string>(File.ReadAllLines($"../../../ShoppingBag/{Username}.csv"));
                     List<string> tempCart = new List<string>();
 
                     foreach (Product product in Cart)
@@ -302,7 +314,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         tempCart.Add(product.ToCSVString());
                     }
 
-                    File.Create(path).Close();
+                    //File.Create(path).Close();
                     File.WriteAllLines(path, tempCart);
                     File.AppendAllText(path, "\n \nTotal: " + total.ToString() + "$");
 
