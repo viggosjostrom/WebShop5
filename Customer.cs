@@ -244,7 +244,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
 
             if (int.TryParse(Console.ReadLine(), out int choice))
             {
-                if(choice < Cart.Count)
+                if(choice <= Cart.Count)
                 {
                 Cart.RemoveAt(choice - 1);
                 Console.WriteLine("Item as been removed from cart.");
@@ -314,7 +314,7 @@ public record Customer(string Username, List<Product> Cart) : IUser
                         tempCart.Add(product.ToCSVString());
                     }
 
-                    File.Create(path).Close();
+                    //File.Create(path).Close();
                     File.WriteAllLines(path, tempCart);
                     File.AppendAllText(path, "\n \nTotal: " + total.ToString() + "$");
 
