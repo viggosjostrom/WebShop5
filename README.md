@@ -1,7 +1,7 @@
 # WebShop5 Collaborators
 
-Fredrik Holst,
-Viggo Sjöström,
-Dan Wäisänen,
-Christoffer Ek,
-Melih Öcal,
+Fredrik Holst - FredrikH03,
+Viggo Sjöström - viggosjostrom,
+Dan Wäisänen - Clone888,
+Christoffer Ek - stoffeek,
+Melih Öcal - MelihOcal,
