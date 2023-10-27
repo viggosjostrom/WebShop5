@@ -2,109 +2,77 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WebShop5;
 
 public static class LoginMenu
 {
-
-    public static void Register()
-    {
-        Console.Clear();
-        string username = string.Empty;
-        while (username.Length is < 3 or > 20) // inte kortare än 3 eller längre än 20
-        {
-            Console.WriteLine("Choose a username. It must be longer than 3 characters and shorter than 20.");
-            username = Console.ReadLine() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                username = string.Empty;
-                Console.WriteLine("Username can't be empty or use white spaces!");
-            }
-            Console.Clear();
-        }
-
-        string password = string.Empty;
-        while (password.Length is < 8 or > 64)
-        {
-            Console.WriteLine("Choose a password");
-            password = Console.ReadLine() ?? string.Empty;
-            Console.Clear();
-
-            if (password.Length is < 8 or > 64)
-            {
-                password = string.Empty;
-                Console.WriteLine("Password needs to be longer than 8 characters and shorter than 64.");
-
-            }
-            else if (password.Length is > 8 or < 64) // Hade kunnat skriva något annat då den alltid går in här
-            {
-                Console.WriteLine("Please re-enter your choosen password");
-                if (!password.Equals(Console.ReadLine()))
-                {
-                    Console.Clear();
-                    password = string.Empty;
-                    Console.WriteLine("The passwords you've entered doesn't match!");
-                }
-            }
-        }
-        File.Create($"../../../ShoppingBag/{username}.csv").Close();
-        File.AppendAllText("../../../users.csv", $"{username},{password},{Role.Customer}\n");
-        Console.Clear();
-
-    }
-
     public static IUser? Login()
     {
         Console.Clear();
-        string[] users = File.ReadAllLines("../../../users.csv");
-
-        Console.WriteLine("Enter your username: ");
-        string input = Console.ReadLine();
-        bool correctName = false;
-
-        foreach (string line in users)
+        string path = @"users.csv";
+        if (!File.Exists(path))
         {
-            string[] info = line.Split(',');
-            string name = info[0];
-            string pass = info[1];
-
-            if (name.Equals(input))
+            File.WriteAllText(path, $"admin,password," + Role.Admin);
+        }
+        string[] users = File.ReadAllLines(path);
+        if (users.Length > 0) 
+        { 
+            bool foundUser = false; 
+            Console.WriteLine("please enter a username"); 
+            string usernameInput = Console.ReadLine();
+            foreach (string user in users)
             {
-                Console.WriteLine("Enter Password: ");
-                input = Console.ReadLine();
-                correctName = true;
-
-                if (pass.Equals(input))
+                string[] userInfo = user.Split(',');
+                if (userInfo[0] == usernameInput)
                 {
-                    if (Enum.TryParse(info[2], out Role role))
+                    bool login = true;
+                    foundUser = true;
+                    while (login)
                     {
-                        switch (role)
+                        string name = usernameInput;
+                        string passwordInput = Console.ReadLine();
+                        if (passwordInput == userInfo[1])
                         {
-                            case Role.Customer:
-                                return new Customer(name, LoadCustomer(name));
-                            case Role.Admin:
-                                return new Admin(name);
+                            if (Enum.TryParse(userInfo[2], out Role role))
+                            {
+                                switch (role)
+                                {
+                                    case Role.Customer:
+                                        return new Customer(name, LoadCustomer(name));
+                                    case Role.Admin:
+                                        return new Admin(name);
+                                }
+                            }
+
                         }
                     }
                 }
-                else
+            }
+            if (!foundUser)
+            {
+                Console.WriteLine("user not found, do you want to create a new user");
+                string input = Console.ReadLine();
+                if (input == "y" || input == "yes")
                 {
-                    Console.WriteLine("Wrong password! Try to login again");
-                    break;
+
                 }
+                else if (input == "n" || input == "no")
+                {
+
+                }
+                else
+                    Console.WriteLine("invalid input, try again");
             }
         }
-        if (!correctName)
-        {
-            Console.WriteLine("The username you've entered does not exist. Try again..");
-        }
-        return null;
+ 
     }
 
     private static List<Product> LoadCustomer(string username)
@@ -122,3 +90,4 @@ public static class LoginMenu
         return shoppingBag;
     }
 }
+~
